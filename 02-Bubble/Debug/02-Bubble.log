@@ -1,5 +1,24 @@
-﻿Build started 03/10/2016 19:19:25.
+﻿Build started 03/10/2016 19:50:48.
+     1>Project "F:\VJ\ExOpenGL3\2DGame\02-Bubble\02-Bubble\02-Bubble.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Archivos de programa\Microsoft Visual Studio 2013 Professional\VC\bin\CL.exe /c /I"..\..\..\libs\Simple OpenGL Image Library\src" /I..\..\..\libs\freeglut\include /I"..\..\..\libs\glew-1.13.0\include" /I..\..\..\libs\glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt TileMap.cpp
+         TileMap.cpp
+     1>f:\vj\exopengl3\2dgame\02-bubble\02-bubble\tilemap.cpp(87): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\vj\exopengl3\2dgame\02-bubble\02-bubble\tilemap.cpp(89): warning C4018: '<' : signed/unsigned mismatch
+     1>f:\vj\exopengl3\2dgame\02-bubble\02-bubble\tilemap.cpp(53): warning C4101: 'tile' : unreferenced local variable
+       Link:
+         C:\Archivos de programa\Microsoft Visual Studio 2013 Professional\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\VJ\ExOpenGL3\2DGame\02-Bubble\Debug\02-Bubble.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug" /LIBPATH:..\..\..\libs\freeglut\lib /LIBPATH:"..\..\..\libs\glew-1.13.0\lib\Release\Win32" SOIL.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\VJ\ExOpenGL3\2DGame\02-Bubble\Debug\02-Bubble.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\VJ\ExOpenGL3\2DGame\02-Bubble\Debug\02-Bubble.lib" /MACHINE:X86 Debug\Game.obj
+         Debug\main.obj
+         Debug\Player.obj
+         Debug\Scene.obj
+         Debug\Shader.obj
+         Debug\ShaderProgram.obj
+         Debug\Sprite.obj
+         Debug\Texture.obj
+         Debug\TileMap.obj
+         02-Bubble.vcxproj -> F:\VJ\ExOpenGL3\2DGame\02-Bubble\Debug\02-Bubble.exe
+     1>Done Building Project "F:\VJ\ExOpenGL3\2DGame\02-Bubble\02-Bubble\02-Bubble.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.02
+Time Elapsed 00:00:02.22

@@ -3,13 +3,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
 #include "Game.h"
+#include <GL/glut.h>
 
 
-#define SCREEN_X 32
-#define SCREEN_Y 16
+#define SCREEN_X 0
+#define SCREEN_Y 0
 
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 25
+#define INIT_PLAYER_X_TILES 0
+#define INIT_PLAYER_Y_TILES 0
 
 
 Scene::Scene()
@@ -30,7 +31,7 @@ Scene::~Scene()
 void Scene::init()
 {
 	initShaders();
-	map = TileMap::createTileMap("levels/kawaii.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	map = TileMap::createTileMap("levels/kawaii.txt", glm::vec2(0, SCREEN_Y), texProgram);
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
@@ -43,16 +44,22 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+	//Update camera position
+	glm::vec2 playerPos = player->getPosition();
+	if (playerPos.x  < float(SCREEN_WIDTH -1)/ 2) //left of the screen limit
+		projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	//else if RIGHT LIMITS, depends on level size
+	else
+		projection = glm::ortho(playerPos.x - float(SCREEN_WIDTH - 1) / 2, playerPos.x + float(SCREEN_WIDTH - 1) / 2, float(SCREEN_HEIGHT - 1), 0.f);
 }
 
 void Scene::render()
 {
 	glm::mat4 modelview;
-
+	modelview = glm::mat4(1.0f);
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();

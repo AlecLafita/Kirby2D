@@ -4,6 +4,7 @@
 #include <vector>
 #include "TileMap.h"
 
+#include "Game.h" //For the defines
 
 using namespace std;
 
@@ -50,7 +51,6 @@ bool TileMap::loadLevel(const string &levelFile)
 	ifstream fin;
 	string line, tilesheetFile;
 	stringstream sstream;
-	char tile;
 	
 	fin.open(levelFile.c_str());
 	if(!fin.is_open())
@@ -158,8 +158,9 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 
 bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
+	if (pos.x < 0) return true; //Screen limit
+
 	int x, y0, y1;
-	
 	x = pos.x / tileSize;
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
@@ -174,8 +175,9 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 
 bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
+	//RIGHT LIMITS, depends on level size
+
 	int x, y0, y1;
-	
 	x = (pos.x + size.x - 1) / tileSize;
 	y0 = pos.y / tileSize;
 	y1 = (pos.y + size.y - 1) / tileSize;
@@ -199,7 +201,7 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, i
 	{
 		if(map[y*mapSize.x+x] != 0)
 		{
-			if(*posY - tileSize * y + size.y <= 4)
+			if(*posY - tileSize * y + size.y <= 4) //4 es FALL_STEP de Player.cpp
 			{
 				*posY = tileSize * y - size.y;
 				return true;
@@ -210,6 +212,23 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, i
 	return false;
 }
 
+bool TileMap::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size) const
+{
+	if (pos.y < 0) return true; //Screen limit
+	int x0, x1, y;
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y = pos.y / tileSize;
+	for (int x = x0; x <= x1; x++)
+	{
+		if (map[y*mapSize.x + x] != 0)
+		{
+			return true;
+
+		}
+	}
+	return false;
+}
 
 
 

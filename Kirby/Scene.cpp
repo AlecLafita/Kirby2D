@@ -9,8 +9,8 @@
 #define SCREEN_X 0
 #define SCREEN_Y 0
 
-#define INIT_PLAYER_X_TILES 0
-#define INIT_PLAYER_Y_TILES 0
+#define INIT_PLAYER_X_TILES 4
+#define INIT_PLAYER_Y_TILES 4
 
 
 Scene::Scene()
@@ -32,10 +32,14 @@ void Scene::init()
 {
 	initShaders();
 	map = TileMap::createTileMap("levels/kawaii.txt", glm::vec2(0, SCREEN_Y), texProgram);
-	player = new Character();
+	player = new Player();
+	player->setPathToSpriteSheet("images/bub.png");
+
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+
 	player->setTileMap(map);
+
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 }

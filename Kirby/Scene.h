@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include "ShaderProgram.h"
 #include "TileMap.h"
-#include "Player.h"
+#include "Character.h"
 
 
 // Scene contains all the entities of our game.
@@ -28,7 +28,7 @@ private:
 
 private:
 	TileMap *map;
-	Player *player;
+	Character *player;
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;

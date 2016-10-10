@@ -2,7 +2,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "Player.h"
+#include "Character.h"
 #include "Game.h"
 
 
@@ -17,7 +17,7 @@ enum PlayerAnims
 };
 
 
-void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
+void Character::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
 	bJumping = false;
 	spritesheet.loadFromFile("images/bub.png", TEXTURE_PIXEL_FORMAT_RGBA);

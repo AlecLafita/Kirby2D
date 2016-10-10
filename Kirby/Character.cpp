@@ -48,7 +48,7 @@ void Character::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	
 }
 
-void Player::update(int deltaTime)
+void Character::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT))
@@ -124,23 +124,23 @@ void Player::update(int deltaTime)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
-void Player::render()
+void Character::render()
 {
 	sprite->render();
 }
 
-void Player::setTileMap(TileMap *tileMap)
+void Character::setTileMap(TileMap *tileMap)
 {
 	map = tileMap;
 }
 
-void Player::setPosition(const glm::vec2 &pos)
+void Character::setPosition(const glm::vec2 &pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
-glm::vec2 Player::getPosition() {
+glm::vec2 Character::getPosition() {
 	return glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y));
 }
 

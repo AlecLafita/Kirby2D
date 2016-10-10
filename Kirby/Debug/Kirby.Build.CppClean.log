@@ -1,5 +1,6 @@
 f:\vj\vj-labs\kirby\debug\vc120.pdb
 f:\vj\vj-labs\kirby\debug\vc120.idb
+f:\vj\vj-labs\kirby\debug\baseenemy.obj
 f:\vj\vj-labs\kirby\debug\game.obj
 f:\vj\vj-labs\kirby\debug\main.obj
 f:\vj\vj-labs\kirby\debug\character.obj
@@ -10,9 +11,9 @@ f:\vj\vj-labs\kirby\debug\shaderprogram.obj
 f:\vj\vj-labs\kirby\debug\sprite.obj
 f:\vj\vj-labs\kirby\debug\texture.obj
 f:\vj\vj-labs\kirby\debug\tilemap.obj
-f:\vj\vj-labs\debug\kirby.ilk
-f:\vj\vj-labs\debug\kirby.exe
 f:\vj\vj-labs\debug\kirby.pdb
+f:\vj\vj-labs\debug\kirby.exe
+f:\vj\vj-labs\debug\kirby.ilk
 f:\vj\vj-labs\kirby\debug\kirby.tlog\cl.read.1.tlog
 f:\vj\vj-labs\kirby\debug\kirby.tlog\cl.write.1.tlog
 f:\vj\vj-labs\kirby\debug\kirby.tlog\cl.command.1.tlog

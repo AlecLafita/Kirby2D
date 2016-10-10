@@ -9,6 +9,7 @@ public:
 	Player();
 	~Player();
 
+	void computeNextMove();
 	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
 	void update(int deltaTime);
 

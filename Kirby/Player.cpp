@@ -16,6 +16,12 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram){
 
 void Player::update(int deltaTime){
 
+	computeNextMove();
+	Character::update(deltaTime);
+}
+
+void Player::computeNextMove() {
+
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (sprite->animation() != MOVE_LEFT)
@@ -85,9 +91,8 @@ void Player::update(int deltaTime){
 		startY = posPlayer.y;
 		//sprite->changeAnimation(HOVING); TODO
 	}
-
-	Character::update(deltaTime);
 }
+
 Player::~Player()
 {
 }

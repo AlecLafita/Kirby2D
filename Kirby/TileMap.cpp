@@ -159,7 +159,6 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
 	if (pos.x < 0) return true; //Screen limit
-
 	int x, y0, y1;
 	x = pos.x / tileSize;
 	y0 = pos.y / tileSize;
@@ -176,7 +175,7 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const
 {
 	//RIGHT LIMITS, depends on level size
-
+	if (pos.x+size.x > (mapSize.x * tileSize)) return true;
 	int x, y0, y1;
 	x = (pos.x + size.x - 1) / tileSize;
 	y0 = pos.y / tileSize;

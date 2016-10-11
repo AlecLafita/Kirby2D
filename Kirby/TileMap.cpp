@@ -97,7 +97,7 @@ bool TileMap::loadLevel(const string &levelFile)
 	
 //		fin.get(tile);
 #ifndef _WIN32
-		fin.get(tile);
+		//	ºfin.get(tile);
 #endif
 	fin.close();
 	

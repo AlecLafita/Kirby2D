@@ -7,6 +7,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "BaseEnemy.h"
+#include "ProjectileObject.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -33,6 +34,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	BaseEnemy *mBaseEnemy;
+	ProjectileObject *mProjectileObject;
 };
 
 

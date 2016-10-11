@@ -9,7 +9,7 @@ Character::Character(){
 	mNumberAnimations = 4;
 }
 
-void Character::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
+void Character::init(ShaderProgram &shaderProgram)
 {
 	bJumping = false;
 
@@ -34,8 +34,7 @@ void Character::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 		sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.25, 0.5f));
 		
 	sprite->changeAnimation(1);
-	tileMapDispl = tileMapPos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 	
 }
 
@@ -47,7 +46,7 @@ void Character::setPathToSpriteSheet(string path){
 void Character::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 }
 
 void Character::render()
@@ -62,12 +61,12 @@ void Character::setTileMap(TileMap *tileMap)
 
 void Character::setPosition(const glm::vec2 &pos)
 {
-	posPlayer = pos;
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+	posCharacter = pos;
+	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 }
 
 glm::vec2 Character::getPosition() {
-	return glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y));
+	return glm::vec2(float(posCharacter.x), float(posCharacter.y));
 }
 
 

@@ -7,9 +7,9 @@ Player::Player()
 	mNumberAnimations = 4;
 }
 
-void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram){
+void Player::init(ShaderProgram &shaderProgram){
 	
-	Character::init(tileMapPos, shaderProgram);
+	Character::init(shaderProgram);
 	bHoving = false;
 	nJumps = 0;
 }
@@ -26,10 +26,10 @@ void Player::computeNextMove() {
 	{
 		if (sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
-		posPlayer.x -= 2;
-		if (map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+		posCharacter.x -= 2;
+		if (map->collisionMoveLeft(posCharacter, glm::ivec2(32, 32)))
 		{
-			posPlayer.x += 2;
+			posCharacter.x += 2;
 			sprite->changeAnimation(STAND_LEFT);
 		}
 	}
@@ -37,10 +37,10 @@ void Player::computeNextMove() {
 	{
 		if (sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
-		posPlayer.x += 2;
-		if (map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+		posCharacter.x += 2;
+		if (map->collisionMoveRight(posCharacter, glm::ivec2(32, 32)))
 		{
-			posPlayer.x -= 2;
+			posCharacter.x -= 2;
 			sprite->changeAnimation(STAND_RIGHT);
 		}
 	}
@@ -55,30 +55,30 @@ void Player::computeNextMove() {
 		jumpAngle += JUMP_ANGLE_STEP;
 		if (jumpAngle == 180) { //Very near the ground
 			bJumping = false;
-			posPlayer.y = startY;
+			posCharacter.y = startY;
 		}
 		else {//going up when 0<=jumpAngle<=90, down when 90<jumpAngle<=180
-			posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-			if (map->collisionMoveUp(posPlayer, glm::ivec2(32, 32))) {
-				posPlayer.y = int(startY - JUMP_HEIGHT * sin(3.14159f * (jumpAngle - JUMP_ANGLE_STEP) / 180.f));//Undo movement
+			posCharacter.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
+			if (map->collisionMoveUp(posCharacter, glm::ivec2(32, 32))) {
+				posCharacter.y = int(startY - JUMP_HEIGHT * sin(3.14159f * (jumpAngle - JUMP_ANGLE_STEP) / 180.f));//Undo movement
 				bJumping = false;
 				bHoving = true;
 			}
 			else if (jumpAngle > 90) { //starting to go down, from this point the sinus function will be decreasing
-				bJumping = !map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y);
+				bJumping = !map->collisionMoveDown(posCharacter, glm::ivec2(32, 32), &posCharacter.y);
 				bHoving = true;
 			}
 		}
 	}
 	else {
-		posPlayer.y += FALL_STEP;//going down
-		if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32), &posPlayer.y)) {
+		posCharacter.y += FALL_STEP;//going down
+		if (map->collisionMoveDown(posCharacter, glm::ivec2(32, 32), &posCharacter.y)) {
 			if (Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 				nJumps = 1;
 				bHoving = false;
 				bJumping = true;
 				jumpAngle = 0;
-				startY = posPlayer.y;
+				startY = posCharacter.y;
 			}
 		}
 	}
@@ -88,7 +88,7 @@ void Player::computeNextMove() {
 		bHoving = false;
 		bJumping = true;
 		jumpAngle = 0;
-		startY = posPlayer.y;
+		startY = posCharacter.y;
 		//sprite->changeAnimation(HOVING); TODO
 	}
 }

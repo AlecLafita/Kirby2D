@@ -24,18 +24,18 @@ public:
 	Character();
 	~Character(){}
 
-	void init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram);
+	void init(ShaderProgram &shaderProgram);
 	void update(int deltaTime);
 	void render();
 	
 	void setTileMap(TileMap *tileMap);
-	void setPathToSpriteSheet(string pathToSpriteSheet);
+	void setPathToSpriteSheet(string pathToSpriteSheet);//must be called before init
 	void setPosition(const glm::vec2 &pos);
 	glm::vec2 getPosition();
 
 protected:
 	bool bJumping;
-	glm::ivec2 tileMapDispl, posPlayer;
+	glm::ivec2 posCharacter;
 	int jumpAngle, startY;
 	string mPathToSpritesheet;
 	Texture spritesheet;

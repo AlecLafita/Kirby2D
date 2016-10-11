@@ -1,5 +1,25 @@
-﻿Build started 10/10/2016 18:48:23.
+﻿Compilación iniciada a las 12/10/2016 0:32:34.
+     1>Proyecto "C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Kirby\Kirby.vcxproj" en el nodo 2 (Build destinos).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"..\..\libs\Simple OpenGL Image Library\src" /I..\..\libs\freeglut\include /I"..\..\libs\glew-1.13.0\include" /I..\..\libs\glm /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ProjectileObject.cpp
+         ProjectileObject.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Debug\Kirby.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug" /LIBPATH:..\..\libs\freeglut\lib /LIBPATH:"..\..\libs\glew-1.13.0\lib\Release\Win32" SOIL.lib glew32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Debug\Kirby.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Debug\Kirby.lib" /MACHINE:X86 Debug\BaseEnemy.obj
+         Debug\BaseObject.obj
+         Debug\Game.obj
+         Debug\main.obj
+         Debug\Character.obj
+         Debug\Player.obj
+         Debug\ProjectileObject.obj
+         Debug\Scene.obj
+         Debug\Shader.obj
+         Debug\ShaderProgram.obj
+         Debug\Sprite.obj
+         Debug\Texture.obj
+         Debug\TileMap.obj
+         Kirby.vcxproj -> C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Debug\Kirby.exe
+     1>Compilación del proyecto terminada "C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Kirby\Kirby.vcxproj" (Build destinos).
 
-Build succeeded.
+Compilación correcta.
 
-Time Elapsed 00:00:00.14
+Tiempo transcurrido 00:00:01.13

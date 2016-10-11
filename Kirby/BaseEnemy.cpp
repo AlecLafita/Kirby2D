@@ -9,9 +9,9 @@ BaseEnemy::~BaseEnemy() {
 }
 
 
-void BaseEnemy::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram){
+void BaseEnemy::init(ShaderProgram &shaderProgram){
 
-	Character::init(tileMapPos, shaderProgram);
+	Character::init(shaderProgram);
 
 }
 

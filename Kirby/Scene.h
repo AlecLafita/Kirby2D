@@ -6,7 +6,7 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
-#include "BaseEnemy.h"
+#include "PinxoEnemy.h"
 #include "ProjectileObject.h"
 
 // Scene contains all the entities of our game.
@@ -33,7 +33,7 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
-	BaseEnemy *mBaseEnemy;
+	PinxoEnemy *mPinxoEnemy;
 	ProjectileObject *mProjectileObject;
 };
 

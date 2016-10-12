@@ -20,11 +20,27 @@ Character::Character(){
     mNumMoveRight = 10;
     mNumAttackLeft = 3;
     mNumAttackRight = 3;
+
+    //Sprite rows
+    START_ROW_STAND_RIGHT = 0;
+    START_ROW_STAND_LEFT = 1;
+    START_ROW_MOVE_RIGHT = 2;
+    START_ROW_MOVE_LEFT = 3;
+    START_ROW_ATTACK_RIGHT = 4;
+    START_ROW_ATTACK_LEFT = 5;
 }
 
 void Character::init(ShaderProgram &shaderProgram)
 {
 	bJumping = false;
+
+    cout << "START_ROW_STAND_RIGHT  = " << START_ROW_STAND_RIGHT << endl;
+    cout << "START_ROW_STAND_LEFT  = " << START_ROW_STAND_LEFT << endl;
+    cout << "START_ROW_MOVE_RIGHT  = " << START_ROW_MOVE_RIGHT << endl;
+    cout << "START_ROW_MOVE_LEFT  = " << START_ROW_MOVE_LEFT << endl;
+    cout << "START_ROW_ATTACK_RIGHT  = " << START_ROW_ATTACK_RIGHT << endl;
+    cout << "START_ROW_ATTACK_LEFT  = " << START_ROW_ATTACK_LEFT << endl;
+
 
     float columnSize = 1.f/float(mSpriteColumns);
     float rowSize = 1.f/float(mSpriteRows);

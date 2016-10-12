@@ -13,7 +13,7 @@ public:
 
 	//virtual int enemyName();
 
-private:
+protected:
 	bool isInFrustrum();
 };
 

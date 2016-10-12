@@ -28,6 +28,7 @@ void Scene::init()
 {
 	initShaders();
 	map = TileMap::createTileMap("levels/kawaii.txt", glm::vec2(0, 0), texProgram);
+
 	player = new Player();
 	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
 
@@ -36,11 +37,10 @@ void Scene::init()
 	player->setTileMap(map);
 
 	//ENEMY
-	mBaseEnemy = new BaseEnemy();
-	mBaseEnemy->setPathToSpriteSheet("images/kirby_spritesheet.png");
-	mBaseEnemy->init(texProgram);
-	mBaseEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
-	mBaseEnemy->setTileMap(map);
+	mPinxoEnemy = new PinxoEnemy();
+    mPinxoEnemy->init(texProgram);
+    mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
+    mPinxoEnemy->setTileMap(map);
 
 	//ITEM
 	mProjectileObject = new ProjectileObject();
@@ -60,7 +60,7 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-	mBaseEnemy->update(deltaTime);
+    mPinxoEnemy->update(deltaTime);
 	mProjectileObject->update(deltaTime);
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
@@ -77,12 +77,12 @@ void Scene::render() {
 	modelview = glm::mat4(1.0f);
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
-	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f); //Color uniform transform
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
 	player->render();
-	mBaseEnemy->render();
+    mPinxoEnemy->render();
 	mProjectileObject->render();
 }
 

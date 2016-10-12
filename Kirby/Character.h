@@ -8,13 +8,6 @@
 #define JUMP_HEIGHT 70
 #define FALL_STEP 4
 
-#define START_ROW_STAND_RIGHT 0
-#define START_ROW_STAND_LEFT 1
-#define START_ROW_MOVE_RIGHT 2
-#define START_ROW_MOVE_LEFT 3
-#define START_ROW_ATTACK_RIGHT 4
-#define START_ROW_ATTACK_LEFT 5
-
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
@@ -54,7 +47,13 @@ protected:
     int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites
     int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
 
-
+    // Constants
+    int START_ROW_STAND_RIGHT;
+    int START_ROW_STAND_LEFT;
+    int START_ROW_MOVE_RIGHT;
+    int START_ROW_MOVE_LEFT;
+    int START_ROW_ATTACK_RIGHT;
+    int START_ROW_ATTACK_LEFT;
 };
 
 

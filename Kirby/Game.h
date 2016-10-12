@@ -1,7 +1,7 @@
 #ifndef _GAME_INCLUDE
 #define _GAME_INCLUDE
 
-
+#include "Constants.h"
 #include "Scene.h"
 
 

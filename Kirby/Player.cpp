@@ -26,10 +26,10 @@ void Player::computeNextMove() {
 	{
 		if (sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
-		posCharacter.x -= 2;
-		if (map->collisionMoveLeft(posCharacter, glm::ivec2(32, 32)))
+		posCharacter.x -= MOVEMENT_DEFAULT;
+		if (map->collisionMoveLeft(posCharacter, glm::ivec2(TILE_SIZE_X, TILE_SIZE_Y)))
 		{
-			posCharacter.x += 2;
+			posCharacter.x += MOVEMENT_DEFAULT;
 			sprite->changeAnimation(STAND_LEFT);
 		}
 	}
@@ -37,10 +37,10 @@ void Player::computeNextMove() {
 	{
 		if (sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
-		posCharacter.x += 2;
-		if (map->collisionMoveRight(posCharacter, glm::ivec2(32, 32)))
+		posCharacter.x += MOVEMENT_DEFAULT;
+		if (map->collisionMoveRight(posCharacter, glm::ivec2(TILE_SIZE_X, TILE_SIZE_X)))
 		{
-			posCharacter.x -= 2;
+			posCharacter.x -= MOVEMENT_DEFAULT;
 			sprite->changeAnimation(STAND_RIGHT);
 		}
 	}
@@ -53,19 +53,19 @@ void Player::computeNextMove() {
 
 	if (bJumping) {//Player at the air
 		jumpAngle += JUMP_ANGLE_STEP;
-		if (jumpAngle == 180) { //Very near the ground
+		if (jumpAngle == ANGLE_GROUND) { //Very near the ground
 			bJumping = false;
 			posCharacter.y = startY;
 		}
 		else {//going up when 0<=jumpAngle<=90, down when 90<jumpAngle<=180
 			posCharacter.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));
-			if (map->collisionMoveUp(posCharacter, glm::ivec2(32, 32))) {
+			if (map->collisionMoveUp(posCharacter, glm::ivec2(TILE_SIZE_X, TILE_SIZE_Y))) {
 				posCharacter.y = int(startY - JUMP_HEIGHT * sin(3.14159f * (jumpAngle - JUMP_ANGLE_STEP) / 180.f));//Undo movement
 				bJumping = false;
 				bHoving = true;
 			}
 			else if (jumpAngle > 90) { //starting to go down, from this point the sinus function will be decreasing
-				bJumping = !map->collisionMoveDown(posCharacter, glm::ivec2(32, 32), &posCharacter.y);
+				bJumping = !map->collisionMoveDown(posCharacter, glm::ivec2(TILE_SIZE_X, TILE_SIZE_Y), &posCharacter.y);
 				bHoving = true;
 			}
 		}

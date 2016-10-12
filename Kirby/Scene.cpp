@@ -29,7 +29,7 @@ void Scene::init()
 	initShaders();
 	map = TileMap::createTileMap("levels/kawaii.txt", glm::vec2(0, 0), texProgram);
 	player = new Player();
-	player->setPathToSpriteSheet("images/bub.png");
+	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
 
 	player->init(texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));

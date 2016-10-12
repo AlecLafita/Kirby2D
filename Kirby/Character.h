@@ -8,6 +8,13 @@
 #define JUMP_HEIGHT 70
 #define FALL_STEP 4
 
+#define START_ROW_STAND_RIGHT 0
+#define START_ROW_STAND_LEFT 1
+#define START_ROW_MOVE_RIGHT 2
+#define START_ROW_MOVE_LEFT 3
+#define START_ROW_ATTACK_RIGHT 4
+#define START_ROW_ATTACK_LEFT 5
+
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
@@ -34,6 +41,7 @@ public:
 	glm::vec2 getPosition();
 
 protected:
+
 	bool bJumping;
 	glm::ivec2 posCharacter;
 	int jumpAngle, startY;
@@ -41,7 +49,11 @@ protected:
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
-	int mNumberAnimations;
+	int mNumberAnimations, mSpriteColumns, mSpriteRows;
+    int mNumStandLeft, mNumStandRight; // Number of stand left/right sprites
+    int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites
+    int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
+
 
 };
 

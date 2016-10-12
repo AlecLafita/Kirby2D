@@ -8,3 +8,4 @@ cmake_install.cmake
 Kirby/Kirby
 .idea/workspace.xml
 Kirby/.idea/vcs.xml
+Kirby/shaders/

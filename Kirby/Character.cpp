@@ -4,6 +4,8 @@
 #include "Character.h"
 #include "Game.h"
 
+#define NUM_OF_FRAMES 8
+#define NUM_OF_FRAMES_SLOW 5
 
 Character::Character(){
 
@@ -24,30 +26,29 @@ void Character::init(ShaderProgram &shaderProgram)
 {
 	bJumping = false;
 
-    float columnSize = float(1)/float(mSpriteColumns);
-    float rowSize = float(1)/float(mSpriteRows);
-    cout << columnSize << endl;
+    float columnSize = 1.f/float(mSpriteColumns);
+    float rowSize = 1.f/float(mSpriteRows);
 
 	spritesheet.loadFromFile(mPathToSpritesheet, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(columnSize, rowSize), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(mNumberAnimations);
 	
-		sprite->setAnimationSpeed(STAND_LEFT, 8);
+		sprite->setAnimationSpeed(STAND_LEFT, NUM_OF_FRAMES_SLOW);
         for (int i = 0; i < mNumStandLeft; ++i) {
             sprite->addKeyframe(STAND_LEFT, glm::vec2(i*columnSize, START_ROW_STAND_LEFT*rowSize));
         }
 
-		sprite->setAnimationSpeed(STAND_RIGHT, 8);
+		sprite->setAnimationSpeed(STAND_RIGHT, NUM_OF_FRAMES_SLOW);
         for (int i = 0; i < mNumStandRight; ++i) {
             sprite->addKeyframe(STAND_RIGHT, glm::vec2(i*columnSize, START_ROW_STAND_RIGHT*rowSize));
         }
 
-		sprite->setAnimationSpeed(MOVE_LEFT, 8);
+		sprite->setAnimationSpeed(MOVE_LEFT, NUM_OF_FRAMES);
         for (int i = 0; i < mNumMoveLeft; ++i) {
             sprite->addKeyframe(MOVE_LEFT, glm::vec2(i*columnSize, START_ROW_MOVE_LEFT*rowSize));
         }
 
-		sprite->setAnimationSpeed(MOVE_RIGHT, 8);
+		sprite->setAnimationSpeed(MOVE_RIGHT, NUM_OF_FRAMES);
         for (int i = 0; i < mNumMoveLeft; ++i) {
             sprite->addKeyframe(MOVE_RIGHT, glm::vec2(i*columnSize, START_ROW_MOVE_RIGHT*rowSize));
         }

@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="150" height="15" tilewidth="16" tileheight="16" nextobjectid="1">
  <tileset firstgid="1" name="clouds" tilewidth="16" tileheight="16" tilecount="55">
-  <image source="../images/clouds.png" width="86" height="188"/>
-  <terraintypes>
-   <terrain name="New Terrain" tile="-1"/>
-  </terraintypes>
+  <image source="../images/clouds.png" width="80" height="176"/>
  </tileset>
  <layer name="Tile Layer 1" width="150" height="15">
   <data encoding="csv">

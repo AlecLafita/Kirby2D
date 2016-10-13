@@ -23,6 +23,8 @@ Scene::~Scene()
 		delete player;
     if(embellishmentMap != NULL)
         delete embellishmentMap;
+    if(mBackground != NULL)
+        delete emBackground;
 }
 
 

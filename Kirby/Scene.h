@@ -30,6 +30,8 @@ private:
 private:
 	TileMap *map;
 	TileMap *embellishmentMap;
+    TileMap *mBackground;
+
 	Player *player;
 	ShaderProgram texProgram;
 	float currentTime;

@@ -29,6 +29,7 @@ private:
 
 private:
 	TileMap *map;
+	TileMap *embellishmentMap;
 	Player *player;
 	ShaderProgram texProgram;
 	float currentTime;

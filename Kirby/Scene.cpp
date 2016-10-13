@@ -21,15 +21,18 @@ Scene::~Scene()
 		delete map;
 	if(player != NULL)
 		delete player;
+    if(embellishmentMap != NULL)
+        delete embellishmentMap;
 }
 
 
 void Scene::init()
 {
 	initShaders();
-	map = TileMap::createTileMap("levels/kawaii.txt", glm::vec2(0, 0), texProgram);
+	map = TileMap::createTileMap("levels/Cloudy_lvl.txt", glm::vec2(0, 0), texProgram);
+    embellishmentMap = TileMap::createTileMap("levels/cloudy_lvl_no_collision.txt", glm::vec2(0, 0), texProgram);
 
-	player = new Player();
+    player = new Player();
 	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
 
 	player->init(texProgram);
@@ -81,6 +84,7 @@ void Scene::render() {
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
+    embellishmentMap->render();
 	player->render();
     mPinxoEnemy->render();
 	mProjectileObject->render();

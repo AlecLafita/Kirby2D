@@ -23,16 +23,17 @@ Scene::~Scene()
 		delete player;
     if(embellishmentMap != NULL)
         delete embellishmentMap;
-    if(mBackground != NULL)
-        delete emBackground;
 }
 
 
 void Scene::init()
 {
 	initShaders();
+	spritesheetBg.loadFromFile("images/peppermint_palace.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = TileMap::createTileMap("levels/Cloudy_lvl.txt", glm::vec2(0, 0), texProgram);
+	mBackground = Sprite::createSprite(glm::ivec2(map->getMapWidth(), map->getMapHeight()), glm::vec2(1, 1), &spritesheetBg, &texProgram);
     embellishmentMap = TileMap::createTileMap("levels/cloudy_lvl_no_collision.txt", glm::vec2(0, 0), texProgram);
+
 
     player = new Player();
 	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
@@ -85,6 +86,7 @@ void Scene::render() {
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f); //Color uniform transform
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+	mBackground->render();
 	map->render();
     embellishmentMap->render();
 	player->render();

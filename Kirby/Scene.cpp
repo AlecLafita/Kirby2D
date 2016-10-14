@@ -13,6 +13,7 @@ Scene::Scene()
 {
 	map = NULL;
 	player = NULL;
+	mColisionHelper = NULL;
 }
 
 Scene::~Scene()
@@ -29,6 +30,9 @@ Scene::~Scene()
 void Scene::init()
 {
 	initShaders();
+
+	mColisionHelper = new ColisionHelper();
+
 	spritesheetBg.loadFromFile("images/peppermint_palace.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = TileMap::createTileMap("levels/Cloudy_lvl.txt", glm::vec2(0, 0), texProgram);
 	mBackground = Sprite::createSprite(glm::ivec2(map->getMapWidth(), map->getMapHeight()), glm::vec2(1, 1), &spritesheetBg, &texProgram);
@@ -38,15 +42,13 @@ void Scene::init()
     player = new Player();
 	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
 
-	player->init(texProgram);
+	player->init(texProgram,this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-	player->setTileMap(map);
 
 	//ENEMY
 	mPinxoEnemy = new PinxoEnemy();
-    mPinxoEnemy->init(texProgram);
+    mPinxoEnemy->init(texProgram,this);
     mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
-    mPinxoEnemy->setTileMap(map);
 
 	//ITEM
 	mProjectileObject = new ProjectileObject();
@@ -74,7 +76,7 @@ void Scene::update(int deltaTime)
 		projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	else if (playerPos.x >(map->getMapWidth() - float(SCREEN_WIDTH - 1) / 2)) //right of the screen limit
 		projection = glm::ortho(float(map->getMapWidth() - SCREEN_WIDTH - 1), float(map->getMapWidth()), float(SCREEN_HEIGHT - 1), 0.f);
-	else
+	else //normal movement following the player
 		projection = glm::ortho(playerPos.x - float(SCREEN_WIDTH - 1) / 2, playerPos.x + float(SCREEN_WIDTH - 1) / 2, float(SCREEN_HEIGHT - 1), 0.f);
 }
 
@@ -124,4 +126,28 @@ void Scene::initShaders(){
 }
 
 
+//Collision functions, always call the helper to solve them:
+	//First check collision with tilemap
+	//Then check collision with other characters
+bool Scene::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const {
+	bool mapCollision = mColisionHelper->mapMoveRight(map, pos, size);
 
+	return mapCollision;
+}
+
+bool Scene::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const {
+	bool mapCollision = mColisionHelper->mapMoveLeft(map, pos, size);
+	return mapCollision;
+
+}
+
+bool Scene::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const {
+	bool mapCollision = mColisionHelper->mapMoveDown(map, pos, size,posY);
+	return mapCollision;
+
+}
+bool Scene::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size) const {
+	bool mapCollision = mColisionHelper->mapMoveUp(map, pos, size);
+	return mapCollision;
+
+}

@@ -17,6 +17,9 @@ enum BasicPlayerAnims
 	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT
 };
 
+class Scene;
+
+
 class Character
 {
 
@@ -24,11 +27,10 @@ public:
 	Character();
 	~Character(){}
 
-	void init(ShaderProgram &shaderProgram);
+	void init(ShaderProgram &shaderProgram,Scene* scene);
 	void update(int deltaTime);
 	void render();
 	
-	void setTileMap(TileMap *tileMap);
 	void setPathToSpriteSheet(string pathToSpriteSheet);//must be called before init
 	void setPosition(const glm::vec2 &pos);
 	glm::vec2 getPosition();
@@ -41,7 +43,7 @@ protected:
 	string mPathToSpritesheet;
 	Texture spritesheet;
 	Sprite *sprite;
-	TileMap *map;
+	Scene* mScene;
 	int mNumberAnimations, mSpriteColumns, mSpriteRows;
     int mNumStandLeft, mNumStandRight; // Number of stand left/right sprites
     int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites

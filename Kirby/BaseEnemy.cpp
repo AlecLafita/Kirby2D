@@ -9,9 +9,9 @@ BaseEnemy::~BaseEnemy() {
 }
 
 
-void BaseEnemy::init(ShaderProgram &shaderProgram){
+void BaseEnemy::init(ShaderProgram &shaderProgram,Scene* scene){
 
-	Character::init(shaderProgram);
+	Character::init(shaderProgram,scene);
 
 }
 

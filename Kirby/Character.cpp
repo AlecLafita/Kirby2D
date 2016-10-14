@@ -30,8 +30,10 @@ Character::Character(){
     START_ROW_ATTACK_LEFT = 5;
 }
 
-void Character::init(ShaderProgram &shaderProgram)
+void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 {
+	mScene = scene;
+
 	bJumping = false;
 
     cout << "START_ROW_STAND_RIGHT  = " << START_ROW_STAND_RIGHT << endl;
@@ -88,11 +90,6 @@ void Character::update(int deltaTime)
 void Character::render()
 {
 	sprite->render();
-}
-
-void Character::setTileMap(TileMap *tileMap)
-{
-	map = tileMap;
 }
 
 void Character::setPosition(const glm::vec2 &pos)

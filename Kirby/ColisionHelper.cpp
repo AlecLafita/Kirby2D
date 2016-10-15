@@ -1,13 +1,14 @@
 #include "ColisionHelper.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "BaseEnemy.h"
 
 #include <iostream>
 using namespace std;
 
 
 #define SWALLOW_DISTANCE 50 //How far can Kirby swallow
-#define SWALLOW_VELOCITY_FACTOR 40
+#define SWALLOW_VELOCITY_FACTOR 20
 
 ColisionHelper::ColisionHelper()
 {
@@ -17,8 +18,10 @@ ColisionHelper::ColisionHelper()
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
 
-bool ColisionHelper::mapMoveRight(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size) const {
+bool ColisionHelper::mapMoveRight(const TileMap* tMap, Character* character) const {
 	//RIGHT LIMITS, depends on level size
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
 	if ((pos.x + size.x) > (tMap->getMapWidth())) return true;
 	int tileSize = tMap->getTileSize();
 	int x, y0, y1;
@@ -35,7 +38,9 @@ bool ColisionHelper::mapMoveRight(const TileMap* tMap, const glm::ivec2 &pos, co
 
 	return false;
 }
-bool ColisionHelper::mapMoveLeft(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size) const {
+bool ColisionHelper::mapMoveLeft(const TileMap* tMap, Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
 	if (pos.x < 0) return true; //Screen limit
 	int x, y0, y1;
 	int tileSize = tMap->getTileSize();
@@ -52,7 +57,10 @@ bool ColisionHelper::mapMoveLeft(const TileMap* tMap, const glm::ivec2 &pos, con
 
 	return false;
 }
-bool ColisionHelper::mapMoveDown(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const {
+bool ColisionHelper::mapMoveDown(const TileMap* tMap, Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
+
 	int x0, x1, y;
 	int tileSize = tMap->getTileSize();
 
@@ -65,9 +73,9 @@ bool ColisionHelper::mapMoveDown(const TileMap* tMap, const glm::ivec2 &pos, con
 	{
 		if (map[y*mapTilesWidth + x] != 0)
 		{
-			if (*posY - tileSize * y + size.y <= 4) //4 es FALL_STEP de Player.cpp
+			if (pos.y - tileSize * y + size.y <= 4) //4 es FALL_STEP de Player.cpp
 			{
-				*posY = tileSize * y - size.y;
+				character->setPosition(glm::ivec2(pos.x, tileSize * y - size.y));
 				return true;
 			}
 		}
@@ -75,7 +83,10 @@ bool ColisionHelper::mapMoveDown(const TileMap* tMap, const glm::ivec2 &pos, con
 
 	return false;
 }
-bool ColisionHelper::mapMoveUp(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size) const {
+bool ColisionHelper::mapMoveUp(const TileMap* tMap, Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
+
 	if (pos.y < 0) return true; //Screen limit
 	int x0, x1, y;
 	int tileSize = tMap->getTileSize();
@@ -97,30 +108,44 @@ bool ColisionHelper::mapMoveUp(const TileMap* tMap, const glm::ivec2 &pos, const
 }
 
 
-bool ColisionHelper::characterMoveRight(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const {
-	return quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+bool ColisionHelper::characterMoveRight(const Character* characterToCollide, Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
+
+	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 }
-bool ColisionHelper::characterMoveLeft(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const{
-	return quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+bool ColisionHelper::characterMoveLeft(const Character* characterToCollide, Character* character) const{
+
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
+
+	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 }
-bool ColisionHelper::characterMoveUp(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const {
-	return quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+bool ColisionHelper::characterMoveUp(const Character* characterToCollide, Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
+
+	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 }
-bool ColisionHelper::characterMoveDown(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const {
-	bool res = quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+bool ColisionHelper::characterMoveDown(const Character* characterToCollide, Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+	glm::ivec2 size = character->getSize();
+
+	bool res = quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 	if (res) {
-		*posY = character->getPosition().y - size.y;
+		character->setPosition(glm::ivec2(pos.x, characterToCollide->getPosition().y - size.y));
 		return true;
 	}
 	return false;
 }
 
-bool ColisionHelper::playerSwallowCharacter(const Player* player, glm::ivec2 &pos)const {
+bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
 	glm::ivec2 playerPos = player->getPosition();
-	if (player->isSwalling() && (distanceBetweenPositions(playerPos,pos) <= SWALLOW_DISTANCE)) {
+	glm::ivec2 enemyPos = enemy->getPosition();
+	if (player->isSwalling() && (distanceBetweenPositions(playerPos, enemyPos) <= SWALLOW_DISTANCE)) {
 		//Move character to player
-		glm::ivec2 dir = playerPos - pos;
-		pos += dir / SWALLOW_VELOCITY_FACTOR;
+		glm::ivec2 dir = playerPos - enemyPos;
+		enemy->setPosition(enemyPos + dir / SWALLOW_VELOCITY_FACTOR);
 		return true;
 	}
 	else return false;

@@ -9,6 +9,7 @@
 #include "PinxoEnemy.h"
 #include "ProjectileObject.h"
 #include "ColisionHelper.h"
+#include "Constants.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -26,11 +27,11 @@ public:
 	void render();
 
 	//Collision functions
-	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
-	bool collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool playerCanSwallow(glm::ivec2 &pos) const;
+	bool collisionMoveRight(Character* character) const;
+	bool collisionMoveLeft(Character* character) const;
+	bool collisionMoveDown(Character* character) const;
+	bool collisionMoveUp(Character* character) const;
+	bool playerCanSwallow(BaseEnemy* enemy) const;
 
 private:
 	void initShaders();

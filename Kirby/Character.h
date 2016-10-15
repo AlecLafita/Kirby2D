@@ -2,6 +2,7 @@
 #define _PLAYER_INCLUDE
 
 #include "Sprite.h"
+#include "Constants.h"
 
 #define JUMP_ANGLE_STEP 4
 #define JUMP_HEIGHT 70
@@ -32,7 +33,9 @@ public:
 	
 	void setPathToSpriteSheet(string pathToSpriteSheet); //must be called before init
 	void setPosition (const glm::vec2 &pos);
-	glm::ivec2 getPosition() const { return posCharacter; };
+	glm::ivec2 getPosition() const { return posCharacter; }
+	glm::ivec2 getSize() const { return glm::ivec2(CHARACTER_SIZE_X, CHARACTER_SIZE_Y); }
+	void setPosition(glm::ivec2 pos) { posCharacter = pos; }
 
 protected:
 

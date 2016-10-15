@@ -19,7 +19,7 @@ void BaseEnemy::update(int deltaTime){
 
 	if (isInFrustrum()){
 		if (isSwallable) {
-			mScene->playerCanSwallow(posCharacter);
+			mScene->playerCanSwallow(this);
 		}
 		Character::update(deltaTime);
 		//TODO: Implement IA Here!

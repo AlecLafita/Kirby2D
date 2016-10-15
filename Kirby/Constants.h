@@ -10,8 +10,8 @@
 #define TILE_SIZE_Y 32
 
 
-#define CHARACTER_SIZE_X = 32F;
-#define CHARACTER_SIZE_Y = 32F;
+#define CHARACTER_SIZE_X 32
+#define CHARACTER_SIZE_Y 32
 
 //Character Movement
 #define MOVEMENT_DEFAULT 2

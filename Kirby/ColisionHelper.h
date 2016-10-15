@@ -5,6 +5,7 @@
 class TileMap;
 class Character;
 class Player;
+class BaseEnemy;
 
 class ColisionHelper{
 public:
@@ -13,18 +14,18 @@ public:
 
 	//xMoveDir -> Can do a movement to Dir without colliding with x?
 
-	bool mapMoveRight(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool mapMoveLeft(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool mapMoveDown(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
-	bool mapMoveUp(const TileMap* tMap, const glm::ivec2 &pos, const glm::ivec2 &size) const;
+	bool mapMoveRight(const TileMap* tMap, Character* character) const;
+	bool mapMoveLeft(const TileMap* tMap, Character* character) const;
+	bool mapMoveDown(const TileMap* tMap, Character* character) const;
+	bool mapMoveUp(const TileMap* tMap, Character* character) const;
 
-	bool characterMoveRight(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool characterMoveLeft(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool characterMoveUp(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool characterMoveDown(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const;
+	bool characterMoveRight(const Character* characterToCollide, Character* character) const;
+	bool characterMoveLeft(const Character* characterToCollide, Character* character) const;
+	bool characterMoveUp(const Character* characterToCollide, Character* character) const;
+	bool characterMoveDown(const Character* characterToCollide, Character* character) const;
 
 	//Can player swallow character?
-	bool playerSwallowCharacter(const Player* player, glm::ivec2 &pos)const;
+	bool playerSwallowCharacter( Player* player, BaseEnemy* enemy)const;
 
 
 private:

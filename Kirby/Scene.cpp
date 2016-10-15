@@ -131,36 +131,40 @@ void Scene::initShaders(){
 	//Then check collision with other characters
 
 //size hauria de ser el tamany de qui mira el collide(el player) no del tile map!! 
-bool Scene::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const {
-	bool mapCollision = mColisionHelper->mapMoveRight(map, pos, size);
+bool Scene::collisionMoveRight(Character* character) const {
+	bool mapCollision = mColisionHelper->mapMoveRight(map, character);
 	//Iterate through all enemies
-	bool enemyCollision = mColisionHelper->characterMoveRight(mPinxoEnemy, pos,size);
+	bool enemyCollision = mColisionHelper->characterMoveRight(mPinxoEnemy, character);
 	
 	return mapCollision || enemyCollision;
 }
 
-bool Scene::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const {
-	bool mapCollision = mColisionHelper->mapMoveLeft(map, pos, size);
-	bool enemyCollision = mColisionHelper->characterMoveLeft(mPinxoEnemy, pos, size);
+bool Scene::collisionMoveLeft(Character* character) const {
+	bool mapCollision = mColisionHelper->mapMoveLeft(map, character);
+	bool enemyCollision = mColisionHelper->characterMoveLeft(mPinxoEnemy, character);
 
 	return mapCollision || enemyCollision;
 }
 
-bool Scene::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const {
-	bool mapCollision = mColisionHelper->mapMoveDown(map, pos, size,posY);
+bool Scene::collisionMoveDown(Character* character) const {
+	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
 	
-	//Maybe not return bool, if jumping on emey kills it	
-	bool enemyCollision = mColisionHelper->characterMoveDown(mPinxoEnemy, pos, size,posY);
+	//Maybe not return bool, if jumping on enemy kills it	
+	bool enemyCollision = mColisionHelper->characterMoveDown(mPinxoEnemy, character);
+	
+	return mapCollision || enemyCollision;
+}
+bool Scene::collisionMoveUp(Character* character) const {
+	bool mapCollision = mColisionHelper->mapMoveUp(map, character);
+	bool enemyCollision = mColisionHelper->characterMoveUp(mPinxoEnemy, character);
 
 	return mapCollision || enemyCollision;
 }
-bool Scene::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size) const {
-	bool mapCollision = mColisionHelper->mapMoveUp(map, pos, size);
-	bool enemyCollision = mColisionHelper->characterMoveUp(mPinxoEnemy, pos, size);
 
-	return mapCollision || enemyCollision;
-}
-
-bool Scene::playerCanSwallow(glm::ivec2 &pos) const {
-	return mColisionHelper->playerSwallowCharacter(player, pos);
+bool Scene::playerCanSwallow(BaseEnemy* enemy) const {
+	bool canSwallow =  mColisionHelper->playerSwallowCharacter(player, enemy);
+	if (canSwallow) {
+		//if enemy collides player, delete enemy -> check if this player can copy it's hability
+	}
+	return canSwallow;
 }

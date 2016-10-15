@@ -24,6 +24,8 @@ Scene::~Scene()
 		delete player;
     if(embellishmentMap != NULL)
         delete embellishmentMap;
+    if(mSoundHelper != NULL)
+        delete mSoundHelper;
 }
 
 
@@ -32,6 +34,9 @@ void Scene::init()
 	initShaders();
 
 	mColisionHelper = new ColisionHelper();
+	mSoundHelper = new SoundHelper();
+
+	mSoundHelper->playMusic("sounds/song_green_greens.wav");
 
 	spritesheetBg.loadFromFile("images/peppermint_palace.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = TileMap::createTileMap("levels/Cloudy_lvl.txt", glm::vec2(0, 0), texProgram);

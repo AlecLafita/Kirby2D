@@ -3,6 +3,7 @@
 
 
 #include <glm/glm.hpp>
+#include "helpers/SoundHelper.h"
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
@@ -48,6 +49,7 @@ private:
 	PinxoEnemy *mPinxoEnemy;
 	ProjectileObject *mProjectileObject;
 	ColisionHelper* mColisionHelper;
+	SoundHelper* mSoundHelper;
 };
 
 

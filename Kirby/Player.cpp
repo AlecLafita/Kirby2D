@@ -26,7 +26,7 @@ void Player::update(int deltaTime){
 }
 
 bool Player::isSwalling() const {
-	return (sprite->animation() == ATTACK_LEFT || sprite->animation() == ATTACK_RIGHT);
+	return (sprite->animation() ==  ATTACK_LEFT || sprite->animation() == ATTACK_RIGHT);
 }
 
 void Player::computeNextMove() {

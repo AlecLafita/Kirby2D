@@ -11,6 +11,8 @@
 #include "ColisionHelper.h"
 #include "Constants.h"
 
+#include <set>
+
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
 
@@ -31,7 +33,7 @@ public:
 	bool collisionMoveLeft(Character* character) const;
 	bool collisionMoveDown(Character* character) const;
 	bool collisionMoveUp(Character* character) const;
-	bool playerCanSwallow(BaseEnemy* enemy) const;
+	bool playerCanSwallow(BaseEnemy* enemy) ;
 
 private:
 	void initShaders();
@@ -45,8 +47,8 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
-	PinxoEnemy *mPinxoEnemy;
-	ProjectileObject *mProjectileObject;
+	set<PinxoEnemy*> mPinxoEnemies;
+	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
 };
 

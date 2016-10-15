@@ -19,9 +19,10 @@ ColisionHelper::ColisionHelper()
 // already intersecting a tile below.
 
 bool ColisionHelper::mapMoveRight(const TileMap* tMap, Character* character) const {
-	//RIGHT LIMITS, depends on level size
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
+
+	//RIGHT LIMITS, depends on level size
 	if ((pos.x + size.x) > (tMap->getMapWidth())) return true;
 	int tileSize = tMap->getTileSize();
 	int x, y0, y1;
@@ -38,6 +39,7 @@ bool ColisionHelper::mapMoveRight(const TileMap* tMap, Character* character) con
 
 	return false;
 }
+
 bool ColisionHelper::mapMoveLeft(const TileMap* tMap, Character* character) const {
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
@@ -57,6 +59,7 @@ bool ColisionHelper::mapMoveLeft(const TileMap* tMap, Character* character) cons
 
 	return false;
 }
+
 bool ColisionHelper::mapMoveDown(const TileMap* tMap, Character* character) const {
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
@@ -83,6 +86,7 @@ bool ColisionHelper::mapMoveDown(const TileMap* tMap, Character* character) cons
 
 	return false;
 }
+
 bool ColisionHelper::mapMoveUp(const TileMap* tMap, Character* character) const {
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
@@ -111,33 +115,58 @@ bool ColisionHelper::mapMoveUp(const TileMap* tMap, Character* character) const 
 bool ColisionHelper::characterMoveRight(const Character* characterToCollide, Character* character) const {
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
+	
+	/*
+	int right_char = getRightCollisionBox(character);
+	int top_char = getTopCollisionBox(character);
+	int bottom_char = getBottomCollisionBox(character);
 
+	int left_charToCollide = getLeftCollisionBox(characterToCollide);
+	int right_charToCollide = getRightCollisionBox(characterToCollide);
+	int top_charToCollide = getTopCollisionBox(characterToCollide);
+	int bottom_charToCollide = getBottomCollisionBox(characterToCollide);
+
+	return generalColision(right_char, top_char, bottom_char, left_charToCollide, right_charToCollide,top_charToCollide, bottom_charToCollide);
+	*/
 	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 }
-bool ColisionHelper::characterMoveLeft(const Character* characterToCollide, Character* character) const{
 
-	glm::ivec2 pos = character->getPosition();
-	glm::ivec2 size = character->getSize();
+bool ColisionHelper::characterMoveLeft(const Character* characterToCollide, Character* character) const {
+	/*
+	int left_char = getLeftCollisionBox(character);
+	int top_char = getTopCollisionBox(character);
+	int bottom_char = getBottomCollisionBox(character);
 
-	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
+	int right_charToCollide = getRightCollisionBox(characterToCollide);
+	int top_charToCollide = getTopCollisionBox(characterToCollide);
+	int bottom_charToCollide = getBottomCollisionBox(characterToCollide);
+
+	return generalColision(right_charToCollide, top_charToCollide, bottom_charToCollide, left_char, top_char, bottom_char);*/
+
+	return quadsCollision(character->getPosition(), character->getSize(), 
+		characterToCollide->getPosition(), characterToCollide->getSize());
 }
+
 bool ColisionHelper::characterMoveUp(const Character* characterToCollide, Character* character) const {
-	glm::ivec2 pos = character->getPosition();
-	glm::ivec2 size = character->getSize();
-
-	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
+	return quadsCollision(character->getPosition(), character->getSize(),
+		characterToCollide->getPosition(), characterToCollide->getSize());
 }
+
 bool ColisionHelper::characterMoveDown(const Character* characterToCollide, Character* character) const {
+
+
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
 
-	bool res = quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
+	bool res = 	quadsCollision(character->getPosition(), character->getSize(), 
+		characterToCollide->getPosition(), characterToCollide->getSize());
 	if (res) {
 		character->setPosition(glm::ivec2(pos.x, characterToCollide->getPosition().y - size.y));
 		return true;
 	}
 	return false;
 }
+
 
 bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
 	glm::ivec2 playerPos = player->getPosition();
@@ -146,10 +175,40 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 		//Move character to player
 		glm::ivec2 dir = playerPos - enemyPos;
 		enemy->setPosition(enemyPos + dir / SWALLOW_VELOCITY_FACTOR);
-		return true;
+		if (quadsCollision(playerPos,player->getSize(), enemyPos, enemy->getPosition()))
+			return true;
 	}
 	else return false;
 }
+
+/*
+bool ColisionHelper::generalColision(int right_char, int top_char, int bottom_char,
+	int left_charToCollide, int right_charToCollide, int top_charToCollide, int bottom_charToCollide) const {
+
+	return (right_char > left_charToCollide &&  right_char < right_charToCollide && //basic for right collision
+		( (top_char < bottom_charToCollide && top_char > top_charToCollide) || //same size, char bottom from charToCollide
+		  (bottom_char > top_charToCollide && bottom_char < bottom_charToCollide) || //same size, char up from charToCollide
+		  (top_char <= top_charToCollide && bottom_char >= bottom_charToCollide) || //char bigger or equal(surrounding) than charToCollide
+		  (top_char > top_charToCollide && bottom_char < bottom_charToCollide) //char smaller(surrounded) than charToCollide
+		 ));
+}
+
+int ColisionHelper::getLeftCollisionBox(const Character* character) const{
+	return character->getPosition().x;
+}
+
+int ColisionHelper::getRightCollisionBox(const Character* character) const{
+	return character->getPosition().x + character->getPosition().x;
+}
+
+int ColisionHelper::getTopCollisionBox(const Character* character) const{
+	return character->getPosition().y;
+}
+
+int ColisionHelper::getBottomCollisionBox(const Character* character) const{
+	return character->getPosition().y + character->getSize().y;
+}
+*/
 
 bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const{
 	//It can be divided for the four sides 

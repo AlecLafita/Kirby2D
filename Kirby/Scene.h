@@ -34,6 +34,9 @@ public:
 	bool collisionMoveUp(Character* character) const;
 	bool playerCanSwallow(BaseEnemy* enemy) const;
 
+	//Sound functions
+	void playSound(string soundFilePath);
+
 private:
 	void initShaders();
 

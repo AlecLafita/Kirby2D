@@ -173,3 +173,9 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) const {
 	}
 	return canSwallow;
 }
+
+
+void Scene::playSound(string soundFilePath) {
+
+    mSoundHelper->playSound(soundFilePath);
+}

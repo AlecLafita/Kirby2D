@@ -59,4 +59,9 @@ void SoundHelper::pauseMusic(){
  */
 void SoundHelper::playSound(string pathToFile){
 
+    if(!soundBuffer.loadFromFile(pathToFile)){
+        return;
+    }
+    soundPlayer.setBuffer(soundBuffer);
+    soundPlayer.play();
 }

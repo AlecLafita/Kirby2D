@@ -15,6 +15,7 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	Character::init(shaderProgram,scene);
 	bHoving = false;
 	nJumps = 0;
+	isSwallable = false; //Kirby can't swallow itself (this may not be necesary for the game logic)
 
 }
 
@@ -22,6 +23,10 @@ void Player::update(int deltaTime){
 
 	computeNextMove();
 	Character::update(deltaTime);
+}
+
+bool Player::isSwalling() const {
+	return (sprite->animation() == ATTACK_LEFT || sprite->animation() == ATTACK_RIGHT);
 }
 
 void Player::computeNextMove() {

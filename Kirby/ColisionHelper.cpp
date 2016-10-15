@@ -1,9 +1,13 @@
 #include "ColisionHelper.h"
 #include "TileMap.h"
-#include "Character.h"
+#include "Player.h"
 
 #include <iostream>
 using namespace std;
+
+
+#define SWALLOW_DISTANCE 50 //How far can Kirby swallow
+#define SWALLOW_VELOCITY_FACTOR 40
 
 ColisionHelper::ColisionHelper()
 {
@@ -111,6 +115,17 @@ bool ColisionHelper::characterMoveDown(const Character* character, const glm::iv
 	return false;
 }
 
+bool ColisionHelper::playerSwallowCharacter(const Player* player, glm::ivec2 &pos)const {
+	glm::ivec2 playerPos = player->getPosition();
+	if (player->isSwalling() && (distanceBetweenPositions(playerPos,pos) <= SWALLOW_DISTANCE)) {
+		//Move character to player
+		glm::ivec2 dir = playerPos - pos;
+		pos += dir / SWALLOW_VELOCITY_FACTOR;
+		return true;
+	}
+	else return false;
+}
+
 bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const{
 	//It can be divided for the four sides 
 
@@ -122,6 +137,12 @@ bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2
 
 	//http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 
-	return ((q1x1 <= q2x2 && q1x2 >= q2x1 && q1y1 <= q2y1 && q1y2 >= q2y1) || 
-		(q2x1 <= q1x2 && q2x2 >= q1x1 && q2y1 <= q1y1 && q2y2 >= q1y1));
+	return ((q1x1 < q2x2 && q1x2 >=q2x1 && q1y1 < q2y1 && q1y2 > q2y1) || 
+		(q2x1 < q1x2 && q2x2 > q1x1 && q2y1 < q1y1 && q2y2 > q1y1));
 }
+
+int ColisionHelper::distanceBetweenPositions(const glm::ivec2 pos1, const glm::ivec2 pos2) const{
+	return sqrt((pos1.x - pos2.x)*(pos1.x - pos2.x) + (pos1.y - pos2.y)*(pos1.y - pos2.y));
+}
+
+

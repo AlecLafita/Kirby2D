@@ -20,6 +20,7 @@ Character::Character(){
     mNumMoveRight = 10;
     mNumAttackLeft = 3;
     mNumAttackRight = 3;
+	isSwallable = true; 
 
     //Sprite rows
     START_ROW_STAND_RIGHT = 0;
@@ -35,6 +36,7 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	mScene = scene;
 
 	bJumping = false;
+
 
     cout << "START_ROW_STAND_RIGHT  = " << START_ROW_STAND_RIGHT << endl;
     cout << "START_ROW_STAND_LEFT  = " << START_ROW_STAND_LEFT << endl;

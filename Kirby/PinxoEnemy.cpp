@@ -37,7 +37,7 @@ void PinxoEnemy::update(int deltaTime){
 
     if (isInFrustrum()){
 
-        Character::update(deltaTime);
+        BaseEnemy::update(deltaTime);
         //TODO: Implement IA Here!
     }
 }

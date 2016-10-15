@@ -1,5 +1,5 @@
 #include "BaseEnemy.h"
-
+#include "Scene.h"
 
 BaseEnemy::BaseEnemy(){
 }
@@ -18,7 +18,9 @@ void BaseEnemy::init(ShaderProgram &shaderProgram,Scene* scene){
 void BaseEnemy::update(int deltaTime){
 
 	if (isInFrustrum()){
-
+		if (isSwallable) {
+			mScene->playerCanSwallow(posCharacter);
+		}
 		Character::update(deltaTime);
 		//TODO: Implement IA Here!
 	}

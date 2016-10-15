@@ -47,6 +47,7 @@ protected:
     int mNumStandLeft, mNumStandRight; // Number of stand left/right sprites
     int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites
     int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
+	bool isSwallable; //indicates if Kirby can swallow this cahracter
 
     // Constants
     int START_ROW_STAND_RIGHT;

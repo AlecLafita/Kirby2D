@@ -160,3 +160,7 @@ bool Scene::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size) const
 
 	return mapCollision || enemyCollision;
 }
+
+bool Scene::playerCanSwallow(glm::ivec2 &pos) const {
+	return mColisionHelper->playerSwallowCharacter(player, pos);
+}

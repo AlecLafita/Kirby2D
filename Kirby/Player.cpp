@@ -2,9 +2,12 @@
 #include <GL/glut.h>
 #include "Game.h"
 
+#include <iostream>
+using namespace std;
+
 Player::Player()
 {
-	mNumberAnimations = 4;
+	mNumberAnimations = 6;
 }
 
 void Player::init(ShaderProgram &shaderProgram, Scene *scene){
@@ -12,6 +15,7 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	Character::init(shaderProgram,scene);
 	bHoving = false;
 	nJumps = 0;
+
 }
 
 void Player::update(int deltaTime){
@@ -21,6 +25,13 @@ void Player::update(int deltaTime){
 }
 
 void Player::computeNextMove() {
+
+	if (Game::instance().getKey('a')) { //attack
+		if (sprite->animation() == STAND_LEFT)
+			sprite->changeAnimation(ATTACK_LEFT);
+		else if (sprite->animation() == STAND_RIGHT)
+			sprite->changeAnimation(ATTACK_RIGHT);
+	}
 
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
@@ -91,6 +102,7 @@ void Player::computeNextMove() {
 		startY = posCharacter.y;
 		//sprite->changeAnimation(HOVING); TODO
 	}
+
 }
 
 Player::~Player()

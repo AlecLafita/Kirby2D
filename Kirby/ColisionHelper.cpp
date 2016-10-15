@@ -1,4 +1,6 @@
 #include "ColisionHelper.h"
+#include "TileMap.h"
+#include "Character.h"
 
 #include <iostream>
 using namespace std;
@@ -6,7 +8,6 @@ using namespace std;
 ColisionHelper::ColisionHelper()
 {
 }
-
 
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is
@@ -89,4 +90,38 @@ bool ColisionHelper::mapMoveUp(const TileMap* tMap, const glm::ivec2 &pos, const
 		}
 	}
 	return false;
+}
+
+
+bool ColisionHelper::characterMoveRight(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const {
+	return quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+}
+bool ColisionHelper::characterMoveLeft(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const{
+	return quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+}
+bool ColisionHelper::characterMoveUp(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size) const {
+	return quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+}
+bool ColisionHelper::characterMoveDown(const Character* character, const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const {
+	bool res = quadsCollision(pos, size, character->getPosition(), size); //All characters same size??
+	if (res) {
+		*posY = character->getPosition().y - size.y;
+		return true;
+	}
+	return false;
+}
+
+bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const{
+	//It can be divided for the four sides 
+
+	float q1x1 = q1Pos.x; float q1x2 = q1x1 + q1Size.x;
+	float q1y1 = q1Pos.y; float q1y2 = q1y1 + q1Size.y;
+
+	float q2x1 = q2Pos.x; float q2x2 = q2x1 + q2Size.x;
+	float q2y1 = q2Pos.y; float q2y2 = q2y1 + q2Size.y;
+
+	//http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
+
+	return ((q1x1 <= q2x2 && q1x2 >= q2x1 && q1y1 <= q2y1 && q1y2 >= q2y1) || 
+		(q2x1 <= q1x2 && q2x2 >= q1x1 && q2y1 <= q1y1 && q2y2 >= q1y1));
 }

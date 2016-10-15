@@ -71,6 +71,16 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
             sprite->addKeyframe(MOVE_RIGHT, glm::vec2(i*columnSize, START_ROW_MOVE_RIGHT*rowSize));
         }
 
+		sprite->setAnimationSpeed(ATTACK_RIGHT, NUM_OF_FRAMES);
+		for (int i = 0; i < mNumAttackRight; ++i) {
+			sprite->addKeyframe(ATTACK_RIGHT, glm::vec2(i*columnSize, START_ROW_ATTACK_RIGHT*rowSize));
+		}
+
+		sprite->setAnimationSpeed(ATTACK_LEFT, NUM_OF_FRAMES);
+		for (int i = 0; i < mNumAttackLeft; ++i) {
+			sprite->addKeyframe(ATTACK_LEFT, glm::vec2(i*columnSize, START_ROW_ATTACK_LEFT*rowSize));
+		}
+
 	sprite->changeAnimation(1);
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 	
@@ -98,9 +108,6 @@ void Character::setPosition(const glm::vec2 &pos)
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 }
 
-glm::vec2 Character::getPosition() {
-	return glm::vec2(float(posCharacter.x), float(posCharacter.y));
-}
 
 
 

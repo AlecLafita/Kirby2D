@@ -2,7 +2,6 @@
 #define _PLAYER_INCLUDE
 
 #include "Sprite.h"
-#include "TileMap.h"
 
 #define JUMP_ANGLE_STEP 4
 #define JUMP_HEIGHT 70
@@ -14,7 +13,7 @@
 
 enum BasicPlayerAnims
 {
-	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT
+	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, ATTACK_LEFT, ATTACK_RIGHT
 };
 
 class Scene;
@@ -31,9 +30,9 @@ public:
 	void update(int deltaTime);
 	void render();
 	
-	void setPathToSpriteSheet(string pathToSpriteSheet);//must be called before init
-	void setPosition(const glm::vec2 &pos);
-	glm::vec2 getPosition();
+	void setPathToSpriteSheet(string pathToSpriteSheet); //must be called before init
+	void setPosition (const glm::vec2 &pos);
+	glm::ivec2 getPosition() const { return posCharacter; };
 
 protected:
 

@@ -5,8 +5,8 @@
 #include "Game.h"
 #include <GL/glut.h>
 
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 4
+#define INIT_PLAYER_X_TILES 2
+#define INIT_PLAYER_Y_TILES 2
 
 
 Scene::Scene()
@@ -129,25 +129,34 @@ void Scene::initShaders(){
 //Collision functions, always call the helper to solve them:
 	//First check collision with tilemap
 	//Then check collision with other characters
+
+//size hauria de ser el tamany de qui mira el collide(el player) no del tile map!! 
 bool Scene::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const {
 	bool mapCollision = mColisionHelper->mapMoveRight(map, pos, size);
-
-	return mapCollision;
+	//Iterate through all enemies
+	bool enemyCollision = mColisionHelper->characterMoveRight(mPinxoEnemy, pos,size);
+	
+	return mapCollision || enemyCollision;
 }
 
 bool Scene::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const {
 	bool mapCollision = mColisionHelper->mapMoveLeft(map, pos, size);
-	return mapCollision;
+	bool enemyCollision = mColisionHelper->characterMoveLeft(mPinxoEnemy, pos, size);
 
+	return mapCollision || enemyCollision;
 }
 
 bool Scene::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size, int *posY) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, pos, size,posY);
-	return mapCollision;
+	
+	//Maybe not return bool, if jumping on emey kills it	
+	bool enemyCollision = mColisionHelper->characterMoveDown(mPinxoEnemy, pos, size,posY);
 
+	return mapCollision || enemyCollision;
 }
 bool Scene::collisionMoveUp(const glm::ivec2 &pos, const glm::ivec2 &size) const {
 	bool mapCollision = mColisionHelper->mapMoveUp(map, pos, size);
-	return mapCollision;
+	bool enemyCollision = mColisionHelper->characterMoveUp(mPinxoEnemy, pos, size);
 
+	return mapCollision || enemyCollision;
 }

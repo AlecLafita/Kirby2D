@@ -1,7 +1,7 @@
-#version 330
+#version 300 es
 
 uniform mat4 projection, modelview;
-uniform vec2 texCoordDispl;
+uniform lowp vec2 texCoordDispl;
 
 in vec2 position;
 in vec2 texCoord;

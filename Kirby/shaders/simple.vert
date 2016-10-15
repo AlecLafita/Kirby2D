@@ -1,8 +1,8 @@
-#version 330
+#version 300 es
 
 uniform mat4 projection, modelview;
 
-in vec2 position;
+in lowp vec2 position;
 
 void main()
 {

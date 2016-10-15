@@ -1,8 +1,8 @@
-#version 330
+#version 300 es
 
-uniform vec4 color;
+uniform lowp vec4 color;
 
-out vec4 outColor;
+out lowp vec4 outColor;
 
 void main()
 {

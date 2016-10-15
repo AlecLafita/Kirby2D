@@ -90,26 +90,25 @@ void Player::computeNextMove() {
 		posCharacter.y += FALL_STEP;//going down
 		if (mScene->collisionMoveDown(this)) { //at floor
 			if (Game::instance().getSpecialKey(GLUT_KEY_UP)) {
-				mScene->playSound("sounds/jumping.wav");
-				nJumps = 1;
-				bHoving = false;
-				bJumping = true;
-				jumpAngle = 0;
-				startY = posCharacter.y;
+				nJumps = 0;
+				computeJumping();
 			}
 		}
 	}
 
 	if (bHoving && Game::instance().getSpecialKey(GLUT_KEY_UP) && nJumps < MAX_JUMPS) {
-        mScene->playSound("sounds/jumping.wav");
-        nJumps++;
-		bHoving = false;
-		bJumping = true;
-		jumpAngle = 0;
-		startY = posCharacter.y;
+       computeJumping();
 		//sprite->changeAnimation(HOVING); TODO
 	}
 
+}
+void Player::computeJumping(){
+	mScene->playSound("sounds/jumping.wav");
+	nJumps++;
+	bHoving = false;
+	bJumping = true;
+	jumpAngle = 0;
+	startY = posCharacter.y;
 }
 
 Player::~Player()

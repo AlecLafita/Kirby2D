@@ -12,6 +12,7 @@ Character::Character(){
 	mNumberAnimations = 4;
     mSpriteColumns = 10;
     mSpriteRows = 6;
+	isDead = false;
 
     //Default
     mNumStandLeft = 3;

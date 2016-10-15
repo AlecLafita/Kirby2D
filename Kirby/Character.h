@@ -36,6 +36,7 @@ public:
 	glm::ivec2 getPosition() const { return posCharacter; }
 	glm::ivec2 getSize() const { return glm::ivec2(CHARACTER_SIZE_X, CHARACTER_SIZE_Y); }
 	void setPosition(glm::ivec2 pos) { posCharacter = pos; }
+	bool isCharacterDead() const{ return isDead; }
 
 protected:
 
@@ -51,6 +52,7 @@ protected:
     int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites
     int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
 	bool isSwallable; //indicates if Kirby can swallow this cahracter
+	bool isDead;//Ready to be deleted
 
     // Constants
     int START_ROW_STAND_RIGHT;

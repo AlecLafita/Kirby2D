@@ -69,12 +69,20 @@ void Scene::update(int deltaTime)
 	currentTime += deltaTime;
 	player->update(deltaTime);
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		cout << "updating" << endl;
 		pinxoEnemy->update(deltaTime);
 	}
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->update(deltaTime);
 	}
+
+	//Delete dead enemies
+	for (set<PinxoEnemy*>::iterator it = mPinxoEnemies.begin(); it != mPinxoEnemies.end(); ) {
+		if ((*it)->isCharacterDead()) {
+			mPinxoEnemies.erase(it++);
+		}
+		else ++it;
+	}
+
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
 	if (playerPos.x  < float(SCREEN_WIDTH - 1)/ 2) //left of the screen limit
@@ -143,7 +151,7 @@ bool Scene::collisionMoveRight(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveRight(map, character);
 	
 	bool enemyCollision = false;
-	for (BaseEnemy* pinxoEnemy : mPinxoEnemies) {
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		enemyCollision = enemyCollision || mColisionHelper->characterMoveRight(pinxoEnemy, character);
 	}
 	//if(enemyCollision) player->damaged();
@@ -154,7 +162,7 @@ bool Scene::collisionMoveLeft(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveLeft(map, character);
 
 	bool enemyCollision = false;
-	for (BaseEnemy* pinxoEnemy : mPinxoEnemies) {
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		enemyCollision = enemyCollision || mColisionHelper->characterMoveLeft(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
@@ -165,7 +173,7 @@ bool Scene::collisionMoveDown(Character* character) const {
 	return mapCollision;
 	//Maybe not return bool, if jumping on enemy kills it	
 	bool enemyCollision = false;
-	for (BaseEnemy* pinxoEnemy : mPinxoEnemies) {
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		enemyCollision = enemyCollision || mColisionHelper->characterMoveDown(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
@@ -173,20 +181,12 @@ bool Scene::collisionMoveDown(Character* character) const {
 bool Scene::collisionMoveUp(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveUp(map, character);
 	bool enemyCollision = false;
-	for (BaseEnemy* pinxoEnemy : mPinxoEnemies) {
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		enemyCollision = enemyCollision || mColisionHelper->characterMoveUp(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
 }
 
 bool Scene::playerCanSwallow(BaseEnemy* enemy) {
-	bool canSwallow =  mColisionHelper->playerSwallowCharacter(player, enemy);
-	if (canSwallow) {
-		//if enemy collides player, delete enemy -> check if this player can copy it's hability
-		//set<PinxoEnemy*>::iterator it = mPinxoEnemies.find(enemy);
-		mPinxoEnemies.erase(static_cast<PinxoEnemy*>(enemy));
-		//it = mPinxoEnemies.begin();
-		cout << " deleted";
-	}
-	return canSwallow;
+	return  mColisionHelper->playerSwallowCharacter(player, enemy);
 }

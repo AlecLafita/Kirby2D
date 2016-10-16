@@ -37,7 +37,7 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	mScene = scene;
 
 	bJumping = false;
-
+	bAttacking = false;
 
     cout << "START_ROW_STAND_RIGHT  = " << START_ROW_STAND_RIGHT << endl;
     cout << "START_ROW_STAND_LEFT  = " << START_ROW_STAND_LEFT << endl;

@@ -25,17 +25,21 @@ void Player::update(int deltaTime){
 	Character::update(deltaTime);
 }
 
-bool Player::isSwalling() const {
-	return (sprite->animation() == ATTACK_LEFT || sprite->animation() == ATTACK_RIGHT);
-}
-
 void Player::computeNextMove() {
 
-	if (Game::instance().getKey('a')) { //attack
+	if (Game::instance().getKey('a')) { //attack (swallow)
+		bAttacking = true;
 		if (sprite->animation() == STAND_LEFT)
 			sprite->changeAnimation(ATTACK_LEFT);
 		else if (sprite->animation() == STAND_RIGHT)
 			sprite->changeAnimation(ATTACK_RIGHT);
+	}
+	else {
+		bAttacking = false;
+		if (sprite->animation() == ATTACK_LEFT)
+			sprite->changeAnimation(STAND_LEFT);
+		else if (sprite->animation() == ATTACK_RIGHT)
+			sprite->changeAnimation(STAND_RIGHT);
 	}
 
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
@@ -107,6 +111,7 @@ void Player::computeNextMove() {
 		startY = posCharacter.y;
 		//sprite->changeAnimation(HOVING); TODO
 	}
+
 
 }
 

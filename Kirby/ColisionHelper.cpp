@@ -3,12 +3,11 @@
 #include "Player.h"
 #include "BaseEnemy.h"
 
+#include "Constants.h"
+
 #include <iostream>
 using namespace std;
 
-
-#define SWALLOW_DISTANCE 50 //How far can Kirby swallow
-#define SWALLOW_VELOCITY_FACTOR 20
 
 ColisionHelper::ColisionHelper()
 {
@@ -128,7 +127,12 @@ bool ColisionHelper::characterMoveRight(const Character* characterToCollide, Cha
 
 	return generalColision(right_char, top_char, bottom_char, left_charToCollide, right_charToCollide,top_charToCollide, bottom_charToCollide);
 	*/
-	return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
+	//return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
+	bool res = quadsCollision(character->getPosition(), character->getSize(),
+		characterToCollide->getPosition(), characterToCollide->getSize());
+	if (static_cast<Player*>(character) && res)
+		moveDamaged(character);
+	return res;
 }
 
 bool ColisionHelper::characterMoveLeft(const Character* characterToCollide, Character* character) const {
@@ -143,28 +147,32 @@ bool ColisionHelper::characterMoveLeft(const Character* characterToCollide, Char
 
 	return generalColision(right_charToCollide, top_charToCollide, bottom_charToCollide, left_char, top_char, bottom_char);*/
 
-	return quadsCollision(character->getPosition(), character->getSize(), 
+	//return quadsCollision(character->getPosition(), character->getSize(), characterToCollide->getPosition(), characterToCollide->getSize());
+	bool res = quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
+	if (static_cast<Player*>(character) && res)
+		moveDamaged(character);
+	return res;
 }
 
 bool ColisionHelper::characterMoveUp(const Character* characterToCollide, Character* character) const {
-	return quadsCollision(character->getPosition(), character->getSize(),
+	//return quadsCollision(character->getPosition(), character->getSize(),	characterToCollide->getPosition(), characterToCollide->getSize());
+	bool res = quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
+	if (static_cast<Player*>(character) && res)
+		moveDamaged(character);
+	return res;
 }
 
 bool ColisionHelper::characterMoveDown(const Character* characterToCollide, Character* character) const {
-
-
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
 
 	bool res = 	quadsCollision(character->getPosition(), character->getSize(), 
 		characterToCollide->getPosition(), characterToCollide->getSize());
-	if (res) {
-		character->setPosition(glm::ivec2(pos.x, characterToCollide->getPosition().y - size.y));
-		return true;
-	}
-	return false;
+	if (static_cast<Player*>(character) && res) 
+		moveDamaged(character);
+	return res;
 }
 
 
@@ -175,7 +183,7 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 		//Move character to player
 		glm::ivec2 dir = playerPos - enemyPos;
 		enemy->setPosition(enemyPos + dir / SWALLOW_VELOCITY_FACTOR);
-		if (quadsCollision(playerPos,player->getSize(), enemyPos, enemy->getPosition()))
+		if (quadsCollision(playerPos,player->getSize(), enemy->getPosition(), enemy->getSize()))
 			return true;
 	}
 	else return false;
@@ -221,8 +229,21 @@ bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2
 
 	//http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 
+	//if q1 = q2 they will not collide -> useful as we dont want characters to collide with themselves
 	return ((q1x1 < q2x2 && q1x2 >=q2x1 && q1y1 < q2y1 && q1y2 > q2y1) || 
 		(q2x1 < q1x2 && q2x2 > q1x1 && q2y1 < q1y1 && q2y2 > q1y1));
+}
+
+
+void ColisionHelper::moveDamaged(Character* character) const {
+	glm::ivec2 pos = character->getPosition();
+
+	//IMPORTANT: If there is something where character is moved this will cause a bug!!
+	if (character->isLeftDirection()) //coming from the right
+		character->setPosition(glm::ivec2(pos.x + DAMAGED_DISTANCE, pos.y));
+	else //coming from the left
+		character->setPosition(glm::ivec2(pos.x - DAMAGED_DISTANCE, pos.y));
+	character->justDamaged();
 }
 
 int ColisionHelper::distanceBetweenPositions(const glm::ivec2 pos1, const glm::ivec2 pos2) const{

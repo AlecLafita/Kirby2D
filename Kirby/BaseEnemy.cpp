@@ -2,6 +2,7 @@
 #include "Scene.h"
 
 BaseEnemy::BaseEnemy(){
+	dir = glm::ivec2(0, 0);
 }
 
 
@@ -21,7 +22,6 @@ void BaseEnemy::update(int deltaTime){
 		if (isSwallable) {
 			if (mScene->playerCanSwallow(this))
 				isDead = true;
-				//return;
 		}
 		Character::update(deltaTime);
 		//TODO: Implement IA Here!
@@ -29,6 +29,6 @@ void BaseEnemy::update(int deltaTime){
 }
 
 bool BaseEnemy::isInFrustrum(){
-
-	return true;
+	int cameraLeft = mScene->getCameraLeftPosition();
+	return ((posCharacter.x + CHARACTER_SIZE_X)>cameraLeft && posCharacter.x<(cameraLeft + SCREEN_WIDTH-1));
 }

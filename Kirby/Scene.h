@@ -35,6 +35,8 @@ public:
 	bool collisionMoveUp(Character* character) const;
 	bool playerCanSwallow(BaseEnemy* enemy) ;
 
+	int getCameraLeftPosition() const { return cameraLeftXposition; }
+
 private:
 	void initShaders();
 
@@ -50,6 +52,8 @@ private:
 	set<PinxoEnemy*> mPinxoEnemies;
 	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
+
+	int cameraLeftXposition;
 };
 
 

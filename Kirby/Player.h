@@ -13,10 +13,24 @@ public:
 	void init(ShaderProgram &shaderProgram, Scene* scene);
 	void update(int deltaTime);
 
-	bool isSwalling() const;
+	bool isSwalling() const { return bAttacking; }
+
 
 private:
 	bool bHoving;
 	int nJumps;
+
+	int mNumEatStandRight, mNumEatStandLeft;
+	int mNumEatMoveRight, mNumEatMoveLeft;
+	int mFlyRight, mFlyLeft;
+
+	//Constants
+	int START_ROW_EAT_STAND_RIGHT;
+	int START_ROW_EAT_STAND_LEFT;
+	int START_ROW_EAT_MOVE_RIGHT;
+	int START_ROW_EAT_MOVE_LEFT;
+	int START_ROW_FLY_RIGHT;
+	int START_ROW_FLY_LEFT;
+
 };
 

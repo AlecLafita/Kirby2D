@@ -62,12 +62,15 @@ void Scene::init()
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
+
+	cameraLeftXposition = 0;
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		pinxoEnemy->update(deltaTime);
 	}
@@ -85,12 +88,13 @@ void Scene::update(int deltaTime)
 
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
-	if (playerPos.x  < float(SCREEN_WIDTH - 1)/ 2) //left of the screen limit
-		projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	if (playerPos.x  < float(SCREEN_WIDTH - 1) / 2) //left of the screen limit
+		cameraLeftXposition = 0;
 	else if (playerPos.x >(map->getMapWidth() - float(SCREEN_WIDTH - 1) / 2)) //right of the screen limit
-		projection = glm::ortho(float(map->getMapWidth() - SCREEN_WIDTH - 1), float(map->getMapWidth()), float(SCREEN_HEIGHT - 1), 0.f);
+		cameraLeftXposition = map->getMapWidth() - SCREEN_WIDTH - 1;
 	else //normal movement following the player
-		projection = glm::ortho(playerPos.x - float(SCREEN_WIDTH - 1) / 2, playerPos.x + float(SCREEN_WIDTH - 1) / 2, float(SCREEN_HEIGHT - 1), 0.f);
+		cameraLeftXposition = playerPos.x - (SCREEN_WIDTH - 1) / 2;
+	projection = glm::ortho(float(cameraLeftXposition), float(cameraLeftXposition + SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 }
 
 void Scene::render() {
@@ -170,7 +174,7 @@ bool Scene::collisionMoveLeft(Character* character) const {
 
 bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
-	return mapCollision;
+
 	//Maybe not return bool, if jumping on enemy kills it	
 	bool enemyCollision = false;
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {

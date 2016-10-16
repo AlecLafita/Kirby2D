@@ -32,6 +32,9 @@ private:
 	//Check if two quads intersect, pos is the left-top vertex
 	bool quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const;
 	
+	//Move character to some position if gets daamged (collision occurs)
+	void moveDamaged(Character* character) const;
+
 	/*
 	//The four direction collision can be generalized if rotated ->e.g. generalize it as right collision
 	bool generalColision(int right_char, int top_char, int bottom_char, 

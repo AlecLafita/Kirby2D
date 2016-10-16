@@ -16,8 +16,17 @@
 //Character Movement
 #define MOVEMENT_DEFAULT 2
 
+//Kirby constants
+#define DAMAGED_DISTANCE 40 //How far will Kirby move when damaged
+#define SWALLOW_DISTANCE 50 //How far can Kirby swallow
+#define SWALLOW_VELOCITY_FACTOR 20 //Factor of enemies being swallowed: the smaller, the faster
+
 //Jump angles
 #define ANGLE_GROUND 180
+
+//Camera
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 256
 
 
 #endif //KIRBY_CONSTANTS_H

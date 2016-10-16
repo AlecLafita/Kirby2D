@@ -225,6 +225,6 @@ void Scene::stopSound() {
 }
 
 //GUI
-void Scene::substractEnergy() {
-	mGUI->substractEnergy();
+void Scene::setPlayerEnergy(int energy) {
+	mGUI->setPlayerEnergy(energy);
 }

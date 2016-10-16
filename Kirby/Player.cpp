@@ -116,8 +116,15 @@ void Player::computeNextMove() {
 
 void Player::justDamaged() {
 	if (framesDamaged == 0) {
-		energy--;
-		mScene->substractEnergy();
+        if(energy == 0){
+
+            mScene->stopMusic();
+            mScene->playSound("sounds/death.wav");
+        } else if(energy > 0){
+
+            energy--;
+        }
+        mScene->setPlayerEnergy(energy);
 	}
 	Character::justDamaged();
 }

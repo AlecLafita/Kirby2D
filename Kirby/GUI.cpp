@@ -71,8 +71,8 @@ void GUI::render(){
 
 }
 
-void GUI::substractEnergy() {
-	energyAct--;
+void GUI::setPlayerEnergy(int energy) {
+		energyAct = energy;
 }
 
 

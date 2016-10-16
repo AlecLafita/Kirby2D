@@ -17,10 +17,8 @@ public:
 	void addScore(int scoreToAdd){ scoreAct += scoreToAdd; }
 	void changeHability(std::string hab) { habilityAct = hab; }
 
-	void addEnergy() {}
-	void substractEnergy();
-	void addLife() {}
-	void substractLife() {}
+	void setPlayerEnergy(int energy);
+	void setLifes(int lifes){}; //TODO: Set lifes
 
 private:
 	void initShaders();

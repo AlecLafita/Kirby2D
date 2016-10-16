@@ -42,13 +42,20 @@ public:
 	bool playerCanSwallow(BaseEnemy* enemy) ;
 
 	//GUI functions
-	void substractEnergy();
-
+	void setPlayerEnergy(int energy);
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 
 	//Sound functions
 	void playSound(string soundFilePath);
 	void stopSound();
+    void playMusic(string musicPath){
+
+        mSoundHelper->playMusic(musicPath);
+    };
+	void stopMusic(){
+
+        mSoundHelper->stopMusic();
+    };
 
 private:
 	void initShaders();

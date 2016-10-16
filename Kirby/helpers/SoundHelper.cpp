@@ -35,7 +35,7 @@ void SoundHelper::playMusic(string pathFile){
         return;
     }
     musicPlayer.setLoop(true);
-    musicPlayer.setVolume(10.f);
+    musicPlayer.setVolume(25.f);
     musicPlayer.play();
 }
 

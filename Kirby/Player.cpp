@@ -42,7 +42,7 @@ void Player::computeNextMove() {
 		else if (sprite->animation() == STAND_RIGHT)
 			sprite->changeAnimation(ATTACK_RIGHT);
 	} else {
-        mScene->stopSound();
+//        mScene->stopSound(); //TODO: FInd a way to stop concrete sounds
 		bAttacking = false;
 		if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
@@ -116,13 +116,15 @@ void Player::computeNextMove() {
 
 void Player::justDamaged() {
 	if (framesDamaged == 0) {
+        if(energy > 0){
+
+            energy--;
+        }
         if(energy == 0){
 
             mScene->stopMusic();
             mScene->playSound("sounds/death.wav");
-        } else if(energy > 0){
-
-            energy--;
+            mScene->resetScene();
         }
         mScene->setPlayerEnergy(energy);
 	}

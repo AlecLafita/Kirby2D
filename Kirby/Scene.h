@@ -30,6 +30,11 @@ public:
 	void update(int deltaTime);
 	void render();
 
+    void resetScene(){
+
+        //TODO.
+    };
+
 	//Collision functions
 	bool collisionMoveRight(Character* character) const;
 	bool collisionMoveLeft(Character* character) const;

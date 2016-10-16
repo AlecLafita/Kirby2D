@@ -20,6 +20,7 @@ public:
     void pauseMusic();
 
     void playSound(string pathFile); //Not implementing stop, sounds should be short.
+    void stopSound();
 
 private:
 

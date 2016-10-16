@@ -31,13 +31,18 @@ void Player::update(int deltaTime){
 void Player::computeNextMove() {
 
 	if (Game::instance().getKey('a')) { //attack (swallow)
-		bAttacking = true;
-		if (sprite->animation() == STAND_LEFT)
+        if(!bAttacking){
+
+            mScene->playSound("sounds/vacuuming.wav");
+            //TODO: Look for the status of the sound on else. OR look for maximum vacuum time.
+        }
+        bAttacking = true;
+        if (sprite->animation() == STAND_LEFT)
 			sprite->changeAnimation(ATTACK_LEFT);
 		else if (sprite->animation() == STAND_RIGHT)
 			sprite->changeAnimation(ATTACK_RIGHT);
-	}
-	else {
+	} else {
+        mScene->stopSound();
 		bAttacking = false;
 		if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);

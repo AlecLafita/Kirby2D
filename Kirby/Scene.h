@@ -48,6 +48,7 @@ public:
 
 	//Sound functions
 	void playSound(string soundFilePath);
+	void stopSound();
 
 private:
 	void initShaders();

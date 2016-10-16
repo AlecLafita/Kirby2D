@@ -65,3 +65,8 @@ void SoundHelper::playSound(string pathToFile){
     soundPlayer.setBuffer(soundBuffer);
     soundPlayer.play();
 }
+
+void SoundHelper::stopSound(){
+    soundPlayer.stop();
+}
+

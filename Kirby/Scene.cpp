@@ -213,9 +213,15 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
 }
 
 
+// Sound!
 void Scene::playSound(string soundFilePath) {
 
     mSoundHelper->playSound(soundFilePath);
+}
+
+void Scene::stopSound() {
+
+    mSoundHelper->stopSound();
 }
 
 //GUI

@@ -10,6 +10,7 @@
 #include "ProjectileObject.h"
 #include "ColisionHelper.h"
 #include "Constants.h"
+#include "GUI.h"
 
 #include <set>
 
@@ -52,6 +53,7 @@ private:
 	set<PinxoEnemy*> mPinxoEnemies;
 	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
+	GUI* mGUI;
 
 	int cameraLeftXposition;
 };

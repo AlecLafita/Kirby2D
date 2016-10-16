@@ -26,7 +26,9 @@
 
 //Camera
 #define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 256
+#define SCREEN_HEIGHT 300
 
+//GUI
+#define GUI_HEIGHT 60
 
 #endif //KIRBY_CONSTANTS_H

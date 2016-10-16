@@ -64,6 +64,9 @@ void Scene::init()
 	currentTime = 0.0f;
 
 	cameraLeftXposition = 0;
+
+	mGUI = new GUI();
+	mGUI->init();
 }
 
 void Scene::update(int deltaTime)
@@ -95,6 +98,9 @@ void Scene::update(int deltaTime)
 	else //normal movement following the player
 		cameraLeftXposition = playerPos.x - (SCREEN_WIDTH - 1) / 2;
 	projection = glm::ortho(float(cameraLeftXposition), float(cameraLeftXposition + SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+
+	//Update GUI poisition (relative to camera)
+	mGUI->update();
 }
 
 void Scene::render() {
@@ -115,6 +121,7 @@ void Scene::render() {
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->render();
 	}
+	mGUI->render();
 }
 
 void Scene::initShaders(){

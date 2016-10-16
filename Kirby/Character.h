@@ -39,7 +39,7 @@ public:
 	bool isCharacterDead() const{ return isDead; }
 	bool isLeftDirection() const { return (sprite->animation() % 2) == 0; } //is character loocking to left?
 
-	void justDamaged(); //trigered when character has been damaged
+	void justDamaged(){} //trigered when character has been damaged
 
 
 protected:

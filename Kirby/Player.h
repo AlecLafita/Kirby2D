@@ -3,7 +3,6 @@
 class Player : public Character
 {
 
-#define MAX_JUMPS 3
 
 public:
 	Player();
@@ -14,11 +13,14 @@ public:
 	void update(int deltaTime);
 
 	bool isSwalling() const { return bAttacking; }
+	void justDamaged(); //trigered when character has been damaged
 
 
 private:
 	bool bHoving;
 	int nJumps;
+
+	int energy, lifes;
 
 	int mNumEatStandRight, mNumEatStandLeft;
 	int mNumEatMoveRight, mNumEatMoveLeft;

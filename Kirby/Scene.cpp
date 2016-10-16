@@ -5,10 +5,6 @@
 #include "Game.h"
 #include <GL/glut.h>
 
-#define INIT_PLAYER_X_TILES 2
-#define INIT_PLAYER_Y_TILES 2
-
-
 Scene::Scene()
 {
 	map = NULL;
@@ -99,8 +95,6 @@ void Scene::update(int deltaTime)
 		cameraLeftXposition = playerPos.x - (SCREEN_WIDTH - 1) / 2;
 	projection = glm::ortho(float(cameraLeftXposition), float(cameraLeftXposition + SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
-	//Update GUI poisition (relative to camera)
-	mGUI->update();
 }
 
 void Scene::render() {
@@ -165,7 +159,6 @@ bool Scene::collisionMoveRight(Character* character) const {
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		enemyCollision = enemyCollision || mColisionHelper->characterMoveRight(pinxoEnemy, character);
 	}
-	//if(enemyCollision) player->damaged();
 	return mapCollision || enemyCollision;
 }
 
@@ -198,6 +191,23 @@ bool Scene::collisionMoveUp(Character* character) const {
 	return mapCollision || enemyCollision;
 }
 
+bool Scene::collisionMoveRightOnlyMap(Character* character) const {
+	return mColisionHelper->mapMoveRight(map, character);
+}
+
+bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
+	return mColisionHelper->mapMoveLeft(map, character);
+}
+
 bool Scene::playerCanSwallow(BaseEnemy* enemy) {
-	return  mColisionHelper->playerSwallowCharacter(player, enemy);
+	bool justSwallow =  mColisionHelper->playerSwallowCharacter(player, enemy);
+	if (justSwallow) {
+
+	}
+	return justSwallow;
+}
+
+//GUI
+void Scene::substractEnergy() {
+	mGUI->substractEnergy();
 }

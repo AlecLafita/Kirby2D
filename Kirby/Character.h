@@ -4,10 +4,6 @@
 #include "Sprite.h"
 #include "Constants.h"
 
-#define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 70
-#define FALL_STEP 4
-
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
@@ -39,7 +35,7 @@ public:
 	bool isCharacterDead() const{ return isDead; }
 	bool isLeftDirection() const { return (sprite->animation() % 2) == 0; } //is character loocking to left?
 
-	void justDamaged(){} //trigered when character has been damaged
+	void justDamaged(); //trigered when character has been damaged
 
 
 protected:
@@ -57,6 +53,8 @@ protected:
     int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
 	bool isSwallable; //indicates if Kirby can swallow this character -> if is false, colliding with this enemy will damage Kirby
 	bool isDead;//Ready to be deleted
+
+	int framesDamaged; //Frames needed for the character to sopt being damaged(can not get more damage until it's 0)
 
     // Constants
     int START_ROW_STAND_RIGHT;

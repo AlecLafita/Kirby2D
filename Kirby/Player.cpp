@@ -15,6 +15,8 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	Character::init(shaderProgram,scene);
 	bHoving = false;
 	nJumps = 0;
+	energy = 5;
+	lifes = 3;
 	isSwallable = false; //Kirby can't swallow itself (this may not be necesary for the game logic)
 
 }
@@ -111,8 +113,14 @@ void Player::computeNextMove() {
 		startY = posCharacter.y;
 		//sprite->changeAnimation(HOVING); TODO
 	}
+}
 
-
+void Player::justDamaged() {
+	if (framesDamaged == 0) {
+		energy--;
+		mScene->substractEnergy();
+	}
+	Character::justDamaged();
 }
 
 Player::~Player()

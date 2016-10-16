@@ -26,22 +26,25 @@ void GUI::init() {
 	
 
 	//text 
-	if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
-		//if(!text.init("fonts/OpenSans-Bold.ttf"))
-		//if(!text.init("fonts/DroidSerif.ttf"))
+	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
+	if (!habilityText.init("fonts/OpenSans-Bold.ttf"))
+		//if(!habilityText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 	habilityAct = "Normal";
 
-	if (!scoreText.init("fonts/OpenSans-Regular.ttf"))
-		//if(!text.init("fonts/OpenSans-Bold.ttf"))
-		//if(!text.init("fonts/DroidSerif.ttf"))
+	//if (!scoreText.init("fonts/OpenSans-Regular.ttf"))
+		if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
+		//if(!scoreText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
+		scoreAct = 0;
 
+	//if (!energyText.init("fonts/OpenSans-Regular.ttf"))
+	if (!energyText.init("fonts/OpenSans-Bold.ttf"))
+		//if(!energyText.init("fonts/DroidSerif.ttf"))
+		cout << "Could not load font!!!" << endl;
+	energyAct = 5;
 }
 
-void GUI::update() {
-
-}
 
 void GUI::render(){
 	texProgram.use();
@@ -60,10 +63,19 @@ void GUI::render(){
 	habilityText.getProgram().setUniformMatrix4f("projection", projection);
 	habilityText.getProgram().setUniformMatrix4f("modelview", modelview);
 
-	habilityText.render("Hability: " + habilityAct, glm::vec2(0, SCREEN_HEIGHT - GUI_HEIGHT+16), 16, glm::vec4(0, 0, 0, 1));
+	habilityText.render("Hability: " + habilityAct, glm::vec2(0, SCREEN_HEIGHT - GUI_HEIGHT/2 + HABILITY_SIZE/2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
 
+	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(SCREEN_WIDTH/3, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
+
+	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2*SCREEN_WIDTH / 3, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
 
 }
+
+void GUI::substractEnergy() {
+	energyAct--;
+}
+
+
 void GUI::initShaders(){
 	Shader vShader, fShader;
 

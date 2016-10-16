@@ -19,6 +19,7 @@ public:
 	bool mapMoveDown(const TileMap* tMap, Character* character) const;
 	bool mapMoveUp(const TileMap* tMap, Character* character) const;
 
+	//They are all the same!
 	bool characterMoveRight(const Character* characterToCollide, Character* character) const;
 	bool characterMoveLeft(const Character* characterToCollide, Character* character) const;
 	bool characterMoveUp(const Character* characterToCollide, Character* character) const;
@@ -32,9 +33,6 @@ private:
 	//Check if two quads intersect, pos is the left-top vertex
 	bool quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const;
 	
-	//Move character to some position if gets daamged (collision occurs)
-	void moveDamaged(Character* character) const;
-
 	/*
 	//The four direction collision can be generalized if rotated ->e.g. generalize it as right collision
 	bool generalColision(int right_char, int top_char, int bottom_char, 

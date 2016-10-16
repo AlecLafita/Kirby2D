@@ -12,8 +12,15 @@ public:
 	~GUI() {}
 
 	void init();
-	void update();
 	void render();
+
+	void addScore(int scoreToAdd){ scoreAct += scoreToAdd; }
+	void changeHability(std::string hab) { habilityAct = hab; }
+
+	void addEnergy() {}
+	void substractEnergy();
+	void addLife() {}
+	void substractLife() {}
 
 private:
 	void initShaders();
@@ -26,14 +33,17 @@ private:
 	Texture mainTexture;
 
 	TexturedQuad* lifesQuad;
-	Texture lifes;
+	Texture lifesTexture;
 
 	TexturedQuad* energyQuad;
-	Texture energy;
+	Texture energyTexture;
+	Text energyText;
+	int energyAct;
 
 	Text habilityText;
 	std::string habilityAct;
 
 	Text scoreText;
+	unsigned int scoreAct;
 };
 

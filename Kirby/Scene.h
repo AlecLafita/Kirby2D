@@ -34,7 +34,14 @@ public:
 	bool collisionMoveLeft(Character* character) const;
 	bool collisionMoveDown(Character* character) const;
 	bool collisionMoveUp(Character* character) const;
+
+	bool collisionMoveRightOnlyMap(Character* character) const;
+	bool collisionMoveLeftOnlyMap(Character* character) const;
+
 	bool playerCanSwallow(BaseEnemy* enemy) ;
+
+	//GUI functions
+	void substractEnergy();
 
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 

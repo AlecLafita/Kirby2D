@@ -4,15 +4,11 @@
 #include "Sprite.h"
 #include "Constants.h"
 
-#define JUMP_ANGLE_STEP 4
-#define JUMP_HEIGHT 70
-#define FALL_STEP 4
-
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
 
-enum BasicPlayerAnims
+enum BasicPlayerAnims //even -> left, odd ->right
 {
 	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, ATTACK_LEFT, ATTACK_RIGHT
 };
@@ -36,10 +32,15 @@ public:
 	glm::ivec2 getPosition() const { return posCharacter; }
 	glm::ivec2 getSize() const { return glm::ivec2(CHARACTER_SIZE_X, CHARACTER_SIZE_Y); }
 	void setPosition(glm::ivec2 pos) { posCharacter = pos; }
+	bool isCharacterDead() const{ return isDead; }
+	bool isLeftDirection() const { return (sprite->animation() % 2) == 0; } //is character loocking to left?
+
+	void justDamaged(); //trigered when character has been damaged
+
 
 protected:
 
-	bool bJumping;
+	bool bJumping, bAttacking;
 	glm::ivec2 posCharacter;
 	int jumpAngle, startY;
 	string mPathToSpritesheet;
@@ -50,7 +51,10 @@ protected:
     int mNumStandLeft, mNumStandRight; // Number of stand left/right sprites
     int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites
     int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
-	bool isSwallable; //indicates if Kirby can swallow this cahracter
+	bool isSwallable; //indicates if Kirby can swallow this character -> if is false, colliding with this enemy will damage Kirby
+	bool isDead;//Ready to be deleted
+
+	int framesDamaged; //Frames needed for the character to sopt being damaged(can not get more damage until it's 0)
 
     // Constants
     int START_ROW_STAND_RIGHT;

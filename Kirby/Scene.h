@@ -11,6 +11,9 @@
 #include "ProjectileObject.h"
 #include "ColisionHelper.h"
 #include "Constants.h"
+#include "GUI.h"
+
+#include <set>
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -32,7 +35,16 @@ public:
 	bool collisionMoveLeft(Character* character) const;
 	bool collisionMoveDown(Character* character) const;
 	bool collisionMoveUp(Character* character) const;
-	bool playerCanSwallow(BaseEnemy* enemy) const;
+
+	bool collisionMoveRightOnlyMap(Character* character) const;
+	bool collisionMoveLeftOnlyMap(Character* character) const;
+
+	bool playerCanSwallow(BaseEnemy* enemy) ;
+
+	//GUI functions
+	void substractEnergy();
+
+	int getCameraLeftPosition() const { return cameraLeftXposition; }
 
 	//Sound functions
 	void playSound(string soundFilePath);
@@ -49,10 +61,13 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
-	PinxoEnemy *mPinxoEnemy;
-	ProjectileObject *mProjectileObject;
+	set<PinxoEnemy*> mPinxoEnemies;
+	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
 	SoundHelper* mSoundHelper;
+	GUI* mGUI;
+
+	int cameraLeftXposition;
 };
 
 

@@ -5,10 +5,6 @@
 #include "Game.h"
 #include <GL/glut.h>
 
-#define INIT_PLAYER_X_TILES 2
-#define INIT_PLAYER_Y_TILES 2
-
-
 Scene::Scene()
 {
 	map = NULL;
@@ -51,38 +47,59 @@ void Scene::init()
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 
 	//ENEMY
-	mPinxoEnemy = new PinxoEnemy();
+	PinxoEnemy* mPinxoEnemy = new PinxoEnemy();
     mPinxoEnemy->init(texProgram,this);
     mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
-
+	mPinxoEnemies.insert(mPinxoEnemy);
 	//ITEM
-	mProjectileObject = new ProjectileObject();
+	ProjectileObject* mProjectileObject = new ProjectileObject();
 	mProjectileObject->setPathToSpriteSheet("images/items.png");
 	mProjectileObject->setTexturePosition(glm::fvec2(0.25f, 0.25f));
-	mProjectileObject->init(texProgram);
+	mProjectileObject->init(texProgram, this);
 	mProjectileObject->setPosition(glm::vec2(10 * map->getTileSize(), 5 * map->getTileSize()));
 	mProjectileObject->setDirection(glm::fvec2(1.0f,0.0f));
-	mProjectileObject->setTileMap(map);
 
+	mProjectileObjects.insert(mProjectileObject);
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
+
+	cameraLeftXposition = 0;
+
+	mGUI = new GUI();
+	mGUI->init();
 }
 
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
-    mPinxoEnemy->update(deltaTime);
-	mProjectileObject->update(deltaTime);
+
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		pinxoEnemy->update(deltaTime);
+	}
+	for (ProjectileObject* projectileObject : mProjectileObjects){
+		projectileObject->update(deltaTime);
+	}
+
+	//Delete dead enemies
+	for (set<PinxoEnemy*>::iterator it = mPinxoEnemies.begin(); it != mPinxoEnemies.end(); ) {
+		if ((*it)->isCharacterDead()) {
+			mPinxoEnemies.erase(it++);
+		}
+		else ++it;
+	}
+
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
-	if (playerPos.x  < float(SCREEN_WIDTH - 1)/ 2) //left of the screen limit
-		projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+	if (playerPos.x  < float(SCREEN_WIDTH - 1) / 2) //left of the screen limit
+		cameraLeftXposition = 0;
 	else if (playerPos.x >(map->getMapWidth() - float(SCREEN_WIDTH - 1) / 2)) //right of the screen limit
-		projection = glm::ortho(float(map->getMapWidth() - SCREEN_WIDTH - 1), float(map->getMapWidth()), float(SCREEN_HEIGHT - 1), 0.f);
+		cameraLeftXposition = map->getMapWidth() - SCREEN_WIDTH - 1;
 	else //normal movement following the player
-		projection = glm::ortho(playerPos.x - float(SCREEN_WIDTH - 1) / 2, playerPos.x + float(SCREEN_WIDTH - 1) / 2, float(SCREEN_HEIGHT - 1), 0.f);
+		cameraLeftXposition = playerPos.x - (SCREEN_WIDTH - 1) / 2;
+	projection = glm::ortho(float(cameraLeftXposition), float(cameraLeftXposition + SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
+
 }
 
 void Scene::render() {
@@ -97,8 +114,13 @@ void Scene::render() {
 	map->render();
     embellishmentMap->render();
 	player->render();
-    mPinxoEnemy->render();
-	mProjectileObject->render();
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		pinxoEnemy->render();
+	}
+	for (ProjectileObject* projectileObject : mProjectileObjects){
+		projectileObject->render();
+	}
+	mGUI->render();
 }
 
 void Scene::initShaders(){
@@ -135,47 +157,68 @@ void Scene::initShaders(){
 	//First check collision with tilemap
 	//Then check collision with other characters
 
-//size hauria de ser el tamany de qui mira el collide(el player) no del tile map!! 
 bool Scene::collisionMoveRight(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveRight(map, character);
-	//Iterate through all enemies
-	bool enemyCollision = mColisionHelper->characterMoveRight(mPinxoEnemy, character);
 	
+	bool enemyCollision = false;
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		enemyCollision = enemyCollision || mColisionHelper->characterMoveRight(pinxoEnemy, character);
+	}
 	return mapCollision || enemyCollision;
 }
 
 bool Scene::collisionMoveLeft(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveLeft(map, character);
-	bool enemyCollision = mColisionHelper->characterMoveLeft(mPinxoEnemy, character);
 
+	bool enemyCollision = false;
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		enemyCollision = enemyCollision || mColisionHelper->characterMoveLeft(pinxoEnemy, character);
+	}
 	return mapCollision || enemyCollision;
 }
 
 bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
-	
+
 	//Maybe not return bool, if jumping on enemy kills it	
-	bool enemyCollision = mColisionHelper->characterMoveDown(mPinxoEnemy, character);
-	
+	bool enemyCollision = false;
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		enemyCollision = enemyCollision || mColisionHelper->characterMoveDown(pinxoEnemy, character);
+	}
 	return mapCollision || enemyCollision;
 }
 bool Scene::collisionMoveUp(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveUp(map, character);
-	bool enemyCollision = mColisionHelper->characterMoveUp(mPinxoEnemy, character);
-
+	bool enemyCollision = false;
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		enemyCollision = enemyCollision || mColisionHelper->characterMoveUp(pinxoEnemy, character);
+	}
 	return mapCollision || enemyCollision;
 }
 
-bool Scene::playerCanSwallow(BaseEnemy* enemy) const {
-	bool canSwallow =  mColisionHelper->playerSwallowCharacter(player, enemy);
-	if (canSwallow) {
-		//if enemy collides player, delete enemy -> check if this player can copy it's hability
+bool Scene::collisionMoveRightOnlyMap(Character* character) const {
+	return mColisionHelper->mapMoveRight(map, character);
+}
+
+bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
+	return mColisionHelper->mapMoveLeft(map, character);
+}
+
+bool Scene::playerCanSwallow(BaseEnemy* enemy) {
+	bool justSwallow =  mColisionHelper->playerSwallowCharacter(player, enemy);
+	if (justSwallow) {
+
 	}
-	return canSwallow;
+	return justSwallow;
 }
 
 
 void Scene::playSound(string soundFilePath) {
 
     mSoundHelper->playSound(soundFilePath);
+}
+
+//GUI
+void Scene::substractEnergy() {
+	mGUI->substractEnergy();
 }

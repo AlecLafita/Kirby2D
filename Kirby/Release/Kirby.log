@@ -1,0 +1,39 @@
+﻿Compilación iniciada a las 15/10/2016 23:56:20.
+     1>Proyecto "C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Kirby\Kirby.vcxproj" en el nodo 2 (Build destinos).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"..\..\..\libs\Simple OpenGL Image Library\src" /I..\..\..\libs\freeglut\include /I"..\..\..\libs\glew-1.13.0\include" /I..\..\..\libs\glm /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BaseEnemy.cpp BaseObject.cpp ColisionHelper.cpp Game.cpp main.cpp Character.cpp PinxoEnemy.cpp Player.cpp ProjectileObject.cpp Scene.cpp Shader.cpp ShaderProgram.cpp Sprite.cpp Texture.cpp TileMap.cpp
+         BaseEnemy.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\Sprite.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+         BaseObject.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\Sprite.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+         ColisionHelper.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\ColisionHelper.h(2): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+         Game.cpp
+     1>Game.cpp(1): fatal error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+         main.cpp
+     1>main.cpp(1): fatal error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+         Character.cpp
+     1>Character.cpp(3): fatal error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+         PinxoEnemy.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\Sprite.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+         Player.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\Sprite.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+         ProjectileObject.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\Sprite.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+         Scene.cpp
+     1>Scene.cpp(3): fatal error C1083: No se puede abrir el archivo incluir: 'glm/gtc/matrix_transform.hpp': No such file or directory
+         Shader.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\Shader.h(6): fatal error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+         ShaderProgram.cpp
+     1>ShaderProgram.cpp(1): fatal error C1083: No se puede abrir el archivo incluir: 'glm/gtc/type_ptr.hpp': No such file or directory
+         Sprite.cpp
+     1>Sprite.cpp(1): fatal error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+         Texture.cpp
+     1>Texture.cpp(1): fatal error C1083: No se puede abrir el archivo incluir: 'SOIL.h': No such file or directory
+         TileMap.cpp
+     1>c:\users\alec\desktop\alec\vj\vj-labs\kirby\TileMap.h(5): fatal error C1083: No se puede abrir el archivo incluir: 'glm/glm.hpp': No such file or directory
+     1>Compilación del proyecto terminada "C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Kirby\Kirby.vcxproj" (Build destinos) -- ERROR.
+
+ERROR al compilar.
+
+Tiempo transcurrido 00:00:03.03

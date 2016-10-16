@@ -5,7 +5,8 @@ BaseObject::BaseObject() {
 	mNumberAnimations = 1;
 }
 
-void BaseObject::init(ShaderProgram &shaderProgram) {
+void BaseObject::init(ShaderProgram &shaderProgram, Scene* scene) {
+	mScene = scene;
 	spritesheet.loadFromFile(mPathToSpritesheet, TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(mNumberAnimations);
@@ -34,10 +35,6 @@ void BaseObject::render() {
 	sprite->render();
 }
 
-void BaseObject::setTileMap(TileMap *tileMap)
-{
-	map = tileMap;
-}
 
 void BaseObject::setPosition(const glm::vec2 &pos)
 {

@@ -3,6 +3,7 @@
 //
 
 #include "PinxoEnemy.h"
+#include "Scene.h"
 
 PinxoEnemy::PinxoEnemy(){
 
@@ -21,6 +22,8 @@ PinxoEnemy::PinxoEnemy(){
     START_ROW_STAND_LEFT = 0;
     START_ROW_MOVE_RIGHT = 0;
     START_ROW_MOVE_LEFT = 0;
+
+	dir = glm::ivec2(0,1);
 }
 
 PinxoEnemy::~PinxoEnemy(){
@@ -36,6 +39,19 @@ void PinxoEnemy::init(ShaderProgram &shaderProgram,Scene *scene){
 void PinxoEnemy::update(int deltaTime){
 
     if (isInFrustrum()){
+		posCharacter += dir;
+		if (dir.y < 0) { //Go top
+			if (mScene->collisionMoveUp(this)) {
+				posCharacter -= dir;
+				dir = -dir;
+			}
+		}
+		else { //Go botttom
+			if (mScene->collisionMoveDown(this)) {
+				posCharacter -= dir;
+				dir = -dir;
+			}
+		}
 
         BaseEnemy::update(deltaTime);
         //TODO: Implement IA Here!

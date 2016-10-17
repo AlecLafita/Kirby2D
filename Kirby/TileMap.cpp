@@ -37,7 +37,7 @@ void TileMap::render() const
 	glBindVertexArray(vao);
 	glEnableVertexAttribArray(posLocation);
 	glEnableVertexAttribArray(texCoordLocation);
-	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
+	glDrawArrays(GL_TRIANGLES, 0, 6 * nTiles); //mapSize.x * mapSize.y
 	glDisable(GL_TEXTURE_2D);
 }
 
@@ -106,7 +106,8 @@ bool TileMap::loadLevel(const string &levelFile)
 
 void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 {
-	int tile, nTiles = 0;
+	int tile = 0;
+	nTiles = 0;
 	glm::vec2 posTile, texCoordTile[2], halfTexel;
 	vector<float> vertices;
 	

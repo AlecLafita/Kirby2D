@@ -2,9 +2,8 @@
 // Created by quokka on 15/10/16.
 //
 
-#include <iostream>
+
 #include "SoundHelper.h"
-#include <SFML/Audio.hpp>
 
 using namespace std;
 

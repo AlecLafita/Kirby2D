@@ -3,9 +3,9 @@
 //
 
 #ifndef PROJECT_SOUNDHELPER_H
-#define PROJECT_SOUNDHELPER_H
+#define PROJECT_SOUNDHELPER_H 
 
-#include <SFML/Audio.hpp>
+#include<SFML/Audio.hpp>
 #include <iostream>
 using namespace std;
 

@@ -1,6 +1,9 @@
 *.sdf
 *.suo
 /*/Debug/*
+/*/Release/*/
+/*/Release/Kirby
+/*/Release/*.obj
 CMakeCache.txt
 CMakeFiles/
 Makefile

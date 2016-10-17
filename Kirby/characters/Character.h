@@ -1,8 +1,8 @@
 #ifndef _PLAYER_INCLUDE
 #define _PLAYER_INCLUDE
 
-#include "Sprite.h"
-#include "Constants.h"
+#include "../base/Sprite.h"
+#include "../base/Constants.h"
 
 
 // Player is basically a Sprite that represents the player. As such it has

@@ -4,7 +4,7 @@
 #include <vector>
 #include "TileMap.h"
 
-#include "Game.h" //For the defines
+#include "Game.h"
 
 using namespace std;
 

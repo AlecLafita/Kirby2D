@@ -3,13 +3,13 @@
 
 
 #include <glm/glm.hpp>
-#include "helpers/SoundHelper.h"
+#include "../helpers/SoundHelper.h"
 #include "ShaderProgram.h"
 #include "TileMap.h"
-#include "Player.h"
-#include "PinxoEnemy.h"
-#include "ProjectileObject.h"
-#include "ColisionHelper.h"
+#include "../characters/Player.h"
+#include "../characters/PinxoEnemy.h"
+#include "../objects/ProjectileObject.h"
+#include "../helpers/ColisionHelper.h"
 #include "Constants.h"
 #include "GUI.h"
 

@@ -3,7 +3,7 @@
 //
 
 #include "PinxoEnemy.h"
-#include "Scene.h"
+#include "../base/Scene.h"
 
 PinxoEnemy::PinxoEnemy(){
 

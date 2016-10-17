@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Sprite.h"
-#include "TileMap.h"
+#include "../base/Sprite.h"
+#include "../base/TileMap.h"
 
 class Scene;
 

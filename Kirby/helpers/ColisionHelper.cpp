@@ -1,9 +1,9 @@
 #include "ColisionHelper.h"
-#include "TileMap.h"
-#include "Player.h"
-#include "BaseEnemy.h"
+#include "../base/TileMap.h"
+#include "../characters/Player.h"
+#include "../characters/BaseEnemy.h"
 
-#include "Constants.h"
+#include "../base/Constants.h"
 
 #include <iostream>
 

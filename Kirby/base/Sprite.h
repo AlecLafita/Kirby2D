@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include "Texture.h"
 #include "ShaderProgram.h"
-#include "AnimKeyframes.h"
+#include "../AnimKeyframes.h"
 
 
 // This class is derived from code seen earlier in TexturedQuad but it is also

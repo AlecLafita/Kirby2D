@@ -1,6 +1,6 @@
 #include "Player.h"
 #include <GL/glut.h>
-#include "Game.h"
+#include "../base/Game.h"
 
 #include <iostream>
 using namespace std;

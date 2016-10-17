@@ -2,7 +2,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "Character.h"
-#include "Game.h"
+#include "../base/Game.h"
 
 
 Character::Character(){

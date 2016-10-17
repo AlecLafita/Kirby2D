@@ -2,9 +2,8 @@
 // Created by quokka on 15/10/16.
 //
 
-#include <iostream>
+
 #include "SoundHelper.h"
-#include <SFML/Audio.hpp>
 
 using namespace std;
 
@@ -13,7 +12,15 @@ using namespace std;
  * @return  New SoundHelper object.
  */
 SoundHelper::SoundHelper(){
+	//PROGAMERJARDCODER
+	soundBuffer = vector<sf::SoundBuffer>(3);
+	soundNamePosition["sounds/vacuuming.wav"] = 0;
+	soundNamePosition["sounds/jumping.wav"] = 1;
+	soundNamePosition["sounds/death.wav"] = 2;
 
+	for (auto x : soundNamePosition) {
+		initSound(x.first);
+	}
 }
 
 /**
@@ -52,19 +59,26 @@ void SoundHelper::stopMusic(){
  * Useful when pausing the game (?)
  */
 void SoundHelper::pauseMusic(){
-
+	
 }
 
 /**
  * Plays a sound.
  * @param pathToFile  Path to the file.
  */
-void SoundHelper::playSound(string pathToFile){
 
-    if(!soundBuffer.loadFromFile(pathToFile)){
-        return;
-    }
-    soundPlayer.setBuffer(soundBuffer);
+void SoundHelper::initSound(string pathToFile) {
+	int pos = soundNamePosition[pathToFile];
+
+	if (!soundBuffer[pos].loadFromFile(pathToFile)){ 
+		cout << "could not load " << pathToFile;
+	}
+
+}
+void SoundHelper::playSound(string pathToFile){
+	int pos = soundNamePosition[pathToFile];
+	cout << pos << endl;
+    soundPlayer.setBuffer(soundBuffer[pos]);
     soundPlayer.play();
 }
 

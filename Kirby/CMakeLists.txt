@@ -37,12 +37,12 @@ link_directories(${SFML_LIBRARY_DIRS})
 
 link_directories(${FREETYPE_LIBRARY_DIRS})
 
-add_executable(${appName} Player.h Player.cpp AnimKeyframes.h Sprite.h Sprite.cpp TileMap.h TileMap.cpp
-        Texture.h Texture.cpp Scene.h Scene.cpp Shader.h Shader.cpp ShaderProgram.h
-        ShaderProgram.cpp Game.h Game.cpp main.cpp BaseEnemy.h BaseEnemy.cpp Character.h Character.cpp
-        BaseObject.h BaseObject.cpp ProjectileObject.h ProjectileObject.cpp Constants.h PinxoEnemy.cpp
-        PinxoEnemy.h GUI.cpp GUI.h ColisionHelper.cpp ColisionHelper.h Text.cpp Text.h
-        TexturedQuad.cpp TexturedQuad.h helpers/SoundHelper.h helpers/SoundHelper.cpp)
+add_executable(${appName} characters/Player.h characters/Player.cpp AnimKeyframes.h base/Sprite.h base/Sprite.cpp base/TileMap.h base/TileMap.cpp
+        base/Texture.h base/Texture.cpp base/Scene.h base/Scene.cpp base/Shader.h base/Shader.cpp base/ShaderProgram.h
+        base/ShaderProgram.cpp base/Game.h base/Game.cpp main.cpp characters/BaseEnemy.h characters/BaseEnemy.cpp characters/Character.h characters/Character.cpp
+        objects/BaseObject.h objects/BaseObject.cpp objects/ProjectileObject.h objects/ProjectileObject.cpp base/Constants.h characters/PinxoEnemy.cpp
+        characters/PinxoEnemy.h base/GUI.cpp base/GUI.h helpers/ColisionHelper.cpp helpers/ColisionHelper.h base/Text.cpp base/Text.h
+        base/TexturedQuad.cpp base/TexturedQuad.h helpers/SoundHelper.h helpers/SoundHelper.cpp)
 
 target_link_libraries(${appName} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${SOIL_LIBRARIES} ${SFML_LIBRARIES} ${FREETYPE_LIBRARIES}) # ${GLM_LIBRARIES}
 

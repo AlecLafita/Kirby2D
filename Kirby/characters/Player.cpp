@@ -7,6 +7,7 @@ using namespace std;
 
 Player::Player()
 {
+	mSpriteRows = 10;
 	mNumberAnimations = 6;
 }
 

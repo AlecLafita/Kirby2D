@@ -42,7 +42,7 @@ void Player::computeNextMove() {
 		else if (sprite->animation() == STAND_RIGHT)
 			sprite->changeAnimation(ATTACK_RIGHT);
 	} else {
-//        mScene->stopSound(); //TODO: FInd a way to stop concrete sounds
+        //mScene->stopSound(); //TODO: FInd a way to stop concrete sounds
 		bAttacking = false;
 		if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);

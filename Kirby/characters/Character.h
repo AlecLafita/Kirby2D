@@ -37,6 +37,7 @@ public:
 
 	void justDamaged(); //trigered when character has been damaged
 
+	virtual void getType() {}
 
 protected:
 

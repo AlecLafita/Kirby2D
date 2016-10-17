@@ -11,6 +11,8 @@ public:
     void init(ShaderProgram &shaderProgram,Scene* scene);
     void update(int deltaTime);
 
+	void getType() {}
+
 protected:
 
 };

@@ -16,6 +16,7 @@ public:
 	bool isSwalling() const { return bAttacking; }
 	void justDamaged(); //trigered when character has been damaged
 
+	void getType() {}
 
 private:
 	bool bHoving;

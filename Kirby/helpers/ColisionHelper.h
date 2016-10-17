@@ -19,11 +19,8 @@ public:
 	bool mapMoveDown(const TileMap* tMap, Character* character) const;
 	bool mapMoveUp(const TileMap* tMap, Character* character) const;
 
-	//They are all the same!
-	bool characterMoveRight(const Character* characterToCollide, Character* character) const;
-	bool characterMoveLeft(const Character* characterToCollide, Character* character) const;
-	bool characterMoveUp(const Character* characterToCollide, Character* character) const;
-	bool characterMoveDown(const Character* characterToCollide, Character* character) const;
+	//The second parameter is the one checking collisions
+	bool characterCollidesCharacter(const Character* characterToCollide, Character* character) const;
 
 	//Can player swallow character?
 	bool playerSwallowCharacter( Player* player, BaseEnemy* enemy)const;

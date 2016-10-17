@@ -112,7 +112,7 @@ bool ColisionHelper::mapMoveUp(const TileMap* tMap, Character* character) const 
 }
 
 
-bool ColisionHelper::characterMoveRight(const Character* characterToCollide, Character* character) const {
+bool ColisionHelper::characterCollidesCharacter(const Character* characterToCollide, Character* character) const {
 	glm::ivec2 pos = character->getPosition();
 	glm::ivec2 size = character->getSize();
 	
@@ -131,51 +131,10 @@ bool ColisionHelper::characterMoveRight(const Character* characterToCollide, Cha
 	//return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 	bool res = quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
-	if (static_cast<Player*>(character) && res)
-		static_cast<Player*>(character)->justDamaged();
+	if (dynamic_cast<Player*>(character) && res)
+		dynamic_cast<Player*>(character)->justDamaged();
 	return res;
 }
-
-bool ColisionHelper::characterMoveLeft(const Character* characterToCollide, Character* character) const {
-	/*
-	int left_char = getLeftCollisionBox(character);
-	int top_char = getTopCollisionBox(character);
-	int bottom_char = getBottomCollisionBox(character);
-
-	int right_charToCollide = getRightCollisionBox(characterToCollide);
-	int top_charToCollide = getTopCollisionBox(characterToCollide);
-	int bottom_charToCollide = getBottomCollisionBox(characterToCollide);
-
-	return generalColision(right_charToCollide, top_charToCollide, bottom_charToCollide, left_char, top_char, bottom_char);*/
-
-	//return quadsCollision(character->getPosition(), character->getSize(), characterToCollide->getPosition(), characterToCollide->getSize());
-	bool res = quadsCollision(character->getPosition(), character->getSize(),
-		characterToCollide->getPosition(), characterToCollide->getSize());
-	if (static_cast<Player*>(character) && res)
-		static_cast<Player*>(character)->justDamaged();
-	return res;
-}
-
-bool ColisionHelper::characterMoveUp(const Character* characterToCollide, Character* character) const {
-	//return quadsCollision(character->getPosition(), character->getSize(),	characterToCollide->getPosition(), characterToCollide->getSize());
-	bool res = quadsCollision(character->getPosition(), character->getSize(),
-		characterToCollide->getPosition(), characterToCollide->getSize());
-	if (static_cast<Player*>(character) && res)
-		static_cast<Player*>(character)->justDamaged();
-	return res;
-}
-
-bool ColisionHelper::characterMoveDown(const Character* characterToCollide, Character* character) const {
-	glm::ivec2 pos = character->getPosition();
-	glm::ivec2 size = character->getSize();
-
-	bool res = 	quadsCollision(character->getPosition(), character->getSize(), 
-		characterToCollide->getPosition(), characterToCollide->getSize());
-	if (static_cast<Player*>(character) && res) 
-		static_cast<Player*>(character)->justDamaged();
-	return res;
-}
-
 
 bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
 	glm::ivec2 playerPos = player->getPosition();

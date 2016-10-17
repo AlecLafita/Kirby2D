@@ -9,7 +9,7 @@ Scene::Scene()
 {
 	map = NULL;
 	player = NULL;
-	mColisionHelper = NULL;
+	mColisionHelper = NULL;	
 }
 
 Scene::~Scene()
@@ -72,6 +72,7 @@ void Scene::init()
 
 void Scene::update(int deltaTime)
 {
+
 	currentTime += deltaTime;
 	player->update(deltaTime);
 
@@ -162,7 +163,7 @@ bool Scene::collisionMoveRight(Character* character) const {
 	
 	bool enemyCollision = false;
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterMoveRight(pinxoEnemy, character);
+		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
 }
@@ -172,7 +173,7 @@ bool Scene::collisionMoveLeft(Character* character) const {
 
 	bool enemyCollision = false;
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterMoveLeft(pinxoEnemy, character);
+		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
 }
@@ -183,7 +184,7 @@ bool Scene::collisionMoveDown(Character* character) const {
 	//Maybe not return bool, if jumping on enemy kills it	
 	bool enemyCollision = false;
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterMoveDown(pinxoEnemy, character);
+		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
 }
@@ -191,7 +192,7 @@ bool Scene::collisionMoveUp(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveUp(map, character);
 	bool enemyCollision = false;
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterMoveUp(pinxoEnemy, character);
+		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
 	}
 	return mapCollision || enemyCollision;
 }

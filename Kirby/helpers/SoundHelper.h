@@ -7,6 +7,9 @@
 
 #include<SFML/Audio.hpp>
 #include <iostream>
+
+#include <map>
+
 using namespace std;
 
 class SoundHelper {
@@ -19,12 +22,15 @@ public:
     void stopMusic();
     void pauseMusic();
 
+	void initSound(string pathToFile);//initilize an array of sound
     void playSound(string pathFile); //Not implementing stop, sounds should be short.
     void stopSound();
 
 private:
 
-    sf::SoundBuffer soundBuffer;
+    vector<sf::SoundBuffer> soundBuffer;
+	std::map<string, int> soundNamePosition;
+
     sf::Sound soundPlayer;
 
     sf::Music musicPlayer;

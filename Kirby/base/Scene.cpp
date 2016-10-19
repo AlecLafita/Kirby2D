@@ -30,9 +30,7 @@ void Scene::init()
 	initShaders();
 
 	mColisionHelper = new ColisionHelper();
-	mSoundHelper = new SoundHelper();
-
-	mSoundHelper->playMusic("sounds/song_green_greens.wav");
+	initSoundHelper();
 
 	spritesheetBg.loadFromFile("images/peppermint_palace.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	map = TileMap::createTileMap("levels/Cloudy_lvl.txt", glm::vec2(0, 0), texProgram);
@@ -215,15 +213,25 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
 
 
 // Sound!
-void Scene::playSound(string soundFilePath) {
 
-    mSoundHelper->playSound(soundFilePath);
+void Scene::initSoundHelper() {
+	mSoundHelper = new SoundHelper(NUM_OF_SOUNDS);
+	mSoundHelper->playMusic("sounds/song_green_greens.wav");
+	mSoundHelper->initSound(SOUND_JUMPING, "sounds/jumping.wav");
+	mSoundHelper->initSound(SOUND_VACUUMING, "sounds/vacuuming.wav");
+	mSoundHelper->initSound(SOUND_DEATH, "sounds/death.wav");
 }
 
-void Scene::stopSound() {
+/*
+void Scene::playSound(int soundIndex) {
 
-    mSoundHelper->stopSound();
+	mSoundHelper->playSound(soundIndex);
 }
+
+void Scene::stopSound(int soundIndex) {
+
+	mSoundHelper->stopSound(soundIndex);
+}*/
 
 //GUI
 void Scene::setPlayerEnergy(int energy) {

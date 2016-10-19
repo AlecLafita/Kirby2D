@@ -27,6 +27,7 @@ public:
 	~Scene();
 
 	void init();
+	void initSoundHelper();
 	void update(int deltaTime);
 	void render();
 
@@ -51,16 +52,18 @@ public:
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 
 	//Sound functions
-	void playSound(string soundFilePath);
-	void stopSound();
-    void playMusic(string musicPath){
-
-        mSoundHelper->playMusic(musicPath);
-    };
+	void playSound(int soundIndex) {
+		mSoundHelper->playSound(soundIndex);
+	}
+	void stopSound(int soundIndex) {
+		mSoundHelper->stopSound(soundIndex);
+	}
+	void playMusic(string pathToFile){
+		mSoundHelper->playMusic(pathToFile);
+    }
 	void stopMusic(){
-
         mSoundHelper->stopMusic();
-    };
+    }
 
 private:
 	void initShaders();

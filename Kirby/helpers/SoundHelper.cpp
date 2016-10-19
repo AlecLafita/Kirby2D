@@ -11,16 +11,9 @@ using namespace std;
  * Constructor.
  * @return  New SoundHelper object.
  */
-SoundHelper::SoundHelper(){
-	//PROGAMERJARDCODER
-	soundBuffer = vector<sf::SoundBuffer>(3);
-	soundNamePosition["sounds/vacuuming.wav"] = 0;
-	soundNamePosition["sounds/jumping.wav"] = 1;
-	soundNamePosition["sounds/death.wav"] = 2;
-
-	for (auto x : soundNamePosition) {
-		initSound(x.first);
-	}
+SoundHelper::SoundHelper(int numOfSounds){
+	soundBuffer = vector<sf::SoundBuffer>(numOfSounds);
+	soundsPlayer = vector<sf::Sound>(numOfSounds);
 }
 
 /**
@@ -67,22 +60,19 @@ void SoundHelper::pauseMusic(){
  * @param pathToFile  Path to the file.
  */
 
-void SoundHelper::initSound(string pathToFile) {
-	int pos = soundNamePosition[pathToFile];
+void SoundHelper::initSound(int soundIndex, string pathToFile) {
 
-	if (!soundBuffer[pos].loadFromFile(pathToFile)){ 
+	if (!soundBuffer[soundIndex].loadFromFile(pathToFile)){
 		cout << "could not load " << pathToFile;
 	}
 
 }
-void SoundHelper::playSound(string pathToFile){
-	int pos = soundNamePosition[pathToFile];
-	cout << pos << endl;
-    soundPlayer.setBuffer(soundBuffer[pos]);
-    soundPlayer.play();
+void SoundHelper::playSound(int soundIndex){
+	soundsPlayer[soundIndex].setBuffer(soundBuffer[soundIndex]);
+	soundsPlayer[soundIndex].play();
 }
 
-void SoundHelper::stopSound(){
-    soundPlayer.stop();
+void SoundHelper::stopSound(int soundIndex){
+	soundsPlayer[soundIndex].stop();
 }
 

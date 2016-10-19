@@ -21,6 +21,7 @@
 	//Damage
 	#define DAMAGED_DISTANCE 4 //How far will character move when damaged per frame
 	#define DAMAGED_TIME 15 //How many frames a character is being damaged
+	#define DAMAGED_RATE 4 //Damage color to activate each (this define) frames 
 	//Jump constants
 	#define JUMP_ANGLE_STEP 4
 	#define JUMP_HEIGHT 70

@@ -96,6 +96,9 @@ void Character::setPathToSpriteSheet(string path){
 void Character::update(int deltaTime)
 {
 	if (framesDamaged > 0) { //To test how this behaviour with enemies near
+		if (framesDamaged % DAMAGED_RATE == 0) sprite->setIsDamaged(1.0f);
+		else sprite->setIsDamaged(0.0f);
+
 		if ((sprite->animation() % 2) == 0) {//looking left, send to right
 			posCharacter.x += DAMAGED_DISTANCE;
 			if (mScene->collisionMoveRightOnlyMap(this)) {

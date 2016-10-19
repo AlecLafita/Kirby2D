@@ -129,7 +129,6 @@ void Player::computeNextMove() {
 void Player::justDamaged() {
 	if (framesDamaged == 0) {
 		//MORE FEEDBACK FOR GETTING DAMAGED(SOUND, SPIRTE,...)
-
         if(energy > 0){
 
             energy--;

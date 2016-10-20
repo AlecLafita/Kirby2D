@@ -7,12 +7,13 @@ void Game::init()
 {
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	levelAct = 1;
+	levelAct = 1; //Should be 0
 	playerLives = 4;
+	mMainMenu.init();
 	mGUI.init();
 
 	initSoundHelper();
-	resetLevel();
+	resetLevel(); //should be commented
 
 }
 
@@ -27,6 +28,7 @@ void Game::resetLevel() {
 	playerLives--;
 	if (playerLives == 0) {//Return to main menu
 		levelAct = 0;
+		//mGUi.reset();
 	}
 	else {
 		switch (levelAct) {
@@ -58,7 +60,7 @@ void Game::nextLevel() {
 bool Game::update(int deltaTime)
 {
 	if (levelAct == 0) { //Main menu
-
+		mMainMenu.update(deltaTime);
 	}
 	else  
 		scene.update(deltaTime);
@@ -69,8 +71,14 @@ bool Game::update(int deltaTime)
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene.render();
-	mGUI.render();
+
+	if (levelAct == 0) { //Main menu
+		mMainMenu.render();
+	}
+	else{
+		scene.render();
+		mGUI.render();
+	}
 }
 
 void Game::keyPressed(int key)

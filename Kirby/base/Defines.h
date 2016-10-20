@@ -11,7 +11,7 @@
 
 //Character 
 	//Energy
-	#define MAX_ENERGY 2
+	#define MAX_ENERGY 5
 	//Size of sprite
 	#define CHARACTER_SIZE_X 32
 	#define CHARACTER_SIZE_Y 32

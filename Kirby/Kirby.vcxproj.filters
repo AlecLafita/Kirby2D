@@ -59,6 +59,9 @@
     <ClCompile Include="characters\BlackKirby.cpp">
       <Filter>Characters</Filter>
     </ClCompile>
+    <ClCompile Include="base\MainMenu.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
@@ -120,6 +123,9 @@
       <Filter>Characters</Filter>
     </ClInclude>
     <ClInclude Include="base\Defines.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\MainMenu.h">
       <Filter>Base</Filter>
     </ClInclude>
   </ItemGroup>

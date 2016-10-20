@@ -1,6 +1,7 @@
 #ifndef _GAME_INCLUDE
 #define _GAME_INCLUDE
 
+#include "MainMenu.h"
 #include "Scene.h"
 #include "GUI.h"
 #include "../helpers/SoundHelper.h"
@@ -47,15 +48,17 @@ public:
 private:
 	bool bPlay;                       // Continue to play game?
 	Scene scene;                      // Scene to render
-	bool keys[256], specialKeys[256]; // Store key states so that 
-	                                  // we can have access at any time
-	GUI mGUI;
+	MainMenu mMainMenu;
+	GUI mGUI;					
 	SoundHelper *mSoundHelper;
 
 
 	int playerLives;
 
 	int levelAct;
+
+	bool keys[256], specialKeys[256]; // Store key states so that 
+	// we can have access at any time
 
 };
 

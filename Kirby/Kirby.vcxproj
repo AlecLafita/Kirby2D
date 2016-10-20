@@ -15,6 +15,7 @@
     <ClInclude Include="base\Defines.h" />
     <ClInclude Include="base\Game.h" />
     <ClInclude Include="base\GUI.h" />
+    <ClInclude Include="base\MainMenu.h" />
     <ClInclude Include="base\Scene.h" />
     <ClInclude Include="base\Shader.h" />
     <ClInclude Include="base\ShaderProgram.h" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClCompile Include="base\Game.cpp" />
     <ClCompile Include="base\GUI.cpp" />
+    <ClCompile Include="base\MainMenu.cpp" />
     <ClCompile Include="base\Scene.cpp" />
     <ClCompile Include="base\Shader.cpp" />
     <ClCompile Include="base\ShaderProgram.cpp" />

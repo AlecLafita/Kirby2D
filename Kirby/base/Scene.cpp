@@ -39,8 +39,6 @@ void Scene::init()
 
 
     player = new Player();
-	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
-
 	player->init(texProgram,this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 
@@ -71,6 +69,12 @@ void Scene::init()
 void Scene::update(int deltaTime)
 {
 
+    if(Game::instance().getKey('b')){
+
+        player = new BlackKirby();
+        player->init(texProgram,this);
+        player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+    }
 	currentTime += deltaTime;
 	player->update(deltaTime);
 

@@ -3,7 +3,7 @@
 #include "../characters/Player.h"
 #include "../characters/BaseEnemy.h"
 
-#include "../base/Constants.h"
+#include "../base/Defines.h"
 
 #include <iostream>
 

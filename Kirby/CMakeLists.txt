@@ -40,9 +40,9 @@ link_directories(${FREETYPE_LIBRARY_DIRS})
 add_executable(${appName} characters/Player.h characters/Player.cpp AnimKeyframes.h base/Sprite.h base/Sprite.cpp base/TileMap.h base/TileMap.cpp
         base/Texture.h base/Texture.cpp base/Scene.h base/Scene.cpp base/Shader.h base/Shader.cpp base/ShaderProgram.h
         base/ShaderProgram.cpp base/Game.h base/Game.cpp main.cpp characters/BaseEnemy.h characters/BaseEnemy.cpp characters/Character.h characters/Character.cpp
-        objects/BaseObject.h objects/BaseObject.cpp objects/ProjectileObject.h objects/ProjectileObject.cpp base/Constants.h characters/PinxoEnemy.cpp
+        objects/BaseObject.h objects/BaseObject.cpp objects/ProjectileObject.h objects/ProjectileObject.cpp base/Defines.h characters/PinxoEnemy.cpp
         characters/PinxoEnemy.h base/GUI.cpp base/GUI.h helpers/ColisionHelper.cpp helpers/ColisionHelper.h base/Text.cpp base/Text.h
-        base/TexturedQuad.cpp base/TexturedQuad.h helpers/SoundHelper.h helpers/SoundHelper.cpp)
+        base/TexturedQuad.cpp base/TexturedQuad.h helpers/SoundHelper.h helpers/SoundHelper.cpp characters/BlackKirby.cpp characters/BlackKirby.h characters/Kirby.cpp characters/Kirby.h helpers/TransformationHelper.cpp helpers/TransformationHelper.h)
 
 target_link_libraries(${appName} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${SOIL_LIBRARIES} ${SFML_LIBRARIES} ${FREETYPE_LIBRARIES}) # ${GLM_LIBRARIES}
 

@@ -7,10 +7,11 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "../characters/Player.h"
+#include "../characters/BlackKirby.h"
 #include "../characters/PinxoEnemy.h"
 #include "../objects/ProjectileObject.h"
 #include "../helpers/ColisionHelper.h"
-#include "Constants.h"
+#include "Defines.h"
 #include "GUI.h"
 
 #include <set>

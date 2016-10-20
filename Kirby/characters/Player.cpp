@@ -7,6 +7,7 @@ using namespace std;
 
 Player::Player()
 {
+	setPathToSpriteSheet("images/kirby_spritesheet.png");
 	mNumberAnimations = 6;
 }
 

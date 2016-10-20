@@ -52,8 +52,6 @@ void PinxoEnemy::update(int deltaTime){
 				dir = -dir;
 			}
 		}
-
         BaseEnemy::update(deltaTime);
-        //TODO: Implement IA Here!
     }
 }

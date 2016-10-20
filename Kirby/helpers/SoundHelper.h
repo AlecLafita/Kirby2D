@@ -15,23 +15,21 @@ using namespace std;
 class SoundHelper {
 
 public:
-    SoundHelper();
+    SoundHelper(int numOfSounds);//The parameter indicates how many sounds to load
     ~SoundHelper();
 
     void playMusic(string pathFile);
     void stopMusic();
     void pauseMusic();
 
-	void initSound(string pathToFile);//initilize an array of sound
-    void playSound(string pathFile); //Not implementing stop, sounds should be short.
-    void stopSound();
+	void initSound(int soundIndex, string pathToFile);//consistency between vector position and path file
+    void playSound(int soundIndex); //Not implementing stop, sounds should be short.
+	void stopSound(int soundIndex);
 
 private:
 
     vector<sf::SoundBuffer> soundBuffer;
-	std::map<string, int> soundNamePosition;
-
-    sf::Sound soundPlayer;
+	vector<sf::Sound> soundsPlayer;
 
     sf::Music musicPlayer;
 };

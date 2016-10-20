@@ -1,5 +1,5 @@
 #include "GUI.h"
-#include "Constants.h"
+#include "Defines.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 
@@ -42,7 +42,7 @@ void GUI::init() {
 	if (!energyText.init("fonts/OpenSans-Bold.ttf"))
 		//if(!energyText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
-	energyAct = 5;
+	//energyAct = MAX_ENERGY;
 }
 
 

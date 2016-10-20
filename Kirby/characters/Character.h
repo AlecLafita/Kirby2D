@@ -2,7 +2,7 @@
 #define _PLAYER_INCLUDE
 
 #include "../base/Sprite.h"
-#include "../base/Constants.h"
+#include "../base/Defines.h"
 
 
 // Player is basically a Sprite that represents the player. As such it has

@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="base\Game.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\GUI.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Scene.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Shader.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\ShaderProgram.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Sprite.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Text.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Texture.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\TexturedQuad.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\TileMap.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="characters\BaseEnemy.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="characters\Character.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="characters\PinxoEnemy.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="characters\Player.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\SoundHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\ColisionHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\BaseObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\ProjectileObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="characters\BlackKirby.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="base\MainMenu.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AnimKeyframes.h" />
+    <ClInclude Include="base\Game.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\GUI.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Scene.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Shader.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\ShaderProgram.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Sprite.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Text.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Texture.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\TexturedQuad.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\TileMap.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\BaseEnemy.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\Character.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\PinxoEnemy.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\Player.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\SoundHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\ColisionHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\BaseObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\ProjectileObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\BlackKirby.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Defines.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\MainMenu.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Base">
+      <UniqueIdentifier>{9b434e45-06ec-4993-b613-db272a5d08d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{dda172f0-251c-4797-a536-cafe5e7856bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{921c3a30-6bbd-4be6-a95e-8f313034dff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{002c0b16-f319-4121-8ae5-ed7b2f4ba134}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

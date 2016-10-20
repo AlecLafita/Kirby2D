@@ -34,6 +34,8 @@ public:
 	
 	void setPosition(const glm::vec2 &pos);
 
+	void setIsDamaged(float x) { isDamaged = x; }
+
 private:
 	Texture *texture;
 	ShaderProgram *shaderProgram;
@@ -45,6 +47,8 @@ private:
 	float timeAnimation;
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
+
+	float isDamaged;//Uniform indicating if the character with this sprite is currently damaged, 1 means Damaged
 
 };
 

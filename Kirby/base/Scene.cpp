@@ -14,65 +14,91 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	if(map != NULL)
+	if (map != NULL)
 		delete map;
-	if(player != NULL)
+	if (embellishmentMap != NULL)
+		delete embellishmentMap;
+	if (player != NULL)
 		delete player;
-    if(embellishmentMap != NULL)
-        delete embellishmentMap;
-    if(mSoundHelper != NULL)
-        delete mSoundHelper;
+	if (mBackground != NULL)
+		delete mBackground;
+	if (mColisionHelper != NULL)
+		delete mColisionHelper;
+
+	mPinxoEnemies.clear();
+	mProjectileObjects.clear();
+	
+	mSoundHelper = NULL;
+	mGUI = NULL;
+}
+
+void Scene::resetScene() {
+	if (map != NULL)
+		delete map;
+	if (embellishmentMap != NULL)
+		delete embellishmentMap;
+	if (player != NULL)
+		delete player;
+	if (mBackground != NULL)
+		delete mBackground;
+	if (mColisionHelper != NULL)
+		delete mColisionHelper;
+
+	 mPinxoEnemies.clear();
+	 mProjectileObjects.clear();
+
+	 mGUI = NULL;
+	 mSoundHelper = NULL;
+
+	//Texture spritesheetBg;
+	//ShaderProgram texProgram;
 }
 
 
-void Scene::init()
+void Scene::init(std::string levelPathFile, std::string backgroundPathFile/*, std::string enemiesLocationPathFile, std::string itemsLocationPathFile*/)
 {
+	resetScene();
+	bToReset = false;
+
 	initShaders();
-
+	//Init helpers
 	mColisionHelper = new ColisionHelper();
-	mSoundHelper = new SoundHelper();
 
-	mSoundHelper->playMusic("sounds/song_green_greens.wav");
-
-	spritesheetBg.loadFromFile("images/peppermint_palace.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	map = TileMap::createTileMap("levels/Cloudy_lvl.txt", glm::vec2(0, 0), texProgram);
+	//Init current map
+	spritesheetBg.loadFromFile(backgroundPathFile, TEXTURE_PIXEL_FORMAT_RGBA);//May not need to be an attribute?
+	map = TileMap::createTileMap(levelPathFile, glm::vec2(0, 0), texProgram);
 	mBackground = Sprite::createSprite(glm::ivec2(map->getMapWidth(), map->getMapHeight()), glm::vec2(1, 1), &spritesheetBg, &texProgram);
-    embellishmentMap = TileMap::createTileMap("levels/cloudy_lvl_no_collision.txt", glm::vec2(0, 0), texProgram);
+	embellishmentMap = TileMap::createTileMap("levels/cloudy_lvl_no_collision.txt", glm::vec2(0, 0), texProgram);
 
-
-    player = new Player();
-	player->setPathToSpriteSheet("images/kirby_spritesheet.png");
-
+	//Init characters, items
+    player = new Kirby();
 	player->init(texProgram,this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+	initEnemies();
+	initObjects();
 
-	//ENEMY
-	PinxoEnemy* mPinxoEnemy = new PinxoEnemy();
-    mPinxoEnemy->init(texProgram,this);
-    mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
-	mPinxoEnemies.insert(mPinxoEnemy);
-	//ITEM
-	ProjectileObject* mProjectileObject = new ProjectileObject();
-	mProjectileObject->setPathToSpriteSheet("images/items.png");
-	mProjectileObject->setTexturePosition(glm::fvec2(0.25f, 0.25f));
-	mProjectileObject->init(texProgram, this);
-	mProjectileObject->setPosition(glm::vec2(10 * map->getTileSize(), 5 * map->getTileSize()));
-	mProjectileObject->setDirection(glm::fvec2(1.0f,0.0f));
-
-	mProjectileObjects.insert(mProjectileObject);
-
+	//Init camera
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
-
 	cameraLeftXposition = 0;
-
-	mGUI = new GUI();
-	mGUI->init();
 }
 
 void Scene::update(int deltaTime)
 {
 
+	if (Game::instance().getKey('n')){ //TEST
+		Game::instance().nextLevel();
+		return;
+	}
+
+    if(Game::instance().getKey('b')){
+
+        player = new BlackKirby();
+        player->init(texProgram,this);
+        player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
+    }
+
+	//Update game stuff
 	currentTime += deltaTime;
 	player->update(deltaTime);
 
@@ -81,14 +107,6 @@ void Scene::update(int deltaTime)
 	}
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->update(deltaTime);
-	}
-
-	//Delete dead enemies
-	for (set<PinxoEnemy*>::iterator it = mPinxoEnemies.begin(); it != mPinxoEnemies.end(); ) {
-		if ((*it)->isCharacterDead()) {
-			mPinxoEnemies.erase(it++);
-		}
-		else ++it;
 	}
 
 	//Update camera position
@@ -101,6 +119,16 @@ void Scene::update(int deltaTime)
 		cameraLeftXposition = playerPos.x - (SCREEN_WIDTH - 1) / 2;
 	projection = glm::ortho(float(cameraLeftXposition), float(cameraLeftXposition + SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
+	//Delete dead enemies
+	for (set<PinxoEnemy*>::iterator it = mPinxoEnemies.begin(); it != mPinxoEnemies.end();) {
+		if ((*it)->isCharacterDead()) {
+			mPinxoEnemies.erase(it++);
+		}
+		else ++it;
+	}
+
+	//Reset scene if needed (player with no energy)
+	if (bToReset) Game::instance().resetLevel();
 }
 
 void Scene::render() {
@@ -115,42 +143,14 @@ void Scene::render() {
 	map->render();
     embellishmentMap->render();
 	player->render();
+	//render enemies
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		pinxoEnemy->render();
 	}
+	//render objects
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->render();
 	}
-	mGUI->render();
-}
-
-void Scene::initShaders(){
-	Shader vShader, fShader;
-
-	vShader.initFromFile(VERTEX_SHADER, "shaders/texture.vert");
-	if(!vShader.isCompiled())
-	{
-		cout << "Vertex Shader Error" << endl;
-		cout << "" << vShader.log() << endl << endl;
-	}
-	fShader.initFromFile(FRAGMENT_SHADER, "shaders/texture.frag");
-	if(!fShader.isCompiled())
-	{
-		cout << "Fragment Shader Error" << endl;
-		cout << "" << fShader.log() << endl << endl;
-	}
-	texProgram.init();
-	texProgram.addShader(vShader);
-	texProgram.addShader(fShader);
-	texProgram.link();
-	if(!texProgram.isLinked())
-	{
-		cout << "Shader Linking Error" << endl;
-		cout << "" << texProgram.log() << endl << endl;
-	}
-	texProgram.bindFragmentOutput("outColor");
-	vShader.free();
-	fShader.free();
 }
 
 
@@ -167,7 +167,6 @@ bool Scene::collisionMoveRight(Character* character) const {
 	}
 	return mapCollision || enemyCollision;
 }
-
 bool Scene::collisionMoveLeft(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveLeft(map, character);
 
@@ -177,7 +176,6 @@ bool Scene::collisionMoveLeft(Character* character) const {
 	}
 	return mapCollision || enemyCollision;
 }
-
 bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
 
@@ -200,7 +198,6 @@ bool Scene::collisionMoveUp(Character* character) const {
 bool Scene::collisionMoveRightOnlyMap(Character* character) const {
 	return mColisionHelper->mapMoveRight(map, character);
 }
-
 bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 	return mColisionHelper->mapMoveLeft(map, character);
 }
@@ -214,15 +211,59 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
 }
 
 
-// Sound!
-void Scene::playSound(string soundFilePath) {
+//SHADERS
+void Scene::initShaders(){
+	Shader vShader, fShader;
 
-    mSoundHelper->playSound(soundFilePath);
+	vShader.initFromFile(VERTEX_SHADER, "shaders/texture.vert");
+	if (!vShader.isCompiled())
+	{
+		cout << "Vertex Shader Error" << endl;
+		cout << "" << vShader.log() << endl << endl;
+	}
+	fShader.initFromFile(FRAGMENT_SHADER, "shaders/texture.frag");
+	if (!fShader.isCompiled())
+	{
+		cout << "Fragment Shader Error" << endl;
+		cout << "" << fShader.log() << endl << endl;
+	}
+	texProgram.init();
+	texProgram.addShader(vShader);
+	texProgram.addShader(fShader);
+	texProgram.link();
+	if (!texProgram.isLinked())
+	{
+		cout << "Shader Linking Error" << endl;
+		cout << "" << texProgram.log() << endl << endl;
+	}
+	texProgram.bindFragmentOutput("outColor");
+	vShader.free();
+	fShader.free();
 }
 
-void Scene::stopSound() {
 
-    mSoundHelper->stopSound();
+//ENEMIES
+void Scene::initEnemies(){
+	//Jo faria una nova classe contenidora de tots els enemics que s'encarregues de init,update i render
+
+	//read from enemies text file
+	PinxoEnemy* mPinxoEnemy = new PinxoEnemy();
+	mPinxoEnemy->init(texProgram, this);
+	mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
+	mPinxoEnemies.insert(mPinxoEnemy);
+	initObjects();
+}
+
+//OBJECTS
+void Scene::initObjects() {
+	//read from objects text file
+	ProjectileObject* mProjectileObject = new ProjectileObject();
+	mProjectileObject->setTexturePosition(glm::fvec2(0.25f, 0.25f));
+	mProjectileObject->init(texProgram, this);
+	mProjectileObject->setPosition(glm::vec2(10 * map->getTileSize(), 5 * map->getTileSize()));
+	mProjectileObject->setDirection(glm::fvec2(1.0f, 0.0f));
+
+	mProjectileObjects.insert(mProjectileObject);
 }
 
 //GUI

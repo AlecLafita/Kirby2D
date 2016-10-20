@@ -16,8 +16,7 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	Character::init(shaderProgram,scene);
 	bHoving = false;
 	nJumps = 0;
-	energy = 5;
-	lifes = 3;
+	energy = MAX_ENERGY;
 	isSwallable = false; //Kirby can't swallow itself (this may not be necesary for the game logic)
 
 }
@@ -31,19 +30,28 @@ void Player::update(int deltaTime){
 
 void Player::computeNextMove() {
 
+	//Attacking block
 	if (Game::instance().getKey('a')) { //attack (swallow)
-        if(!bAttacking){
+		if (!bAttacking){
 
-            mScene->playSound("sounds/vacuuming.wav");
-            //TODO: Look for the status of the sound on else. OR look for maximum vacuum time.
-        }
-        bAttacking = true;
-        if (sprite->animation() == STAND_LEFT)
-			sprite->changeAnimation(ATTACK_LEFT);
-		else if (sprite->animation() == STAND_RIGHT)
-			sprite->changeAnimation(ATTACK_RIGHT);
+			mScene->playSound(SOUND_VACUUMING);
+
+			if (sprite->animation() == STAND_LEFT){
+				sprite->changeAnimation(ATTACK_LEFT);
+				bAttacking = true;
+			}
+			else if (sprite->animation() == STAND_RIGHT){
+				sprite->changeAnimation(ATTACK_RIGHT);
+				bAttacking = true;
+			}
+		}
+
+		if (sprite->animation() != ATTACK_LEFT && sprite->animation() != ATTACK_RIGHT) { //a pressed but moving
+			mScene->stopSound(SOUND_VACUUMING);
+			bAttacking = false;
+		}
 	} else {
-        //mScene->stopSound(); //TODO: FInd a way to stop concrete sounds
+		mScene->stopSound(SOUND_VACUUMING);
 		bAttacking = false;
 		if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
@@ -51,6 +59,8 @@ void Player::computeNextMove() {
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 
+
+	//Moving rigth/left (keyboard input) block
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (sprite->animation() != MOVE_LEFT)
@@ -80,6 +90,7 @@ void Player::computeNextMove() {
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 
+	//Jumping block
 	if (bJumping) {//Player at the air
 		jumpAngle += JUMP_ANGLE_STEP;
 		if (jumpAngle == ANGLE_GROUND) { //Very near the ground
@@ -124,15 +135,17 @@ void Player::justDamaged() {
         if(energy == 0){
 
             mScene->stopMusic();
-            mScene->playSound("sounds/death.wav");
-            mScene->resetScene();
+			mScene->playSound(SOUND_DEATH);
+            mScene->setSceneToReset();
+			//Do some death animation (?)
+			return;
         }
         mScene->setPlayerEnergy(energy);
 	}
 	Character::justDamaged();
 }
 void Player::computeJumping(){
-	mScene->playSound("sounds/jumping.wav");
+	mScene->playSound(SOUND_JUMPING);
 	nJumps++;
 	bHoving = false;
 	bJumping = true;

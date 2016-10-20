@@ -31,10 +31,6 @@ private:
     vector<sf::SoundBuffer> soundBuffer;
 	vector<sf::Sound> soundsPlayer;
 
-
-	//std::map<string, int> soundNamePosition;
-
-
     sf::Music musicPlayer;
 };
 

@@ -22,7 +22,7 @@ private:
 	bool bHoving;
 	int nJumps;
 
-	int energy, lifes;
+	int energy;
 
 	int mNumEatStandRight, mNumEatStandLeft;
 	int mNumEatMoveRight, mNumEatMoveLeft;

@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
-    <ClInclude Include="base\Constants.h" />
+    <ClInclude Include="base\Defines.h" />
     <ClInclude Include="base\Game.h" />
     <ClInclude Include="base\GUI.h" />
     <ClInclude Include="base\Scene.h" />
@@ -24,6 +24,7 @@
     <ClInclude Include="base\TexturedQuad.h" />
     <ClInclude Include="base\TileMap.h" />
     <ClInclude Include="characters\BaseEnemy.h" />
+    <ClInclude Include="characters\BlackKirby.h" />
     <ClInclude Include="characters\Character.h" />
     <ClInclude Include="characters\PinxoEnemy.h" />
     <ClInclude Include="characters\Player.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="base\TexturedQuad.cpp" />
     <ClCompile Include="base\TileMap.cpp" />
     <ClCompile Include="characters\BaseEnemy.cpp" />
+    <ClCompile Include="characters\BlackKirby.cpp" />
     <ClCompile Include="characters\Character.cpp" />
     <ClCompile Include="characters\PinxoEnemy.cpp" />
     <ClCompile Include="characters\Player.cpp" />

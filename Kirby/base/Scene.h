@@ -27,15 +27,19 @@ public:
 	Scene();
 	~Scene();
 
-	void init();
-	void initSoundHelper();
+	void init(std::string levelPathFile, std::string backgroundPathFile);//, std::string enemiesLocationPathFile, std::string itemsLocationPathFile
+	
+	void setGUI(GUI* gameGUI){ mGUI = gameGUI; }
+	void setSoundHelper(SoundHelper* gameSoundHelper){ 
+		mSoundHelper = gameSoundHelper; 	
+		mSoundHelper->playMusic("sounds/song_green_greens.wav");//Set level music as parameter!
+	}
+
 	void update(int deltaTime);
 	void render();
 
-    void resetScene(){
-
-        //TODO.
-    };
+	void resetScene();
+	void setSceneToReset() { bToReset = true; };
 
 	//Collision functions
 	bool collisionMoveRight(Character* character) const;
@@ -48,10 +52,12 @@ public:
 
 	bool playerCanSwallow(BaseEnemy* enemy) ;
 
-	//GUI functions
-	void setPlayerEnergy(int energy);
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 
+
+	//GUI functions
+	void setPlayerEnergy(int energy);
+	
 	//Sound functions
 	void playSound(int soundIndex) {
 		mSoundHelper->playSound(soundIndex);
@@ -68,8 +74,11 @@ public:
 
 private:
 	void initShaders();
+	void initEnemies();//std::string enemiesLocationPathFile
+	void initObjects();//std::string itemsLocationPathFile
 
 private:
+	bool bToReset;
 	TileMap *map;
 	TileMap *embellishmentMap;
     Sprite *mBackground;

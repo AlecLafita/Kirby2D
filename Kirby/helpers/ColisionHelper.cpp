@@ -131,8 +131,9 @@ bool ColisionHelper::characterCollidesCharacter(const Character* characterToColl
 	//return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 	bool res = quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
-	if (dynamic_cast<Player*>(character) && res)
-		dynamic_cast<Player*>(character)->justDamaged();
+	Player *p = dynamic_cast<Player*>(character);
+	if ( p && res)
+		p->justDamaged();
 	return res;
 }
 

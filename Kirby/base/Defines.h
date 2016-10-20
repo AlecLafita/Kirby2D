@@ -10,6 +10,8 @@
 #define TILE_SIZE_Y 32
 
 //Character 
+	//Energy
+	#define MAX_ENERGY 2
 	//Size of sprite
 	#define CHARACTER_SIZE_X 32
 	#define CHARACTER_SIZE_Y 32
@@ -42,6 +44,9 @@
 //GUI
 #define GUI_HEIGHT 60
 #define HABILITY_SIZE 20
+
+//OBJECTS
+#define OBJECTS_SPRITESHEET_PATH "images/items.png"
 
 //SOUND
 #define NUM_OF_SOUNDS 3

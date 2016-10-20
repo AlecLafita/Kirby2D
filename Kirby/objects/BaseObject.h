@@ -15,7 +15,6 @@ public:
 	void update(int deltaTime);
 	void render();
 
-	void setPathToSpriteSheet(string pathToSpriteSheet); //must be called before init
 	void setTexturePosition(const glm::fvec2 &pos); //must be called before init
 	void setPosition(const glm::vec2 &pos);
 

@@ -16,8 +16,7 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	Character::init(shaderProgram,scene);
 	bHoving = false;
 	nJumps = 0;
-	energy = 5;
-	lifes = 3;
+	energy = MAX_ENERGY;
 	isSwallable = false; //Kirby can't swallow itself (this may not be necesary for the game logic)
 
 }
@@ -129,7 +128,6 @@ void Player::computeNextMove() {
 
 void Player::justDamaged() {
 	if (framesDamaged == 0) {
-		//MORE FEEDBACK FOR GETTING DAMAGED(SOUND, SPIRTE,...)
         if(energy > 0){
 
             energy--;
@@ -138,7 +136,9 @@ void Player::justDamaged() {
 
             mScene->stopMusic();
 			mScene->playSound(SOUND_DEATH);
-            mScene->resetScene();
+            mScene->setSceneToReset();
+			//Do some death animation (?)
+			return;
         }
         mScene->setPlayerEnergy(energy);
 	}

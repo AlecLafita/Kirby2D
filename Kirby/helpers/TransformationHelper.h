@@ -19,13 +19,11 @@ public:
     TransformationHelper();
 
     void init();
-    void transformPlayer(Player* player, const BaseEnemy* enemy,
+    Player* transformPlayer(Player* player, const BaseEnemy* enemy,
                          ShaderProgram& shaderProgram, Scene* scene) const;
 
 private:
 
-    const ShaderProgram mShader;
-    Scene* mScene;
 };
 
 

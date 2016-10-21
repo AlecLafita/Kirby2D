@@ -203,7 +203,7 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
 	bool hasSwallowed =  mColisionHelper->playerSwallowCharacter(player, enemy);
 	if (hasSwallowed) {
         cout << "Just swallowed an enemy!" << endl;
-		mTransformationHelper->transformPlayer(player, enemy,
+		player = mTransformationHelper->transformPlayer(player, enemy,
                                                 texProgram, this);
 	}
 	return hasSwallowed;

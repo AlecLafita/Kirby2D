@@ -18,6 +18,10 @@ public:
 
 	void getType() {}
 
+protected:
+	bool isFacingLeftSide();
+	bool isFacingRightSide();
+
 private:
 	bool bHoving;
 	int nJumps;

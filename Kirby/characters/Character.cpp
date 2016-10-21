@@ -14,12 +14,12 @@ Character::Character(){
 	framesDamaged = 0;
 
 	//Default
-	mNumStandLeft = 3;
-	mNumStandRight = 3;
-	mNumMoveLeft = 10;
-	mNumMoveRight = 10;
-	mNumAttackLeft = 3;
-	mNumAttackRight = 3;
+	mNumStandLeft = mNumStandRight  = 3;
+	mNumMoveLeft = mNumMoveRight = 10;
+	mNumAttackLeft = mNumAttackRight  = 3;
+	mNumFlyLeft = mNumFlyRight = 0;
+	mNumSwallowLeft = mNumSwallowRight = 0;
+
 	isSwallable = true;
 
 	//Sprite rows
@@ -29,6 +29,10 @@ Character::Character(){
 	START_ROW_MOVE_LEFT = 3;
 	START_ROW_ATTACK_RIGHT = 4;
 	START_ROW_ATTACK_LEFT = 5;
+	START_ROW_FLY_RIGHT = 6;
+	START_ROW_FLY_LEFT = 7;
+	START_ROW_SWALLOW_RIGHT = 8;
+	START_ROW_SWALLOW_LEFT = 9;
 }
 
 void Character::init(ShaderProgram &shaderProgram, Scene* scene)
@@ -81,6 +85,16 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	sprite->setAnimationSpeed(ATTACK_LEFT, NUM_OF_FRAMES);
 	for (int i = 0; i < mNumAttackLeft; ++i) {
 		sprite->addKeyframe(ATTACK_LEFT, glm::vec2(i*columnSize, START_ROW_ATTACK_LEFT*rowSize));
+	}
+
+	sprite->setAnimationSpeed(FLY_LEFT, NUM_OF_FRAMES);
+	for (int i = 0; i < mNumFlyLeft; ++i) {
+		sprite->addKeyframe(FLY_LEFT, glm::vec2(i*columnSize, START_ROW_FLY_LEFT*rowSize));
+	}
+
+	sprite->setAnimationSpeed(FLY_RIGHT, NUM_OF_FRAMES);
+	for (int i = 0; i < mNumFlyRight; ++i) {
+		sprite->addKeyframe(FLY_RIGHT, glm::vec2(i*columnSize, START_ROW_FLY_RIGHT*rowSize));
 	}
 
 	sprite->changeAnimation(1);

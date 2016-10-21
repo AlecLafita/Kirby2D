@@ -31,6 +31,7 @@ void Player::update(int deltaTime){
 
 void Player::computeNextMove() {
 
+    // ---- ATTACK ----
 	//Attacking block, only for Kirby(no abilities)
 	if (Game::instance().getKey('a')) { //attack (swallow)
 		if (!bAttacking){
@@ -51,6 +52,7 @@ void Player::computeNextMove() {
 			Game::instance().stopSound(SOUND_VACUUMING);
 			bAttacking = false;
 		}
+        return;
 	} else {
 		Game::instance().stopSound(SOUND_VACUUMING);
 		bAttacking = false;
@@ -60,7 +62,7 @@ void Player::computeNextMove() {
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 
-
+    // ---- LEFT / RIGHT----
 	//Moving rigth/left (keyboard input) block (common for all kirbys)
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
@@ -146,6 +148,16 @@ void Player::justDamaged() {
 	Character::justDamaged();
 }
 void Player::computeJumping(){
+
+    //Change animation after second jump!
+    if(nJumps > 0){
+        if(isFacingLeftSide()){
+            sprite->changeAnimation(FLY_LEFT);
+        } else {
+            sprite->changeAnimation(FLY_RIGHT);
+        }
+
+    }
 	Game::instance().playSound(SOUND_JUMPING);
 	nJumps++;
 	bHoving = false;
@@ -154,6 +166,20 @@ void Player::computeJumping(){
 	startY = posCharacter.y;
 }
 
+bool Player::isFacingLeftSide() {
+
+    return sprite->animation() == ATTACK_LEFT ||
+           sprite->animation() == FLY_LEFT ||
+           sprite->animation() == STAND_LEFT ||
+           sprite->animation() == MOVE_LEFT;
+}
+
+bool Player::isFacingRightSide() {
+    return sprite->animation() == ATTACK_RIGHT ||
+           sprite->animation() == FLY_RIGHT ||
+           sprite->animation() == STAND_RIGHT ||
+           sprite->animation() == MOVE_LEFT;
+}
 Player::~Player()
 {
 }

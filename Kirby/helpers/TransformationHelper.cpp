@@ -18,8 +18,9 @@ TransformationHelper::TransformationHelper(){
  * @param player
  * @param enemy
  */
-void TransformationHelper::transformPlayer(Player* player, const BaseEnemy *enemy, ShaderProgram& shaderProgram, Scene* scene) const {
+Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *enemy, ShaderProgram& shaderProgram, Scene* scene) const {
 
+    glm::vec2 playerOldPos = player->getPosition();
     switch (enemy->getType()){
 
         case PowerType::Fire:
@@ -44,5 +45,7 @@ void TransformationHelper::transformPlayer(Player* player, const BaseEnemy *enem
     }
 
     player->init(shaderProgram, scene);
-    player->setPosition(glm::vec2(16, 16));
+    player->setPosition(playerOldPos);
+
+    return player;
 }

@@ -12,6 +12,8 @@ public:
     Kirby();
     ~Kirby();
 
+    void init(ShaderProgram &shaderProgram,Scene* scene);
+
 };
 
 

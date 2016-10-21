@@ -1,6 +1,10 @@
 #include "MainMenu.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "Defines.h"
+
+#include <GL/glut.h>
+#include "Game.h"
+
 #include <iostream>
 
 using namespace std;
@@ -12,7 +16,8 @@ MainMenu::MainMenu()
 void MainMenu::init() {
 	index = 0; //Option by default
 	numOptions = 3; 
-
+	bUpPressed = false;
+	bDownPressed = false;
 	//Shader
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -45,7 +50,41 @@ void MainMenu::init() {
 }
 
 void MainMenu::update(int deltaTime) {
+	//Change option
+	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !bUpPressed) {
+		--index;
+		bUpPressed = true;
+		//soundhelper-> setSound
 	}
+	else if (!Game::instance().getSpecialKey(GLUT_KEY_UP)) bUpPressed = false;
+
+	if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !bDownPressed) {
+		++index;
+		bDownPressed = true;
+		//soundhelper-> setSound
+
+	}
+	else if(!Game::instance().getSpecialKey(GLUT_KEY_DOWN)) bDownPressed = false;
+
+	if (index == -1) index = numOptions - 1;
+	index = index % numOptions;
+
+
+	//Check if option selected
+	if (Game::instance().getKey(13)) { //enter key
+		switch (index){
+			case 0 : //start game
+				Game::instance().nextLevel();
+				break;
+			case 1: //show instructions
+
+				break;
+			case 2: //show records
+
+				break;
+		}
+	}
+}
 
 void MainMenu::render() {
 	texProgram.use();
@@ -58,26 +97,27 @@ void MainMenu::render() {
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	mainTextureQuad->render(mainTexture);
 
-
-
 	playText.getProgram().setUniformMatrix4f("projection", projection);
 	playText.getProgram().setUniformMatrix4f("modelview", modelview);
 
-	/*if (index % numOptions == 0) {
+	switch (index)  { //This only renders the actual "selected" text with different color
+		case 0:
+			playText.render("Play", glm::vec2(10, 30), 32, glm::vec4(1, 1, 1, 1));
+			instructionsText.render("Instructions", glm::vec2(10, 130), 32, glm::vec4(0, 0, 0, 1));
+			recordsText.render("Records", glm::vec2(10, 230), 32, glm::vec4(0, 0, 0, 1));
+			break;
+		case 1:
+			playText.render("Play", glm::vec2(10, 30), 32, glm::vec4(0, 0, 0, 1));
+			instructionsText.render("Instructions", glm::vec2(10, 130), 32, glm::vec4(1, 1, 1, 1));
+			recordsText.render("Records", glm::vec2(10, 230), 32, glm::vec4(0, 0, 0, 1));
+			break;
+		case 2:
+			playText.render("Play", glm::vec2(10, 30), 32, glm::vec4(0, 0, 0, 1));
+			instructionsText.render("Instructions", glm::vec2(10, 130), 32, glm::vec4(0, 0, 0, 1));
+			recordsText.render("Records", glm::vec2(10, 230), 32, glm::vec4(1, 1, 1, 1));
+			break;
 
 	}
-	else if (index %numOptions == 1) {
-
-	}
-	else if (index %numOptions == 2) {
-
-	}*/
-	playText.render("Play", glm::vec2(0, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-	instructionsText.render("Instructions", glm::vec2(2 * SCREEN_WIDTH / 3, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-	recordsText.render("Records", glm::vec2(SCREEN_WIDTH / 3, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-
-
-
 }
 
 

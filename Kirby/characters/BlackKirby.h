@@ -11,7 +11,7 @@ class BlackKirby : public Player {
 
 public:
     BlackKirby();
-    ~BlackKirby();
+	~BlackKirby() {}
 
 private:
 

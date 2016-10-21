@@ -28,6 +28,7 @@ private:
 	
 	int index;
 	int numOptions;
+	bool bUpPressed, bDownPressed;
 
 	Text playText;
 	Text instructionsText;

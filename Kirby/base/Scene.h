@@ -8,6 +8,7 @@
 #include "TileMap.h"
 #include "../characters/Player.h"
 #include "../characters/BlackKirby.h"
+#include "../characters/FireKirby.h"
 #include "../characters/Kirby.h"
 #include "../characters/PinxoEnemy.h"
 #include "../objects/ProjectileObject.h"

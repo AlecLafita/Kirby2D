@@ -93,7 +93,7 @@ void Scene::update(int deltaTime)
 
     if(Game::instance().getKey('b')){
 
-        player = new BlackKirby();
+        player = new FireKirby();
         player->init(texProgram,this);
         player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
     }

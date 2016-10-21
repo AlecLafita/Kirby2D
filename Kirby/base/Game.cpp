@@ -7,13 +7,14 @@ void Game::init()
 {
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	levelAct = 1; //Should be 0
+	levelAct = 0;
 	playerLives = 4;
 	mMainMenu.init();
 	mGUI.init();
 
 	initSoundHelper();
-	resetLevel(); //should be commented
+
+	mSoundHelper->playMusic("sounds/menu.wav");
 
 }
 
@@ -59,9 +60,8 @@ void Game::nextLevel() {
 
 bool Game::update(int deltaTime)
 {
-	if (levelAct == 0) { //Main menu
+	if (levelAct == 0)  //Main menu
 		mMainMenu.update(deltaTime);
-	}
 	else  
 		scene.update(deltaTime);
 	

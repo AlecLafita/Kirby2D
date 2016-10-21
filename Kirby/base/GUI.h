@@ -18,7 +18,8 @@ public:
 	void changeHability(std::string hab) { habilityAct = hab; }
 
 	void setPlayerEnergy(int energy);
-	void setLifes(int lifes){}; //TODO: Set lifes
+	void setLifes(int lifes); //TODO: Set lifes
+
 
 private:
 	void initShaders();
@@ -32,6 +33,8 @@ private:
 
 	TexturedQuad* lifesQuad;
 	Texture lifesTexture;
+	Text lifesText;
+	int lifesAct;
 
 	TexturedQuad* energyQuad;
 	Texture energyTexture;

@@ -1,7 +1,8 @@
 #include "GUI.h"
 #include "Defines.h"
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <GL/glew.h>
+#include <GL/gl.h>
 
 #include <iostream>
 using namespace std;
@@ -32,17 +33,17 @@ void GUI::init() {
 		cout << "Could not load font!!!" << endl;
 	habilityAct = "Normal";
 
-	//if (!scoreText.init("fonts/OpenSans-Regular.ttf"))
 		if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
-		//if(!scoreText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 		scoreAct = 0;
 
-	//if (!energyText.init("fonts/OpenSans-Regular.ttf"))
 	if (!energyText.init("fonts/OpenSans-Bold.ttf"))
-		//if(!energyText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 	//energyAct = MAX_ENERGY;
+
+	if (!lifesText.init("fonts/OpenSans-Bold.ttf")) 
+		cout << "Could not load font!!!" << endl;
+
 }
 
 
@@ -58,21 +59,42 @@ void GUI::render(){
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	mainTextureQuad->render(mainTexture);
 	
+	int vp[4];
+	glGetIntegerv(GL_VIEWPORT, vp);
+	//cout << vp[0] << " " << vp[1] << " " << vp[2] << " " << vp[3] << endl;
+
+	int screen_height = vp[3] - vp[1];
+	int screen_width = vp[2]-vp[0];
+	int gui_height = screen_height/5;
+	int hab_size = gui_height / 3 < screen_width / 15 ? gui_height / 3 : screen_width / 15;
+	
+
+	habilityText.render("Hability: " + habilityAct, glm::vec2(0, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+
+	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+
+	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+
+	lifesText.render("Lifes: " + std::to_string(lifesAct), glm::vec2(3 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
 
-	habilityText.getProgram().setUniformMatrix4f("projection", projection);
-	habilityText.getProgram().setUniformMatrix4f("modelview", modelview);
-
+	/*
 	habilityText.render("Hability: " + habilityAct, glm::vec2(0, SCREEN_HEIGHT - GUI_HEIGHT/2 + HABILITY_SIZE/2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
 
-	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(SCREEN_WIDTH/3, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
+	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(SCREEN_WIDTH/4, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
 
-	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2*SCREEN_WIDTH / 3, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
+	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2*SCREEN_WIDTH / 4, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
 
+	lifesText.render("Lifes: " + std::to_string(lifesAct), glm::vec2(3*SCREEN_WIDTH/4, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
+	*/
 }
 
 void GUI::setPlayerEnergy(int energy) {
 		energyAct = energy;
+}
+
+void GUI::setLifes(int lifes) {
+	lifesAct = lifes;
 }
 
 

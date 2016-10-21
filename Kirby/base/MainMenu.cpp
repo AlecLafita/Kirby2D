@@ -97,24 +97,31 @@ void MainMenu::render() {
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	mainTextureQuad->render(mainTexture);
 
-	playText.getProgram().setUniformMatrix4f("projection", projection);
-	playText.getProgram().setUniformMatrix4f("modelview", modelview);
+	int vp[4];
+	glGetIntegerv(GL_VIEWPORT, vp);
+	//cout << vp[0] << " " << vp[1] << " " << vp[2] << " " << vp[3] << endl;
+
+	int screen_height = vp[3] - vp[1];
+	int screen_width = vp[2] - vp[0];
+	int text_size = min(screen_height / 8,screen_width/8); //Value that makes the text to fit better on background
+	int height_offset = 20;
+
 
 	switch (index)  { //This only renders the actual "selected" text with different color
 		case 0:
-			playText.render("Play", glm::vec2(10, 30), 32, glm::vec4(1, 1, 1, 1));
-			instructionsText.render("Instructions", glm::vec2(10, 130), 32, glm::vec4(0, 0, 0, 1));
-			recordsText.render("Records", glm::vec2(10, 230), 32, glm::vec4(0, 0, 0, 1));
+			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
+			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 1:
-			playText.render("Play", glm::vec2(10, 30), 32, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("Instructions", glm::vec2(10, 130), 32, glm::vec4(1, 1, 1, 1));
-			recordsText.render("Records", glm::vec2(10, 230), 32, glm::vec4(0, 0, 0, 1));
+			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
+			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
+			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 2:
-			playText.render("Play", glm::vec2(10, 30), 32, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("Instructions", glm::vec2(10, 130), 32, glm::vec4(0, 0, 0, 1));
-			recordsText.render("Records", glm::vec2(10, 230), 32, glm::vec4(1, 1, 1, 1));
+			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0,0,0, 1));
+			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 
 	}

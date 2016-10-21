@@ -30,11 +30,11 @@ void Player::update(int deltaTime){
 
 void Player::computeNextMove() {
 
-	//Attacking block
+	//Attacking block, only for Kirby(no abilities)
 	if (Game::instance().getKey('a')) { //attack (swallow)
 		if (!bAttacking){
 
-			mScene->playSound(SOUND_VACUUMING);
+			Game::instance().playSound(SOUND_VACUUMING);
 
 			if (sprite->animation() == STAND_LEFT){
 				sprite->changeAnimation(ATTACK_LEFT);
@@ -47,11 +47,11 @@ void Player::computeNextMove() {
 		}
 
 		if (sprite->animation() != ATTACK_LEFT && sprite->animation() != ATTACK_RIGHT) { //a pressed but moving
-			mScene->stopSound(SOUND_VACUUMING);
+			Game::instance().stopSound(SOUND_VACUUMING);
 			bAttacking = false;
 		}
 	} else {
-		mScene->stopSound(SOUND_VACUUMING);
+		Game::instance().stopSound(SOUND_VACUUMING);
 		bAttacking = false;
 		if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
@@ -60,7 +60,7 @@ void Player::computeNextMove() {
 	}
 
 
-	//Moving rigth/left (keyboard input) block
+	//Moving rigth/left (keyboard input) block (common for all kirbys)
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if (sprite->animation() != MOVE_LEFT)
@@ -90,7 +90,7 @@ void Player::computeNextMove() {
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 
-	//Jumping block
+	//Jumping block (common for all kirbys???)
 	if (bJumping) {//Player at the air
 		jumpAngle += JUMP_ANGLE_STEP;
 		if (jumpAngle == ANGLE_GROUND) { //Very near the ground
@@ -134,18 +134,18 @@ void Player::justDamaged() {
         }
         if(energy == 0){
 
-            mScene->stopMusic();
-			mScene->playSound(SOUND_DEATH);
+			Game::instance().stopMusic();
+			Game::instance().playSound(SOUND_DEATH);
             mScene->setSceneToReset();
 			//Do some death animation (?)
 			return;
         }
-        mScene->setPlayerEnergy(energy);
+		Game::instance().setPlayerEnergy(energy);
 	}
 	Character::justDamaged();
 }
 void Player::computeJumping(){
-	mScene->playSound(SOUND_JUMPING);
+	Game::instance().playSound(SOUND_JUMPING);
 	nJumps++;
 	bHoving = false;
 	bJumping = true;

@@ -99,8 +99,6 @@ void MainMenu::render() {
 
 	int vp[4];
 	glGetIntegerv(GL_VIEWPORT, vp);
-	//cout << vp[0] << " " << vp[1] << " " << vp[2] << " " << vp[3] << endl;
-
 	int screen_height = vp[3] - vp[1];
 	int screen_width = vp[2] - vp[0];
 	int text_size = min(screen_height / 8,screen_width/8); //Value that makes the text to fit better on background
@@ -114,7 +112,7 @@ void MainMenu::render() {
 			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 1:
-			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
+			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
 			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
 			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;

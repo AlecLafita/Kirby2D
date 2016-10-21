@@ -27,9 +27,6 @@ Scene::~Scene()
 
 	mPinxoEnemies.clear();
 	mProjectileObjects.clear();
-	
-	mSoundHelper = NULL;
-	mGUI = NULL;
 }
 
 void Scene::resetScene() {
@@ -46,9 +43,6 @@ void Scene::resetScene() {
 
 	 mPinxoEnemies.clear();
 	 mProjectileObjects.clear();
-
-	 mGUI = NULL;
-	 mSoundHelper = NULL;
 
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
@@ -266,7 +260,3 @@ void Scene::initObjects() {
 	mProjectileObjects.insert(mProjectileObject);
 }
 
-//GUI
-void Scene::setPlayerEnergy(int energy) {
-	mGUI->setPlayerEnergy(energy);
-}

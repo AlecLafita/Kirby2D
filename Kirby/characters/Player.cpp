@@ -8,7 +8,7 @@ using namespace std;
 Player::Player()
 {
 	mSpriteRows = 10;
-	mNumberAnimations = 6;
+	mNumberAnimations = 10;
 }
 
 
@@ -54,9 +54,9 @@ void Player::computeNextMove() {
 		}
         return;
 	} else {
-		Game::instance().stopSound(SOUND_VACUUMING);
+        Game::instance().stopSound(SOUND_VACUUMING);
 		bAttacking = false;
-		if (sprite->animation() == ATTACK_LEFT)
+        if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
 		else if (sprite->animation() == ATTACK_RIGHT)
 			sprite->changeAnimation(STAND_RIGHT);
@@ -125,7 +125,6 @@ void Player::computeNextMove() {
 
 	if (bHoving && Game::instance().getSpecialKey(GLUT_KEY_UP) && nJumps < MAX_JUMPS) {
        computeJumping();
-		//sprite->changeAnimation(HOVING); TODO
 	}
 }
 
@@ -149,15 +148,11 @@ void Player::justDamaged() {
 }
 void Player::computeJumping(){
 
-    //Change animation after second jump!
-    if(nJumps > 0){
-        if(isFacingLeftSide()){
-            sprite->changeAnimation(FLY_LEFT);
-        } else {
-            sprite->changeAnimation(FLY_RIGHT);
-        }
-
-    }
+	if(isFacingLeftSide()){
+		sprite->changeAnimation(FLY_LEFT);
+	} else {
+		sprite->changeAnimation(FLY_RIGHT);
+	}
 	Game::instance().playSound(SOUND_JUMPING);
 	nJumps++;
 	bHoving = false;

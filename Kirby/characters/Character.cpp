@@ -48,7 +48,7 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	cout << "START_ROW_MOVE_LEFT  = " << START_ROW_MOVE_LEFT << endl;
 	cout << "START_ROW_ATTACK_RIGHT  = " << START_ROW_ATTACK_RIGHT << endl;
 	cout << "START_ROW_ATTACK_LEFT  = " << START_ROW_ATTACK_LEFT << endl;
-
+    cout << "FLY anim #" << mNumFly << " Row " <<  START_ROW_FLY_RIGHT << endl;
 
 	float columnSize = 1.f / float(mSpriteColumns);
 	float rowSize = 1.f / float(mSpriteRows);
@@ -77,7 +77,6 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
     // ----------- ATTACK ANIMATIONS -----------
 	sprite->setAnimationSpeed(ATTACK_RIGHT, NUM_OF_FRAMES);
     sprite->setAnimationSpeed(ATTACK_LEFT, NUM_OF_FRAMES);
-
     for (int i = 0; i < mNumAttack; ++i) {
         sprite->addKeyframe(ATTACK_RIGHT, glm::vec2(i*columnSize, START_ROW_ATTACK_RIGHT*rowSize));
         sprite->addKeyframe(ATTACK_LEFT, glm::vec2(i*columnSize, START_ROW_ATTACK_LEFT*rowSize));

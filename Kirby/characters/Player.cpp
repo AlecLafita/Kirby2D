@@ -11,6 +11,7 @@ Player::Player()
 	mNumberAnimations = 6;
 }
 
+
 void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	
 	Character::init(shaderProgram,scene);

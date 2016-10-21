@@ -1,5 +1,8 @@
+#include <iostream>
 #include "BaseEnemy.h"
+using namespace std;
 #include "../base/Scene.h"
+
 
 BaseEnemy::BaseEnemy(){
 	dir = glm::ivec2(0, 0);

@@ -12,6 +12,7 @@
 #include "../characters/PinxoEnemy.h"
 #include "../objects/ProjectileObject.h"
 #include "../helpers/ColisionHelper.h"
+#include "../helpers/TransformationHelper.h"
 #include "Defines.h"
 
 #include <set>
@@ -65,6 +66,7 @@ private:
 	set<PinxoEnemy*> mPinxoEnemies;
 	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
+	TransformationHelper* mTransformationHelper;
 	//SoundHelper* mSoundHelper;
 	//GUI* mGUI;
 

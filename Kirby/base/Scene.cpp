@@ -57,6 +57,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile/*, st
 	initShaders();
 	//Init helpers
 	mColisionHelper = new ColisionHelper();
+	mTransformationHelper = new TransformationHelper();
 
 	//Init current map
 	spritesheetBg.loadFromFile(backgroundPathFile, TEXTURE_PIXEL_FORMAT_RGBA);//May not need to be an attribute?
@@ -66,7 +67,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile/*, st
 
 	//Init characters, items
     player = new Kirby();
-	player->init(texProgram,this);
+	player->init(texProgram, this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	initEnemies();
 	initObjects();
@@ -80,11 +81,13 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile/*, st
 void Scene::update(int deltaTime)
 {
 
-	if (Game::instance().getKey('n')){ //TEST
+	//TODO: Remove this. For testing purposes
+	if (Game::instance().getKey('n')){
 		Game::instance().nextLevel();
 		return;
 	}
 
+	//TODO: Remove this. For testing purposes
     if(Game::instance().getKey('b')){
 
         player = new FireKirby();
@@ -197,11 +200,13 @@ bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 }
 
 bool Scene::playerCanSwallow(BaseEnemy* enemy) {
-	bool justSwallow =  mColisionHelper->playerSwallowCharacter(player, enemy);
-	if (justSwallow) {
-
+	bool hasSwallowed =  mColisionHelper->playerSwallowCharacter(player, enemy);
+	if (hasSwallowed) {
+        cout << "Just swallowed an enemy!" << endl;
+		mTransformationHelper->transformPlayer(player, enemy,
+                                                texProgram, this);
 	}
-	return justSwallow;
+	return hasSwallowed;
 }
 
 

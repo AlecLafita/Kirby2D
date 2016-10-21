@@ -63,30 +63,44 @@ void Player::computeNextMove() {
 	}
 
     // ---- LEFT / RIGHT----
-	//Moving rigth/left (keyboard input) block (common for all kirbys)
-	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-	{
-		if (sprite->animation() != MOVE_LEFT)
+	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+
+		if(bHoving && sprite->animation() != FLY_LEFT ){
+
+			sprite->changeAnimation(FLY_LEFT);
+		} else if(!bHoving && sprite->animation() != MOVE_LEFT){
+
 			sprite->changeAnimation(MOVE_LEFT);
+		}
 		posCharacter.x -= MOVEMENT_DEFAULT;
-		if (mScene->collisionMoveLeft(this))
-		{
+		if (mScene->collisionMoveLeft(this)) {
 			posCharacter.x += MOVEMENT_DEFAULT;
-			sprite->changeAnimation(STAND_LEFT);
+			if(!bHoving){
+
+				sprite->changeAnimation(STAND_LEFT);
+			}
 		}
 	}
-	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-	{
-		if (sprite->animation() != MOVE_RIGHT)
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)){
+
+		if(bHoving && sprite->animation() != FLY_RIGHT ){
+
+			sprite->changeAnimation(FLY_RIGHT);
+		} else if(!bHoving && sprite->animation() != MOVE_RIGHT){
+
 			sprite->changeAnimation(MOVE_RIGHT);
+		}
 		posCharacter.x += MOVEMENT_DEFAULT;
-		if (mScene->collisionMoveRight(this))
-		{
+		if (mScene->collisionMoveRight(this)) {
 			posCharacter.x -= MOVEMENT_DEFAULT;
-			sprite->changeAnimation(STAND_RIGHT);
+			if(!bHoving){
+
+				sprite->changeAnimation(STAND_RIGHT);
+			}
 		}
 	}
 	else {
+        //Stops walking.
 		if (sprite->animation() == MOVE_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
 		else if (sprite->animation() == MOVE_RIGHT)
@@ -98,6 +112,7 @@ void Player::computeNextMove() {
 		jumpAngle += JUMP_ANGLE_STEP;
 		if (jumpAngle == ANGLE_GROUND) { //Very near the ground
 			bJumping = false;
+            bHoving = false;
 			posCharacter.y = startY;
 		}
 		else {//going up when 0<=jumpAngle<=90, down when 90<jumpAngle<=180
@@ -116,6 +131,7 @@ void Player::computeNextMove() {
 	else {
 		posCharacter.y += FALL_STEP;//going down
 		if (mScene->collisionMoveDown(this)) { //at floor
+			bHoving = false;
 			if (Game::instance().getSpecialKey(GLUT_KEY_UP)) {
 				nJumps = 0;
 				computeJumping();
@@ -155,7 +171,7 @@ void Player::computeJumping(){
 	}
 	Game::instance().playSound(SOUND_JUMPING);
 	nJumps++;
-	bHoving = false;
+	bHoving = true;
 	bJumping = true;
 	jumpAngle = 0;
 	startY = posCharacter.y;

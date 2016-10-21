@@ -7,54 +7,51 @@ void Game::init()
 {
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	levelAct = 0;
-	playerLives = 4;
 	mMainMenu.init();
 	mGUI.init();
-
 	initSoundHelper();
+	setMenustate();
+}
 
+void Game::setMenustate() {
+	levelAct = 0;
+	playerLives = 4;
 	mSoundHelper->playMusic("sounds/menu.wav");
-
 }
 
-void Game::initSoundHelper() {
-	mSoundHelper = new SoundHelper(NUM_OF_SOUNDS);
-	mSoundHelper->initSound(SOUND_JUMPING, "sounds/jumping.wav");
-	mSoundHelper->initSound(SOUND_VACUUMING, "sounds/vacuuming.wav");
-	mSoundHelper->initSound(SOUND_DEATH, "sounds/death.wav");
-}
 
 void Game::resetLevel() {
 	playerLives--;
+	mGUI.setLifes(playerLives);
+
 	if (playerLives == 0) {//Return to main menu
-		levelAct = 0;
-		//mGUi.reset();
+		setMenustate();
 	}
+
 	else {
 		switch (levelAct) {
 		case 1:
 			cout << "level 1" << endl;
 			scene.init("levels/Cloudy_lvl.txt", "images/peppermint_palace.png");
+			mSoundHelper->playMusic("sounds/song_green_greens.wav");
 			break;
 		case 2:
 			cout << "level2" << endl;
 			scene.init("levels/kawaii.txt", "images/peppermint_palace.png");
-
+			mSoundHelper->playMusic("sounds/song_green_greens.wav");
 			break;
 		default:
 			cout << "WIN!" << endl;
 			break;
 		}
-		scene.setGUI(&mGUI);
-		scene.setSoundHelper(mSoundHelper);
-		mGUI.setPlayerEnergy(MAX_ENERGY);
+		mGUI.setPlayerEnergy(MAX_ENERGY); //Start a new level with full energy
 	}
 
 }
 
 void Game::nextLevel() {
-	++levelAct;
+	++levelAct; //Go to next level
+	++playerLives; //Per no perdre la vida de reset level (molt cutre,si xd)
 	resetLevel();
 }
 
@@ -81,6 +78,7 @@ void Game::render()
 	}
 }
 
+//Keyboard and mouse functions
 void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
@@ -126,6 +124,30 @@ bool Game::getSpecialKey(int key) const
 }
 
 
+//GUI functions
+void Game::setPlayerEnergy(int energy) {
+	mGUI.setPlayerEnergy(energy);
+}
 
+//Sound functions
+void Game::initSoundHelper() {
+	mSoundHelper = new SoundHelper(NUM_OF_SOUNDS);
+	mSoundHelper->initSound(SOUND_JUMPING, "sounds/jumping.wav");
+	mSoundHelper->initSound(SOUND_VACUUMING, "sounds/vacuuming.wav");
+	mSoundHelper->initSound(SOUND_DEATH, "sounds/death.wav");
+}
+
+void Game::playSound(int soundIndex) {
+	mSoundHelper->playSound(soundIndex);
+}
+void Game::stopSound(int soundIndex) {
+	mSoundHelper->stopSound(soundIndex);
+}
+void Game::playMusic(string pathToFile){
+	mSoundHelper->playMusic(pathToFile);
+}
+void Game::stopMusic(){
+	mSoundHelper->stopMusic();
+}
 
 

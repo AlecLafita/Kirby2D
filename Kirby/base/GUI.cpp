@@ -76,17 +76,6 @@ void GUI::render(){
 	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
 	lifesText.render("Lifes: " + std::to_string(lifesAct), glm::vec2(3 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
-
-
-	/*
-	habilityText.render("Hability: " + habilityAct, glm::vec2(0, SCREEN_HEIGHT - GUI_HEIGHT/2 + HABILITY_SIZE/2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-
-	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(SCREEN_WIDTH/4, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-
-	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2*SCREEN_WIDTH / 4, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-
-	lifesText.render("Lifes: " + std::to_string(lifesAct), glm::vec2(3*SCREEN_WIDTH/4, SCREEN_HEIGHT - GUI_HEIGHT / 2 + HABILITY_SIZE / 2), HABILITY_SIZE, glm::vec4(0, 0, 0, 1));
-	*/
 }
 
 void GUI::setPlayerEnergy(int energy) {

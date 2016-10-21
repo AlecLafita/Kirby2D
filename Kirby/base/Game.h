@@ -6,6 +6,7 @@
 #include "GUI.h"
 #include "../helpers/SoundHelper.h"
 
+
 // Game is a singleton (a class with a single instance) that represents our whole application
 
 
@@ -42,16 +43,25 @@ public:
 	void resetLevel();
 	void nextLevel();
 
+	//GUI functions
+	void setPlayerEnergy(int energy);
+
+	//Sound functions
+	void playSound(int soundIndex);
+	void stopSound(int soundIndex);
+	void playMusic(string pathToFile);
+	void stopMusic();
+
+private:
+	void setMenustate();
 	void initSoundHelper();
-
-
+	
 private:
 	bool bPlay;                       // Continue to play game?
 	Scene scene;                      // Scene to render
 	MainMenu mMainMenu;
 	GUI mGUI;					
 	SoundHelper *mSoundHelper;
-
 
 	int playerLives;
 

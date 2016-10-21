@@ -11,7 +11,17 @@ execute_process(COMMAND ln -s ../sounds)
 
 set(appName Kirby)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH
+        "${CMAKE_SOURCE_DIR}/base"
+        "${CMAKE_SOURCE_DIR}/characters"
+        "${CMAKE_SOURCE_DIR}/cmake_modules"
+        "${CMAKE_SOURCE_DIR}/fonts"
+        "${CMAKE_SOURCE_DIR}/helpers"
+        "${CMAKE_SOURCE_DIR}/levels"
+        "${CMAKE_SOURCE_DIR}/objects"
+        "${CMAKE_SOURCE_DIR}/sounds"
+        ${CMAKE_MODULE_PATH})
+
 find_package(OpenGL REQUIRED)
 find_package(GLUT REQUIRED)
 find_package(GLEW REQUIRED)

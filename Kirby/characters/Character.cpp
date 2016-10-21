@@ -14,11 +14,11 @@ Character::Character(){
 	framesDamaged = 0;
 
 	//Default
-	mNumStandLeft = mNumStandRight  = 3;
-	mNumMoveLeft = mNumMoveRight = 10;
-	mNumAttackLeft = mNumAttackRight  = 3;
-	mNumFlyLeft = mNumFlyRight = 0;
-	mNumSwallowLeft = mNumSwallowRight = 0;
+	mNumStand = 3;
+	mNumMove = 10;
+	mNumAttack = 3;
+	mNumFly = 0;
+	mNumSwallow = 0;
 
 	isSwallable = true;
 
@@ -57,45 +57,39 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(columnSize, rowSize), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(mNumberAnimations);
 
+
+    // ----------- STAND ANIMATIONS -----------
 	sprite->setAnimationSpeed(STAND_LEFT, NUM_OF_FRAMES_SLOW);
-	for (int i = 0; i < mNumStandLeft; ++i) {
-		sprite->addKeyframe(STAND_LEFT, glm::vec2(i*columnSize, START_ROW_STAND_LEFT*rowSize));
-	}
-
 	sprite->setAnimationSpeed(STAND_RIGHT, NUM_OF_FRAMES_SLOW);
-	for (int i = 0; i < mNumStandRight; ++i) {
-		sprite->addKeyframe(STAND_RIGHT, glm::vec2(i*columnSize, START_ROW_STAND_RIGHT*rowSize));
+	for (int i = 0; i < mNumStand; ++i) {
+		sprite->addKeyframe(STAND_LEFT, glm::vec2(i*columnSize, START_ROW_STAND_LEFT*rowSize));
+        sprite->addKeyframe(STAND_RIGHT, glm::vec2(i*columnSize, START_ROW_STAND_RIGHT*rowSize));
 	}
 
-	sprite->setAnimationSpeed(MOVE_LEFT, NUM_OF_FRAMES);
-	for (int i = 0; i < mNumMoveLeft; ++i) {
+    // ----------- MOVE ANIMATIONS -----------
+    sprite->setAnimationSpeed(MOVE_LEFT, NUM_OF_FRAMES);
+    sprite->setAnimationSpeed(MOVE_RIGHT, NUM_OF_FRAMES);
+    for (int i = 0; i < mNumMove; ++i) {
 		sprite->addKeyframe(MOVE_LEFT, glm::vec2(i*columnSize, START_ROW_MOVE_LEFT*rowSize));
-	}
+        sprite->addKeyframe(MOVE_RIGHT, glm::vec2(i*columnSize, START_ROW_MOVE_RIGHT*rowSize));
+    }
 
-	sprite->setAnimationSpeed(MOVE_RIGHT, NUM_OF_FRAMES);
-	for (int i = 0; i < mNumMoveLeft; ++i) {
-		sprite->addKeyframe(MOVE_RIGHT, glm::vec2(i*columnSize, START_ROW_MOVE_RIGHT*rowSize));
-	}
-
+    // ----------- ATTACK ANIMATIONS -----------
 	sprite->setAnimationSpeed(ATTACK_RIGHT, NUM_OF_FRAMES);
-	for (int i = 0; i < mNumAttackRight; ++i) {
-		sprite->addKeyframe(ATTACK_RIGHT, glm::vec2(i*columnSize, START_ROW_ATTACK_RIGHT*rowSize));
-	}
+    sprite->setAnimationSpeed(ATTACK_LEFT, NUM_OF_FRAMES);
 
-	sprite->setAnimationSpeed(ATTACK_LEFT, NUM_OF_FRAMES);
-	for (int i = 0; i < mNumAttackLeft; ++i) {
-		sprite->addKeyframe(ATTACK_LEFT, glm::vec2(i*columnSize, START_ROW_ATTACK_LEFT*rowSize));
-	}
+    for (int i = 0; i < mNumAttack; ++i) {
+        sprite->addKeyframe(ATTACK_RIGHT, glm::vec2(i*columnSize, START_ROW_ATTACK_RIGHT*rowSize));
+        sprite->addKeyframe(ATTACK_LEFT, glm::vec2(i*columnSize, START_ROW_ATTACK_LEFT*rowSize));
+    }
 
-	sprite->setAnimationSpeed(FLY_LEFT, NUM_OF_FRAMES);
-	for (int i = 0; i < mNumFlyLeft; ++i) {
-		sprite->addKeyframe(FLY_LEFT, glm::vec2(i*columnSize, START_ROW_FLY_LEFT*rowSize));
-	}
-
-	sprite->setAnimationSpeed(FLY_RIGHT, NUM_OF_FRAMES);
-	for (int i = 0; i < mNumFlyRight; ++i) {
-		sprite->addKeyframe(FLY_RIGHT, glm::vec2(i*columnSize, START_ROW_FLY_RIGHT*rowSize));
-	}
+    // ----------- FLY ANIMATIONS -----------
+    sprite->setAnimationSpeed(FLY_LEFT, NUM_OF_FRAMES);
+    sprite->setAnimationSpeed(FLY_RIGHT, NUM_OF_FRAMES);
+    for (int i = 0; i < mNumFly; ++i) {
+        sprite->addKeyframe(FLY_LEFT, glm::vec2(i*columnSize, START_ROW_FLY_LEFT*rowSize));
+        sprite->addKeyframe(FLY_RIGHT, glm::vec2(i*columnSize, START_ROW_FLY_RIGHT*rowSize));
+    }
 
 	sprite->changeAnimation(1);
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));

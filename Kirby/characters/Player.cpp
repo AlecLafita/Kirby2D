@@ -140,7 +140,7 @@ void Player::justDamaged() {
 			Game::instance().stopMusic();
 			Game::instance().playSound(SOUND_DEATH);
             mScene->setSceneToReset();
-			//Do some death animation (?)
+			//TODO Do some death animation (?)
 			return;
         }
 		Game::instance().setPlayerEnergy(energy);

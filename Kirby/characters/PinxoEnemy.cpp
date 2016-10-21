@@ -10,12 +10,9 @@ PinxoEnemy::PinxoEnemy(){
     Character::setPathToSpriteSheet("images/pinxos_spritesheet.png");
     mSpriteRows = 1;
 
-    mNumStandLeft = 2;
-    mNumStandRight = 2;
-    mNumMoveLeft = 2;
-    mNumMoveRight = 2;
-    mNumAttackLeft = 0;
-    mNumAttackRight = 0;
+    mNumStand = 2;
+    mNumMove = 2;
+    mNumAttack = 0;
 
     //Sprite rows
     START_ROW_STAND_RIGHT = 0;

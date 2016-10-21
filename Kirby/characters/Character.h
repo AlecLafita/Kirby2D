@@ -49,11 +49,12 @@ protected:
 	Sprite *sprite;
 	Scene* mScene;
 	int mNumberAnimations, mSpriteColumns, mSpriteRows;
-    int mNumStandLeft, mNumStandRight; // Number of stand left/right sprites
-    int mNumMoveLeft, mNumMoveRight; // Number of move left/right sprites
-    int mNumAttackLeft, mNumAttackRight; // Number of attack left/right sprites
-    int mNumFlyLeft, mNumFlyRight; // Number of fly left/right sprites
-    int mNumSwallowLeft, mNumSwallowRight; // Number of swallow left/right sprites
+    int mNumStand; // Number of stand left/right sprites
+    int mNumMove; // Number of move left/right sprites
+    int mNumAttack; // Number of attack left/right sprites
+    int mNumFly; // Number of fly left/right sprites
+    int mNumSwallow; // Number of swallow left/right sprites
+
 	bool isSwallable; //indicates if Kirby can swallow this character -> if is false, colliding with this enemy will damage Kirby
 	bool isDead;//Ready to be deleted
 

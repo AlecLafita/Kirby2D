@@ -74,6 +74,9 @@
     <ClCompile Include="characters\FlyingDummyEnemy.cpp">
       <Filter>Characters</Filter>
     </ClCompile>
+    <ClCompile Include="characters\WalkingDummyEnemy.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
@@ -153,6 +156,9 @@
       <Filter>Characters</Filter>
     </ClInclude>
     <ClInclude Include="characters\FlyingDummyEnemy.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\WalkingDummyEnemy.h">
       <Filter>Characters</Filter>
     </ClInclude>
   </ItemGroup>

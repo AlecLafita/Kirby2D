@@ -9,6 +9,8 @@ public:
 	FireKirby();
 	~FireKirby() {}
 
+	void update(int deltaTime);
+
 private:
 
 };

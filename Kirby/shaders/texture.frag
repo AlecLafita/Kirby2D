@@ -5,6 +5,7 @@ uniform lowp sampler2D tex;
 
 in lowp vec2 texCoordFrag;
 out lowp vec4 outColor;
+uniform float isDamaged;
 
 void main()
 {
@@ -13,6 +14,7 @@ void main()
 	lowp vec4 texColor = texture(tex, texCoordFrag);
 	if(texColor.a < 0.5f)
 		discard;
-	outColor = color * texColor;
+	if (isDamaged == 1.0f) outColor = vec4(1,1,0,1);
+	else outColor = color * texColor;
 }
 

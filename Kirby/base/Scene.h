@@ -11,6 +11,7 @@
 #include "../characters/Kirby.h"
 #include "../characters/PinxoEnemy.h"
 #include "../characters/FlyingDummyEnemy.h"
+#include "../characters/WalkingDummyEnemy.h"
 #include "../objects/ProjectileObject.h"
 #include "../helpers/ColisionHelper.h"
 #include "../helpers/TransformationHelper.h"
@@ -67,8 +68,7 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
-	set<PinxoEnemy*> mPinxoEnemies;
-	set<FlyingDummyEnemy*> mFlyingDummyEnemies;
+	set<BaseEnemy*> mEnemies;
 	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
 	TransformationHelper* mTransformationHelper;

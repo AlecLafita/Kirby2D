@@ -8,8 +8,8 @@ public:
 	Player();
 	~Player();
 
-	void init(ShaderProgram &shaderProgram, Scene* scene);
-	void update(int deltaTime);
+	virtual void init(ShaderProgram &shaderProgram, Scene* scene);
+	virtual void update(int deltaTime);
 
 	void computeNextMove();
 	void computeJumping();

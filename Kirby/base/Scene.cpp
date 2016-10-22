@@ -25,8 +25,9 @@ Scene::~Scene()
 	if (mColisionHelper != NULL)
 		delete mColisionHelper;
 
-	mPinxoEnemies.clear();
-	mFlyingDummyEnemies.clear();
+	mEnemies.clear();
+
+
 	mProjectileObjects.clear();
 }
 
@@ -42,11 +43,9 @@ void Scene::resetScene() {
 	if (mColisionHelper != NULL)
 		delete mColisionHelper;
 
-	 mPinxoEnemies.clear();
-	 mFlyingDummyEnemies.clear();
-
 	 mProjectileObjects.clear();
 
+	 mEnemies.clear();
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
@@ -102,11 +101,8 @@ void Scene::update(int deltaTime)
 	currentTime += deltaTime;
 	player->update(deltaTime);
 
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		pinxoEnemy->update(deltaTime);
-	}
-	for (FlyingDummyEnemy* flyingDummyEnemy : mFlyingDummyEnemies) {
-		flyingDummyEnemy->update(deltaTime);
+	for (BaseEnemy* enemy : mEnemies) {
+		enemy->update(deltaTime);
 	}
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->update(deltaTime);
@@ -123,19 +119,12 @@ void Scene::update(int deltaTime)
 	projection = glm::ortho(float(cameraLeftXposition), float(cameraLeftXposition + SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
 	//Delete dead enemies
-	for (set<PinxoEnemy*>::iterator it = mPinxoEnemies.begin(); it != mPinxoEnemies.end();) {
+	for (set<BaseEnemy*>::iterator it = mEnemies.begin(); it != mEnemies.end();) {
 		if ((*it)->isCharacterDead()) {
-			mPinxoEnemies.erase(it++);
+			mEnemies.erase(it++);
 		}
 		else ++it;
 	}
-	for (set<FlyingDummyEnemy*>::iterator it = mFlyingDummyEnemies.begin(); it != mFlyingDummyEnemies.end();) {
-		if ((*it)->isCharacterDead()) {
-			mFlyingDummyEnemies.erase(it++);
-		}
-		else ++it;
-	}
-
 	//Reset scene if needed (player with no energy)
 	if (bToReset) {
 		if (player->isBeingAnimated()) {
@@ -160,11 +149,8 @@ void Scene::render() {
     embellishmentMap->render();
 	player->render();
 	//render enemies
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		pinxoEnemy->render();
-	}
-	for (FlyingDummyEnemy* flyingDummyEnemy : mFlyingDummyEnemies) {
-		flyingDummyEnemy->render();
+	for (BaseEnemy* enemy : mEnemies) {
+		enemy->render();
 	}
 	//render objects
 	for (ProjectileObject* projectileObject : mProjectileObjects){
@@ -172,11 +158,7 @@ void Scene::render() {
 	}
 }
 
-
-//Collision functions, always call the helper to solve them:
-	//First check collision with tilemap
-	//Then check collision with other characters
-
+//Collision functions, always call the helper to solve them: first check collision with tilemap,then check collision with other characters
 bool Scene::collisionMoveRight(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveRight(map, character);
 	bool enemyCollision = characterCollidesEnemies(character);
@@ -200,12 +182,10 @@ bool Scene::collisionMoveUp(Character* character) const {
 }
 
 bool Scene::characterCollidesEnemies(Character* character) const{
-	bool collision = false; //Can be improved checking if true after each enemy type and returning(with few enemies doesn't matter)
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		collision = collision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
-	}
-	for (FlyingDummyEnemy* flyingDummyEnemy : mFlyingDummyEnemies) {
-		collision = collision || mColisionHelper->characterCollidesCharacter(flyingDummyEnemy, character);
+	bool collision = false; //Can be improved checking if true after each enemy and returning(with few enemies doesn't matter)
+
+	for (BaseEnemy* enemy : mEnemies) {
+		collision = collision || mColisionHelper->characterCollidesCharacter(enemy, character);
 	}
 	return collision;
 }
@@ -218,6 +198,10 @@ bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 }
 
 bool Scene::playerCanSwallow(BaseEnemy* enemy) {
+	if (!dynamic_cast<Kirby*>(player)) { //Kiry with ability -> can not swallow!
+		return false;
+	}
+
 	bool hasSwallowed =  mColisionHelper->playerSwallowCharacter(player, enemy);
 	if (hasSwallowed) {
         cout << "Just swallowed an enemy!" << endl;
@@ -267,12 +251,17 @@ void Scene::initEnemies(){
 	PinxoEnemy* mPinxoEnemy = new PinxoEnemy();
 	mPinxoEnemy->init(texProgram, this);
 	mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
-	mPinxoEnemies.insert(mPinxoEnemy);
+	mEnemies.insert(mPinxoEnemy);
 
 	FlyingDummyEnemy* mFlyingDummyEnemy = new FlyingDummyEnemy();
 	mFlyingDummyEnemy->init(texProgram, this);
 	mFlyingDummyEnemy->setPosition(glm::vec2(20 * map->getTileSize(), 5 * map->getTileSize()));
-	mFlyingDummyEnemies.insert(mFlyingDummyEnemy);
+	mEnemies.insert(mFlyingDummyEnemy);
+
+	WalkingDummyEnemy* mWalkingEnemy = new WalkingDummyEnemy();
+	mWalkingEnemy->init(texProgram, this);
+	mWalkingEnemy->setPosition(glm::vec2(10 * map->getTileSize(), 10 * map->getTileSize()));
+	mEnemies.insert(mWalkingEnemy);
 
 }
 

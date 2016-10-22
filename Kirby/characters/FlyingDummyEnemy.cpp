@@ -16,9 +16,7 @@ void FlyingDummyEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
 
 void FlyingDummyEnemy::update(int deltaTime){
-
 	if (isInFrustrum()){
-		//TODO correctly
 		posCharacter += dir;
 		if (dir.x < 0) { //Go left
 			if (mScene->collisionMoveLeft(this)) {
@@ -40,20 +38,20 @@ void FlyingDummyEnemy::update(int deltaTime){
 				posCharacter -= dir;
 				dir.y = -dir.y;
 			}
-			/*else if (actY > 50) {
+			else if (actY > 30) {
 				dir.y = -dir.y;
 				actY = 0;
-			}*/
+			}
 		}
 		else { //go down
 			if (mScene->collisionMoveDown(this)) {
 				posCharacter -= dir;
 				dir.y = -dir.y;
 			}
-			/*else if (actY > 50) {
+			else if (actY > 30) {
 				dir.y = -dir.y;
 				actY = 0;
-			}*/
+			}
 		}
 
 		BaseEnemy::update(deltaTime);

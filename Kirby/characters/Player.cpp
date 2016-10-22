@@ -23,6 +23,9 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 }
 
 void Player::update(int deltaTime){
+	/*if (FireKirby* a = dynamic_cast<FireKirby*>(this)){
+		a->update(deltaTime);
+	}*/
 
     if(!bAnimating){
 
@@ -171,10 +174,14 @@ void Player::computeAnimation(int deltaTime) {
 
 void Player::justDamaged() {
 	if (framesDamaged == 0) {
+
         if(energy > 0){
 
             energy--;
         }
+	
+		Game::instance().setPlayerEnergy(energy);
+
         if(energy == 0){
 
 			Game::instance().stopMusic();
@@ -185,7 +192,6 @@ void Player::justDamaged() {
             mAnimationTime = 0;
 			return;
         }
-		Game::instance().setPlayerEnergy(energy);
 	}
 	Character::justDamaged();
 }

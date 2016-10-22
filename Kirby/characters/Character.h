@@ -10,7 +10,11 @@
 
 enum BasicPlayerAnims //even -> left, odd ->right
 {
-	STAND_LEFT, STAND_RIGHT, MOVE_LEFT, MOVE_RIGHT, ATTACK_LEFT, ATTACK_RIGHT, FLY_LEFT, FLY_RIGHT
+	STAND_LEFT, STAND_RIGHT,
+	MOVE_LEFT, MOVE_RIGHT,
+	ATTACK_LEFT, ATTACK_RIGHT,
+	FLY_LEFT, FLY_RIGHT,
+	DEATH
 };
 
 class Scene;
@@ -54,6 +58,7 @@ protected:
     int mNumAttack; // Number of attack left/right sprites
     int mNumFly; // Number of fly left/right sprites
     int mNumSwallow; // Number of swallow left/right sprites
+    int mNumDeath; // Number of swallow left/right sprites
 
 	bool isSwallable; //indicates if Kirby can swallow this character -> if is false, colliding with this enemy will damage Kirby
 	bool isDead;//Ready to be deleted
@@ -71,6 +76,7 @@ protected:
     int START_ROW_FLY_RIGHT;
 	int START_ROW_SWALLOW_LEFT;
     int START_ROW_SWALLOW_RIGHT;
+    int START_ROW_DEATH;
 };
 
 

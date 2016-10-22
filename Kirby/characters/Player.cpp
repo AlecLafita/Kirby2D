@@ -155,6 +155,11 @@ void Player::computeNextMove() {
 
 void Player::computeAnimation() {
 
+    if(isDead){
+
+        sprite->changeAnimation(DEATH);
+        posCharacter.y = startY;
+    }
 }
 
 void Player::justDamaged() {
@@ -169,7 +174,7 @@ void Player::justDamaged() {
 			Game::instance().playSound(SOUND_DEATH);
             mScene->setSceneToReset();
             bAnimating = true;
-			//TODO Do some death animation (?)
+            isDead = true;
 			return;
         }
 		Game::instance().setPlayerEnergy(energy);

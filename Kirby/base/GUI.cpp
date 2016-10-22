@@ -18,12 +18,12 @@ void GUI::init() {
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
 	//Texture quads
-	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(3.f, 1.f) };
+	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
 	glm::vec2 geomGUI[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), GUI_HEIGHT) };
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	
-	mainTexture.loadFromFile("images/sida.jpg", TEXTURE_PIXEL_FORMAT_RGB);
+	mainTexture.loadFromFile("images/menu.png", TEXTURE_PIXEL_FORMAT_RGB);
 	
 
 	//text 

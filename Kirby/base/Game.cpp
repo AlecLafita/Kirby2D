@@ -37,7 +37,7 @@ void Game::resetLevel() {
 			break;
 		case 2:
 			cout << "level2" << endl;
-			scene.init("levels/kawaii.txt", "images/peppermint_palace.png");
+			scene.init("levels/kawaii.txt", "images/forest_bg.png");
 			mSoundHelper->playMusic("sounds/song_green_greens.wav");
 			break;
 		default:

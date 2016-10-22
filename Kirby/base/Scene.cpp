@@ -26,6 +26,7 @@ Scene::~Scene()
 		delete mColisionHelper;
 
 	mPinxoEnemies.clear();
+	mFlyingDummyEnemies.clear();
 	mProjectileObjects.clear();
 }
 
@@ -42,6 +43,8 @@ void Scene::resetScene() {
 		delete mColisionHelper;
 
 	 mPinxoEnemies.clear();
+	 mFlyingDummyEnemies.clear();
+
 	 mProjectileObjects.clear();
 
 	//Texture spritesheetBg;
@@ -102,6 +105,9 @@ void Scene::update(int deltaTime)
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		pinxoEnemy->update(deltaTime);
 	}
+	for (FlyingDummyEnemy* flyingDummyEnemy : mFlyingDummyEnemies) {
+		flyingDummyEnemy->update(deltaTime);
+	}
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->update(deltaTime);
 	}
@@ -120,6 +126,12 @@ void Scene::update(int deltaTime)
 	for (set<PinxoEnemy*>::iterator it = mPinxoEnemies.begin(); it != mPinxoEnemies.end();) {
 		if ((*it)->isCharacterDead()) {
 			mPinxoEnemies.erase(it++);
+		}
+		else ++it;
+	}
+	for (set<FlyingDummyEnemy*>::iterator it = mFlyingDummyEnemies.begin(); it != mFlyingDummyEnemies.end();) {
+		if ((*it)->isCharacterDead()) {
+			mFlyingDummyEnemies.erase(it++);
 		}
 		else ++it;
 	}
@@ -151,6 +163,9 @@ void Scene::render() {
 	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
 		pinxoEnemy->render();
 	}
+	for (FlyingDummyEnemy* flyingDummyEnemy : mFlyingDummyEnemies) {
+		flyingDummyEnemy->render();
+	}
 	//render objects
 	for (ProjectileObject* projectileObject : mProjectileObjects){
 		projectileObject->render();
@@ -164,39 +179,35 @@ void Scene::render() {
 
 bool Scene::collisionMoveRight(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveRight(map, character);
-	
-	bool enemyCollision = false;
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
-	}
+	bool enemyCollision = characterCollidesEnemies(character);
 	return mapCollision || enemyCollision;
 }
 bool Scene::collisionMoveLeft(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveLeft(map, character);
-
-	bool enemyCollision = false;
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
-	}
+	bool enemyCollision = characterCollidesEnemies(character);
 	return mapCollision || enemyCollision;
 }
 bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
-
 	//Maybe not return bool, if jumping on enemy kills it	
-	bool enemyCollision = false;
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
-	}
+	bool enemyCollision = characterCollidesEnemies(character);
 	return mapCollision || enemyCollision;
 }
 bool Scene::collisionMoveUp(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveUp(map, character);
-	bool enemyCollision = false;
-	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
-		enemyCollision = enemyCollision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
-	}
+	bool enemyCollision = characterCollidesEnemies(character);
 	return mapCollision || enemyCollision;
+}
+
+bool Scene::characterCollidesEnemies(Character* character) const{
+	bool collision = false; //Can be improved checking if true after each enemy type and returning(with few enemies doesn't matter)
+	for (PinxoEnemy* pinxoEnemy : mPinxoEnemies) {
+		collision = collision || mColisionHelper->characterCollidesCharacter(pinxoEnemy, character);
+	}
+	for (FlyingDummyEnemy* flyingDummyEnemy : mFlyingDummyEnemies) {
+		collision = collision || mColisionHelper->characterCollidesCharacter(flyingDummyEnemy, character);
+	}
+	return collision;
 }
 
 bool Scene::collisionMoveRightOnlyMap(Character* character) const {
@@ -257,7 +268,12 @@ void Scene::initEnemies(){
 	mPinxoEnemy->init(texProgram, this);
 	mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
 	mPinxoEnemies.insert(mPinxoEnemy);
-	initObjects();
+
+	FlyingDummyEnemy* mFlyingDummyEnemy = new FlyingDummyEnemy();
+	mFlyingDummyEnemy->init(texProgram, this);
+	mFlyingDummyEnemy->setPosition(glm::vec2(20 * map->getTileSize(), 5 * map->getTileSize()));
+	mFlyingDummyEnemies.insert(mFlyingDummyEnemy);
+
 }
 
 //OBJECTS

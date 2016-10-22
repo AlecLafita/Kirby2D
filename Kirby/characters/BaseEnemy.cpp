@@ -5,6 +5,35 @@ using namespace std;
 
 
 BaseEnemy::BaseEnemy(){
+	int en = rand() % 2; //number of enemies
+	cout << en << endl;
+	switch (en) {
+	case 0:
+		Character::setPathToSpriteSheet("images/chicken_enemy_spritesheet.png");
+		break;
+	case 1:
+		Character::setPathToSpriteSheet("images/chicken_enemy_spritesheet.png");
+		break;
+	default:
+		break;
+	}
+
+	mNumberAnimations = 8;
+
+	mSpriteRows = 6;
+
+	mNumStand = 2;
+	mNumMove = 3;
+	mNumAttack = 0;
+	mNumFly = 3;
+
+	//Sprite rows
+
+	START_ROW_MOVE_RIGHT = 0;
+	START_ROW_MOVE_LEFT = 1;
+	START_ROW_FLY_RIGHT = 2;
+	START_ROW_FLY_LEFT= 3;
+
 	dir = glm::ivec2(0, 0);
 }
 

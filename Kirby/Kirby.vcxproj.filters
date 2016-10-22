@@ -71,6 +71,9 @@
     <ClCompile Include="helpers\TransformationHelper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="characters\FlyingDummyEnemy.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="helpers\TransformationHelper.h">
       <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\PowerType.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\FlyingDummyEnemy.h">
+      <Filter>Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

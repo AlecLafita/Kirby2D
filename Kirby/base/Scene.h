@@ -10,6 +10,7 @@
 #include "../characters/FireKirby.h"
 #include "../characters/Kirby.h"
 #include "../characters/PinxoEnemy.h"
+#include "../characters/FlyingDummyEnemy.h"
 #include "../objects/ProjectileObject.h"
 #include "../helpers/ColisionHelper.h"
 #include "../helpers/TransformationHelper.h"
@@ -53,6 +54,9 @@ private:
 	void initEnemies();//std::string enemiesLocationPathFile
 	void initObjects();//std::string itemsLocationPathFile
 
+	bool characterCollidesEnemies(Character* character) const;
+
+
 private:
 	bool bToReset;
 	TileMap *map;
@@ -64,6 +68,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	set<PinxoEnemy*> mPinxoEnemies;
+	set<FlyingDummyEnemy*> mFlyingDummyEnemies;
 	set<ProjectileObject*> mProjectileObjects;
 	ColisionHelper* mColisionHelper;
 	TransformationHelper* mTransformationHelper;

@@ -190,9 +190,10 @@ bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2
 
 	//http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 
-	//if q1 = q2 they will not collide -> useful as we dont want characters to collide with themselves
-	return ((q1x1 < q2x2 && q1x2 >=q2x1 && q1y1 < q2y1 && q1y2 > q2y1) || 
-		(q2x1 < q1x2 && q2x2 > q1x1 && q2y1 < q1y1 && q2y2 > q1y1));
+	if (q1Pos == q2Pos) return false; //Collision with itself
+
+	return ((q1x1 < q2x2 && q1x2 >q2x1 && q1y1 <= q2y1 && q1y2 >= q2y1) || 
+		(q2x1 < q1x2 && q2x2 > q1x1 && q2y1 <= q1y1 && q2y2 >= q1y1));
 }
 
 

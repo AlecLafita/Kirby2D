@@ -48,7 +48,8 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	cout << "START_ROW_MOVE_LEFT  = " << START_ROW_MOVE_LEFT << endl;
 	cout << "START_ROW_ATTACK_RIGHT  = " << START_ROW_ATTACK_RIGHT << endl;
 	cout << "START_ROW_ATTACK_LEFT  = " << START_ROW_ATTACK_LEFT << endl;
-    cout << "FLY anim #" << mNumFly << " Row " <<  START_ROW_FLY_RIGHT << endl;
+	cout << "START_ROW_FLY_RIGHT = " << START_ROW_FLY_RIGHT << endl;
+	cout << "START_ROW_FLY_LEFT = " << START_ROW_FLY_LEFT << endl;
 
 	float columnSize = 1.f / float(mSpriteColumns);
 	float rowSize = 1.f / float(mSpriteRows);
@@ -89,10 +90,8 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
         sprite->addKeyframe(FLY_LEFT, glm::vec2(i*columnSize, START_ROW_FLY_LEFT*rowSize));
         sprite->addKeyframe(FLY_RIGHT, glm::vec2(i*columnSize, START_ROW_FLY_RIGHT*rowSize));
     }
-
 	sprite->changeAnimation(1);
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
-
 }
 
 void Character::setPathToSpriteSheet(string path){

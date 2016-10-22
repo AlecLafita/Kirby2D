@@ -27,10 +27,12 @@
     <ClInclude Include="characters\BaseEnemy.h" />
     <ClInclude Include="characters\BlackKirby.h" />
     <ClInclude Include="characters\Character.h" />
+    <ClInclude Include="characters\FlyingDummyEnemy.h" />
     <ClInclude Include="characters\FireKirby.h" />
     <ClInclude Include="characters\Kirby.h" />
     <ClInclude Include="characters\PinxoEnemy.h" />
     <ClInclude Include="characters\Player.h" />
+    <ClInclude Include="characters\PowerType.h" />
     <ClInclude Include="helpers\ColisionHelper.h" />
     <ClInclude Include="helpers\SoundHelper.h" />
     <ClInclude Include="helpers\TransformationHelper.h" />
@@ -52,6 +54,7 @@
     <ClCompile Include="characters\BaseEnemy.cpp" />
     <ClCompile Include="characters\BlackKirby.cpp" />
     <ClCompile Include="characters\Character.cpp" />
+    <ClCompile Include="characters\FlyingDummyEnemy.cpp" />
     <ClCompile Include="characters\FireKirby.cpp" />
     <ClCompile Include="characters\Kirby.cpp" />
     <ClCompile Include="characters\PinxoEnemy.cpp" />

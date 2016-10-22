@@ -238,7 +238,7 @@ void Scene::initShaders(){
 		cout << "Vertex Shader Error" << endl;
 		cout << "" << vShader.log() << endl << endl;
 	}
-	fShader.initFromFile(FRAGMENT_SHADER, "shaders/texture.frag");
+	fShader.initFromFile(FRAGMENT_SHADER,"shaders/texture.frag");
 	if (!fShader.isCompiled())
 	{
 		cout << "Fragment Shader Error" << endl;

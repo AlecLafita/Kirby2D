@@ -5,6 +5,14 @@
 #ifndef KIRBY_CONSTANTS_H
 #define KIRBY_CONSTANTS_H
 
+//Operating system
+#ifdef linux
+	#define IS_UNIX 1
+#else
+	#define IS_UNIX 0
+#endif
+
+
 // Tile size
 #define TILE_SIZE_X 32
 #define TILE_SIZE_Y 32

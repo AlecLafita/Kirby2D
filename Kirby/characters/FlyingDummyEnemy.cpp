@@ -4,7 +4,6 @@
 
 
 FlyingDummyEnemy::FlyingDummyEnemy() {
-	BaseEnemy::BaseEnemy();
 	dir = glm::ivec2(-2, 1);
 	actY = 0;
 }

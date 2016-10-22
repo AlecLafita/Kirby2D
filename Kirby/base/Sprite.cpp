@@ -90,6 +90,7 @@ void Sprite::addKeyframe(int animId, const glm::vec2 &displacement)
 
 void Sprite::changeAnimation(int animId)
 {
+//	cout << "Anim id: " << animId << " Anim size: " << int(animations.size())<< endl;
 	if(animId < int(animations.size()))
 	{
 		currentAnimation = animId;

@@ -29,7 +29,7 @@ void Player::update(int deltaTime){
         computeNextMove();
     } else {
 
-        computeAnimation();
+        computeAnimation(deltaTime);
     }
 	Character::update(deltaTime);
 }
@@ -153,12 +153,19 @@ void Player::computeNextMove() {
 	}
 }
 
-void Player::computeAnimation() {
+void Player::computeAnimation(int deltaTime) {
 
     if(isDead){
 
-        sprite->changeAnimation(DEATH);
-        posCharacter.y = startY;
+        if(sprite->animation() != DEATH){
+            sprite->changeAnimation(DEATH);
+        }
+        mAnimationTime += deltaTime;
+        if(mAnimationTime > 2500){       // A little over 2.5secs (in millis)
+
+            bAnimating = false; // Stop animation.
+            mAnimationTime = 0;
+        }
     }
 }
 
@@ -175,6 +182,7 @@ void Player::justDamaged() {
             mScene->setSceneToReset();
             bAnimating = true;
             isDead = true;
+            mAnimationTime = 0;
 			return;
         }
 		Game::instance().setPlayerEnergy(energy);

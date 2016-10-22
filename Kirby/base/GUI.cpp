@@ -20,14 +20,19 @@ void GUI::init() {
 	//Texture quads
 	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
 	glm::vec2 geomGUI[2] = {
-			glm::vec2(0.f, 0.f),
-			glm::vec2(float(SCREEN_WIDTH) - float(GUI_ABILITY_IMG_WIDTH) , GUI_HEIGHT)
+			glm::vec2(float(GUI_ABILITY_IMG_WIDTH), 0.f),
+			glm::vec2(float(SCREEN_WIDTH), GUI_HEIGHT)
+	};
+    glm::vec2 geomAbility[2] = {
+			glm::vec2(float(0.f), 0.f),
+			glm::vec2(float(GUI_ABILITY_IMG_WIDTH), GUI_HEIGHT)
 	};
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
-	
 	mainTexture.loadFromFile("images/menu.png", TEXTURE_PIXEL_FORMAT_RGB);
-	
+
+    abilityTexQuad = TexturedQuad::createTexturedQuad(geomAbility, texCoords, texProgram);
+    abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 
 	//text 
 	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
@@ -61,7 +66,10 @@ void GUI::render(){
 	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, SCREEN_HEIGHT - GUI_HEIGHT, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	mainTextureQuad->render(mainTexture);
-	
+
+    //Ability
+    abilityTexQuad->render(abilityTexture);
+
 	int vp[4];
 	glGetIntegerv(GL_VIEWPORT, vp);
 	//cout << vp[0] << " " << vp[1] << " " << vp[2] << " " << vp[3] << endl;

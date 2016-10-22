@@ -4,6 +4,9 @@
 
 BaseObject::BaseObject() {
 	mNumberAnimations = 1;
+	setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH);
+	bTaken = false;
+
 }
 
 void BaseObject::init(ShaderProgram &shaderProgram, Scene* scene) {
@@ -37,7 +40,7 @@ void BaseObject::render() {
 }
 
 
-void BaseObject::setPosition(const glm::vec2 &pos)
+void BaseObject::setPosition(const glm::ivec2 &pos)
 {
 	posObj = pos;
 	sprite->setPosition(glm::vec2(float(posObj.x), float(posObj.y)));

@@ -2,6 +2,7 @@
 #include "../base/TileMap.h"
 #include "../characters/Player.h"
 #include "../characters/BaseEnemy.h"
+#include "../objects/BaseObject.h"
 
 #include "../base/Defines.h"
 
@@ -130,7 +131,7 @@ bool ColisionHelper::characterCollidesCharacter(const Character* characterToColl
 	//return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
 	bool res = quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
-	Player *p = dynamic_cast<Player*>(character);
+	Player *p = dynamic_cast<Player*>(character); //maybe do this in scene better??
 	if ( p && res)
 		p->justDamaged();
 	return res;
@@ -148,6 +149,11 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 	}
 	return false;
 }
+
+bool ColisionHelper::playerGetsItem(Player* player, BaseObject* object) const {
+	return quadsCollision(player->getPosition(), player->getSize(), object->getPosition(), object->getSize());
+}
+
 
 /*
 bool ColisionHelper::generalColision(int right_char, int top_char, int bottom_char,

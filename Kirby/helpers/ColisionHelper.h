@@ -6,6 +6,7 @@ class TileMap;
 class Character;
 class Player;
 class BaseEnemy;
+class BaseObject;
 
 class ColisionHelper{
 public:
@@ -25,6 +26,8 @@ public:
 	//Can player swallow character?
 	bool playerSwallowCharacter( Player* player, BaseEnemy* enemy)const;
 
+	//Can player take the item?
+	bool playerGetsItem(Player* player, BaseObject* object) const;
 
 private:
 	//Check if two quads intersect, pos is the left-top vertex

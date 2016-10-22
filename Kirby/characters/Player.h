@@ -18,11 +18,13 @@ public:
 
 	bool isSwalling() const { return bAttacking; }
 	void justDamaged(); //trigered when character has been damaged
+	void recoverEnergy (int energyToRecover); //triggered when gathered an item 
 
 	void getType() {}
     bool isBeingAnimated(){
         return bAnimating;
     }
+
 
 protected:
 	virtual void computeAttack();

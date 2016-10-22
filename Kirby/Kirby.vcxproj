@@ -38,6 +38,7 @@
     <ClInclude Include="helpers\SoundHelper.h" />
     <ClInclude Include="helpers\TransformationHelper.h" />
     <ClInclude Include="objects\BaseObject.h" />
+    <ClInclude Include="objects\EnergyObject.h" />
     <ClInclude Include="objects\ProjectileObject.h" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +67,7 @@
     <ClCompile Include="helpers\TransformationHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects\BaseObject.cpp" />
+    <ClCompile Include="objects\EnergyObject.cpp" />
     <ClCompile Include="objects\ProjectileObject.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

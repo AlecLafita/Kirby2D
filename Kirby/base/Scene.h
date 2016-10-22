@@ -6,13 +6,7 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "../characters/Player.h"
-#include "../characters/BlackKirby.h"
-#include "../characters/FireKirby.h"
-#include "../characters/Kirby.h"
-#include "../characters/PinxoEnemy.h"
-#include "../characters/FlyingDummyEnemy.h"
-#include "../characters/WalkingDummyEnemy.h"
-#include "../objects/ProjectileObject.h"
+#include "../objects/BaseObject.h"
 #include "../helpers/ColisionHelper.h"
 #include "../helpers/TransformationHelper.h"
 #include "Defines.h"
@@ -30,7 +24,7 @@ public:
 	Scene();
 	~Scene();
 
-	void init(std::string levelPathFile, std::string backgroundPathFile, std::string enemiesLocationPathFile);// std::string itemsLocationPathFile
+	void init(std::string levelPathFile, std::string backgroundPathFile, std::string enemiesLocationPathFile, std::string itemsLocationPathFile);
 	void update(int deltaTime);
 	void render();
 
@@ -48,15 +42,16 @@ public:
 
 	bool playerCanSwallow(BaseEnemy* enemy) ;
 
+	bool playerTakesItem(BaseObject* obj);
+
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 
 private:
 	void initShaders();
-	void initEnemies(std::string enemiesLocationPathFile);//std::string enemiesLocationPathFile
-	void initObjects();//std::string itemsLocationPathFile
+	void initEnemies(std::string enemiesLocationPathFile);
+	void initObjects(std::string itemsLocationPathFile);
 
 	bool characterCollidesEnemies(Character* character) const;
-
 
 private:
 	bool bToReset;
@@ -69,11 +64,9 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	set<BaseEnemy*> mEnemies;
-	set<ProjectileObject*> mProjectileObjects;
+	set<BaseObject*> mPowerUps;
 	ColisionHelper* mColisionHelper;
 	TransformationHelper* mTransformationHelper;
-	//SoundHelper* mSoundHelper;
-	//GUI* mGUI;
 
 	int cameraLeftXposition;
 };

@@ -204,6 +204,15 @@ void Player::justDamaged() {
 	}
 	Character::justDamaged();
 }
+
+void Player::recoverEnergy(int energyToRecover) {
+	energy += energyToRecover;
+	energy = min(energy, MAX_ENERGY);
+	Game::instance().setPlayerEnergy(energy);
+	//Game::instance().playSound(SOUND_GET_ENERGY);
+
+}
+
 void Player::computeJumping(){
 
 	if (!bAttacking) {

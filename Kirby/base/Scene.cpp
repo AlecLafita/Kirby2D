@@ -7,6 +7,15 @@
 #include "Game.h"
 #include <GL/glut.h>
 
+#include "../characters/BlackKirby.h"
+#include "../characters/FireKirby.h"
+#include "../characters/Kirby.h"
+#include "../characters/PinxoEnemy.h"
+#include "../characters/FlyingDummyEnemy.h"
+#include "../characters/WalkingDummyEnemy.h"
+
+#include "../objects/EnergyObject.h"
+
 Scene::Scene()
 {
 	map = NULL;
@@ -28,9 +37,7 @@ Scene::~Scene()
 		delete mColisionHelper;
 
 	mEnemies.clear();
-
-
-	mProjectileObjects.clear();
+	mPowerUps.clear();
 }
 
 void Scene::resetScene() {
@@ -45,20 +52,20 @@ void Scene::resetScene() {
 	if (mColisionHelper != NULL)
 		delete mColisionHelper;
 
-	 mProjectileObjects.clear();
-
+	mPowerUps.clear();
 	 mEnemies.clear();
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
 
 
-void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std::string enemiesLocationPathFile/*, std::string itemsLocationPathFile*/)
+void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std::string enemiesLocationPathFile, std::string itemsLocationPathFile)
 {
 	resetScene();
 	bToReset = false;
 
 	initShaders();
+
 	//Init helpers
 	mColisionHelper = new ColisionHelper();
 	mTransformationHelper = new TransformationHelper();
@@ -74,7 +81,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 	player->init(texProgram, this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	initEnemies(enemiesLocationPathFile);
-	initObjects();
+	initObjects(itemsLocationPathFile);
 
 	//Init camera
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -106,8 +113,8 @@ void Scene::update(int deltaTime)
 	for (BaseEnemy* enemy : mEnemies) {
 		enemy->update(deltaTime);
 	}
-	for (ProjectileObject* projectileObject : mProjectileObjects){
-		projectileObject->update(deltaTime);
+	for (BaseObject* object : mPowerUps){
+		object->update(deltaTime);
 	}
 
 	//Update camera position
@@ -127,6 +134,14 @@ void Scene::update(int deltaTime)
 		}
 		else ++it;
 	}
+	//Delete taken objects
+	for (set<BaseObject*>::iterator it = mPowerUps.begin(); it != mPowerUps.end();) {
+		if ((*it)->isTaken()) {
+			mPowerUps.erase(it++);
+		}
+		else ++it;
+	}
+
 	//Reset scene if needed (player with no energy)
 	if (bToReset) {
 		if (player->isBeingAnimated()) {
@@ -155,7 +170,7 @@ void Scene::render() {
 		enemy->render();
 	}
 	//render objects
-	for (ProjectileObject* projectileObject : mProjectileObjects){
+	for (BaseObject* projectileObject : mPowerUps){
 		projectileObject->render();
 	}
 }
@@ -199,6 +214,7 @@ bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 	return mColisionHelper->mapMoveLeft(map, character);
 }
 
+//Check also if enemy is hit by Kirby attacks!
 bool Scene::playerCanSwallow(BaseEnemy* enemy) {
 	if (!dynamic_cast<Kirby*>(player)) { //Kiry with ability -> can not swallow!
 		return false;
@@ -211,6 +227,20 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
                                                 texProgram, this);
 	}
 	return hasSwallowed;
+}
+
+bool Scene::playerTakesItem(BaseObject* obj) {
+	if (mColisionHelper->playerGetsItem(player, obj)) { 
+		if (EnergyObject* o = dynamic_cast<EnergyObject*>(obj)) { //recover energy
+			if (o->recoversFullEnergy()) { //tomato
+				player->recoverEnergy(MAX_ENERGY);
+			}
+			else  player->recoverEnergy(1);//other food
+		}
+		//else if ()
+		return true;
+	}
+	return false;
 }
 
 
@@ -300,17 +330,60 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 }
 
 //OBJECTS
-void Scene::initObjects() {
+void Scene::initObjects(std::string itemsLocationPathFile) {
 	//read from enemies text file
 	//file format: num of objects
 	//			   objectType posX posY
-	ProjectileObject* mProjectileObject = new ProjectileObject();
-	mProjectileObject->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH);
-	mProjectileObject->setTexturePosition(glm::fvec2(0.25f, 0.25f));
-	mProjectileObject->init(texProgram, this);
-	mProjectileObject->setPosition(glm::vec2(10 * map->getTileSize(), 5 * map->getTileSize()));
-	mProjectileObject->setDirection(glm::fvec2(1.0f, 0.0f));
 
-	mProjectileObjects.insert(mProjectileObject);
+	ifstream fin;
+	string line;
+	stringstream sstream;
+
+	fin.open(itemsLocationPathFile.c_str());
+	if (!fin.is_open()) {
+		cout << "file already open!" << endl;
+		return;
+	}
+	getline(fin, line);
+	sstream.str(line);
+	int numObjects;
+	sstream >> numObjects;
+	cout << "num of objects: " << numObjects << endl;
+	int objectType, posX, posY;
+	for (int i = 0; i < numObjects; ++i) {
+		getline(fin, line); //sstream.str(line);
+		stringstream(line) >> objectType >> posX >> posY;
+		//cout << enemyType << " " << posX << " " << posY << endl;
+		switch (objectType) {
+		case 0: {// 1 energy recovery -> diverse food
+			EnergyObject* oneEnergyRecovery = new EnergyObject();
+			oneEnergyRecovery->init(texProgram, this);
+			oneEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+			oneEnergyRecovery->setFullRecovery(false);
+			mPowerUps.insert(oneEnergyRecovery);
+			break;
+		}
+		case 1: { //full energy recovery ->tomato
+			EnergyObject* fullEnergyRecovery = new EnergyObject();
+			fullEnergyRecovery->init(texProgram, this);
+			fullEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+			fullEnergyRecovery->setFullRecovery(true);
+			mPowerUps.insert(fullEnergyRecovery);
+			break;
+			break;
+		}
+		case 2: { //life recovery
+
+			break;
+		}
+		case 3: { // invencibility?
+
+			break;
+		}
+		default:
+			cout << "unknown item!" << endl;
+			break;
+		}
+	}
 }
 

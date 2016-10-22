@@ -38,11 +38,11 @@ void Player::computeNextMove() {
 
 			Game::instance().playSound(SOUND_VACUUMING);
 
-			if (sprite->animation() == STAND_LEFT){
+			if (isFacingLeftSide()){
 				sprite->changeAnimation(ATTACK_LEFT);
 				bAttacking = true;
 			}
-			else if (sprite->animation() == STAND_RIGHT){
+			else if (isFacingRightSide()){
 				sprite->changeAnimation(ATTACK_RIGHT);
 				bAttacking = true;
 			}
@@ -52,7 +52,7 @@ void Player::computeNextMove() {
 			Game::instance().stopSound(SOUND_VACUUMING);
 			bAttacking = false;
 		}
-        return;
+        //return;
 	} else {
         Game::instance().stopSound(SOUND_VACUUMING);
 		bAttacking = false;
@@ -62,51 +62,54 @@ void Player::computeNextMove() {
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 
-    // ---- LEFT / RIGHT----
-	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+	if (!bAttacking) { //can not swallow and attack at the same time!
+		// ---- LEFT / RIGHT----
+		if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 
-		if(bHoving && sprite->animation() != FLY_LEFT ){
+			if(bJumping && sprite->animation() != FLY_LEFT ){
 
-			sprite->changeAnimation(FLY_LEFT);
-		} else if(!bHoving && sprite->animation() != MOVE_LEFT){
-
-			sprite->changeAnimation(MOVE_LEFT);
-		}
-		posCharacter.x -= MOVEMENT_DEFAULT;
-		if (mScene->collisionMoveLeft(this)) {
-			posCharacter.x += MOVEMENT_DEFAULT;
-			if(!bHoving){
-
-				sprite->changeAnimation(STAND_LEFT);
+				sprite->changeAnimation(FLY_LEFT);
 			}
-		}
-	}
-	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)){
+			else if (!bJumping && sprite->animation() != MOVE_LEFT){
 
-		if(bHoving && sprite->animation() != FLY_RIGHT ){
-
-			sprite->changeAnimation(FLY_RIGHT);
-		} else if(!bHoving && sprite->animation() != MOVE_RIGHT){
-
-			sprite->changeAnimation(MOVE_RIGHT);
-		}
-		posCharacter.x += MOVEMENT_DEFAULT;
-		if (mScene->collisionMoveRight(this)) {
+				sprite->changeAnimation(MOVE_LEFT);
+			}
 			posCharacter.x -= MOVEMENT_DEFAULT;
-			if(!bHoving){
+			if (mScene->collisionMoveLeft(this)) {
+				posCharacter.x += MOVEMENT_DEFAULT;
+				if (!bJumping){
 
-				sprite->changeAnimation(STAND_RIGHT);
+					sprite->changeAnimation(STAND_LEFT);
+				}
 			}
 		}
-	}
-	else {
-        //Stops walking.
-		if (sprite->animation() == MOVE_LEFT)
-			sprite->changeAnimation(STAND_LEFT);
-		else if (sprite->animation() == MOVE_RIGHT)
-			sprite->changeAnimation(STAND_RIGHT);
-	}
+		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)){
 
+			if (bJumping && sprite->animation() != FLY_RIGHT){
+
+				sprite->changeAnimation(FLY_RIGHT);
+			}
+			else if (!bJumping && sprite->animation() != MOVE_RIGHT){
+
+				sprite->changeAnimation(MOVE_RIGHT);
+			}
+			posCharacter.x += MOVEMENT_DEFAULT;
+			if (mScene->collisionMoveRight(this)) {
+				posCharacter.x -= MOVEMENT_DEFAULT;
+				if (!bJumping){
+
+					sprite->changeAnimation(STAND_RIGHT);
+				}
+			}
+		}
+		else {
+			//Stops walking.
+			if (sprite->animation() == MOVE_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
+			else if (sprite->animation() == MOVE_RIGHT)
+				sprite->changeAnimation(STAND_RIGHT);
+		}
+	}
 	//Jumping block (common for all kirbys???)
 	if (bJumping) {//Player at the air
 		jumpAngle += JUMP_ANGLE_STEP;
@@ -164,17 +167,20 @@ void Player::justDamaged() {
 }
 void Player::computeJumping(){
 
-	if(isFacingLeftSide()){
-		sprite->changeAnimation(FLY_LEFT);
-	} else {
-		sprite->changeAnimation(FLY_RIGHT);
+	if (!bAttacking) {
+		if (isFacingLeftSide()){
+			sprite->changeAnimation(FLY_LEFT);
+		}
+		else {
+			sprite->changeAnimation(FLY_RIGHT);
+		}
+		Game::instance().playSound(SOUND_JUMPING);
+		nJumps++;
+		bHoving = false;
+		bJumping = true;
+		jumpAngle = 0;
+		startY = posCharacter.y;
 	}
-	Game::instance().playSound(SOUND_JUMPING);
-	nJumps++;
-	bHoving = true;
-	bJumping = true;
-	jumpAngle = 0;
-	startY = posCharacter.y;
 }
 
 bool Player::isFacingLeftSide() {

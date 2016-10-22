@@ -33,6 +33,7 @@
     <ClInclude Include="characters\Player.h" />
     <ClInclude Include="helpers\ColisionHelper.h" />
     <ClInclude Include="helpers\SoundHelper.h" />
+    <ClInclude Include="helpers\TransformationHelper.h" />
     <ClInclude Include="objects\BaseObject.h" />
     <ClInclude Include="objects\ProjectileObject.h" />
   </ItemGroup>
@@ -57,6 +58,7 @@
     <ClCompile Include="characters\Player.cpp" />
     <ClCompile Include="helpers\ColisionHelper.cpp" />
     <ClCompile Include="helpers\SoundHelper.cpp" />
+    <ClCompile Include="helpers\TransformationHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects\BaseObject.cpp" />
     <ClCompile Include="objects\ProjectileObject.cpp" />

@@ -5,10 +5,10 @@
 #include <iostream>
 using namespace std;
 
-Player::Player()
-{
-	mSpriteRows = 10;
-	mNumberAnimations = 10;
+Player::Player() {
+    bAnimating = false;
+	mSpriteRows = 6;
+	mNumberAnimations = 6;
 }
 
 
@@ -24,7 +24,13 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 
 void Player::update(int deltaTime){
 
-	computeNextMove();
+    if(!bAnimating){
+
+        computeNextMove();
+    } else {
+
+        computeAnimation();
+    }
 	Character::update(deltaTime);
 }
 
@@ -144,6 +150,10 @@ void Player::computeNextMove() {
 	}
 }
 
+void Player::computeAnimation() {
+
+}
+
 void Player::justDamaged() {
 	if (framesDamaged == 0) {
         if(energy > 0){
@@ -155,6 +165,7 @@ void Player::justDamaged() {
 			Game::instance().stopMusic();
 			Game::instance().playSound(SOUND_DEATH);
             mScene->setSceneToReset();
+            bAnimating = true;
 			//TODO Do some death animation (?)
 			return;
         }

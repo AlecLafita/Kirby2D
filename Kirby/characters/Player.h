@@ -10,6 +10,7 @@ public:
 
 	void computeNextMove();
 	void computeJumping();
+	void computeAnimation();
 	void init(ShaderProgram &shaderProgram, Scene* scene);
 	void update(int deltaTime);
 
@@ -17,6 +18,9 @@ public:
 	void justDamaged(); //trigered when character has been damaged
 
 	void getType() {}
+    bool isBeingAnimated(){
+        return bAnimating;
+    }
 
 protected:
 	bool isFacingLeftSide();
@@ -25,6 +29,8 @@ protected:
 private:
 	bool bHoving;
 	int nJumps;
+
+	bool bAnimating;
 
 	int energy;
 

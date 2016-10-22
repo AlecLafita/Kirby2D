@@ -125,7 +125,14 @@ void Scene::update(int deltaTime)
 	}
 
 	//Reset scene if needed (player with no energy)
-	if (bToReset) Game::instance().resetLevel();
+	if (bToReset) {
+		if (player->isBeingAnimated()) {
+
+		} else {
+
+			Game::instance().resetLevel();
+		}
+	}
 }
 
 void Scene::render() {

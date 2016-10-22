@@ -14,6 +14,12 @@ public:
 
     void init(ShaderProgram &shaderProgram,Scene* scene);
 
+protected:
+	//void computeAttack();
+	//void computeMovement();
+	//void computeJump();
+	int getAttackSound();
+
 };
 
 

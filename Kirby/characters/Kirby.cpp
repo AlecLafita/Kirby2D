@@ -2,8 +2,8 @@
 // Created by quokka on 20/10/16.
 //
 
-
 #include "Kirby.h"
+#include "../base/Game.h"
 
 Kirby::Kirby() {
 
@@ -20,4 +20,8 @@ void Kirby::init(ShaderProgram &shaderProgram, Scene *scene) {
 
     Player::init(shaderProgram, scene);
 
+}
+
+int Kirby::getAttackSound() {
+	return SOUND_VACUUMING;
 }

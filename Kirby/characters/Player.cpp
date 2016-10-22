@@ -23,10 +23,6 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 }
 
 void Player::update(int deltaTime){
-	/*if (FireKirby* a = dynamic_cast<FireKirby*>(this)){
-		a->update(deltaTime);
-	}*/
-
     if(!bAnimating){
 
         computeNextMove();
@@ -39,13 +35,18 @@ void Player::update(int deltaTime){
 
 
 void Player::computeNextMove() {
+	computeAttack();
+	computeMovement();
+	computeJump();
+}
 
-    // ---- ATTACK ----
+void Player::computeAttack(){
+	// ---- ATTACK ----
 	//Attacking block, only for Kirby(no abilities)
 	if (Game::instance().getKey('a')) { //attack (swallow)
 		if (!bAttacking){
 
-			Game::instance().playSound(SOUND_VACUUMING);
+			Game::instance().playSound(getAttackSound());
 
 			if (isFacingLeftSide()){
 				sprite->changeAnimation(ATTACK_LEFT);
@@ -58,73 +59,81 @@ void Player::computeNextMove() {
 		}
 
 		if (sprite->animation() != ATTACK_LEFT && sprite->animation() != ATTACK_RIGHT) { //a pressed but moving
-			Game::instance().stopSound(SOUND_VACUUMING);
+			Game::instance().stopSound(getAttackSound());
 			bAttacking = false;
 		}
-        //return;
-	} else {
-        Game::instance().stopSound(SOUND_VACUUMING);
+		//return;
+	}
+	else {
+		Game::instance().stopSound(getAttackSound());
 		bAttacking = false;
-        if (sprite->animation() == ATTACK_LEFT)
+		if (sprite->animation() == ATTACK_LEFT)
 			sprite->changeAnimation(STAND_LEFT);
 		else if (sprite->animation() == ATTACK_RIGHT)
 			sprite->changeAnimation(STAND_RIGHT);
 	}
 
-	if (!bAttacking) { //can not swallow and attack at the same time!
-		// ---- LEFT / RIGHT----
-		if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
+}
 
-			if(bJumping && sprite->animation() != FLY_LEFT ){
+void Player::computeMovement() {
+	if (bAttacking) return;
 
-				sprite->changeAnimation(FLY_LEFT);
-			}
-			else if (!bJumping && sprite->animation() != MOVE_LEFT){
+	// ---- LEFT / RIGHT----
+	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT)) {
 
-				sprite->changeAnimation(MOVE_LEFT);
-			}
-			posCharacter.x -= MOVEMENT_DEFAULT;
-			if (mScene->collisionMoveLeft(this)) {
-				posCharacter.x += MOVEMENT_DEFAULT;
-				if (!bJumping){
+		if (bJumping && sprite->animation() != FLY_LEFT){
 
-					sprite->changeAnimation(STAND_LEFT);
-				}
-			}
+			sprite->changeAnimation(FLY_LEFT);
 		}
-		else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)){
+		else if (!bJumping && sprite->animation() != MOVE_LEFT){
 
-			if (bJumping && sprite->animation() != FLY_RIGHT){
-
-				sprite->changeAnimation(FLY_RIGHT);
-			}
-			else if (!bJumping && sprite->animation() != MOVE_RIGHT){
-
-				sprite->changeAnimation(MOVE_RIGHT);
-			}
+			sprite->changeAnimation(MOVE_LEFT);
+		}
+		posCharacter.x -= MOVEMENT_DEFAULT;
+		if (mScene->collisionMoveLeft(this)) {
 			posCharacter.x += MOVEMENT_DEFAULT;
-			if (mScene->collisionMoveRight(this)) {
-				posCharacter.x -= MOVEMENT_DEFAULT;
-				if (!bJumping){
+			if (!bJumping){
 
-					sprite->changeAnimation(STAND_RIGHT);
-				}
-			}
-		}
-		else {
-			//Stops walking.
-			if (sprite->animation() == MOVE_LEFT)
 				sprite->changeAnimation(STAND_LEFT);
-			else if (sprite->animation() == MOVE_RIGHT)
-				sprite->changeAnimation(STAND_RIGHT);
+			}
 		}
 	}
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT)){
+
+		if (bJumping && sprite->animation() != FLY_RIGHT){
+
+			sprite->changeAnimation(FLY_RIGHT);
+		}
+		else if (!bJumping && sprite->animation() != MOVE_RIGHT){
+
+			sprite->changeAnimation(MOVE_RIGHT);
+		}
+		posCharacter.x += MOVEMENT_DEFAULT;
+		if (mScene->collisionMoveRight(this)) {
+			posCharacter.x -= MOVEMENT_DEFAULT;
+			if (!bJumping){
+
+				sprite->changeAnimation(STAND_RIGHT);
+			}
+		}
+	}
+	else {
+		//Stops walking.
+		if (sprite->animation() == MOVE_LEFT)
+			sprite->changeAnimation(STAND_LEFT);
+		else if (sprite->animation() == MOVE_RIGHT)
+			sprite->changeAnimation(STAND_RIGHT);
+	}
+}
+
+void Player::computeJump() {
+
 	//Jumping block (common for all kirbys???)
 	if (bJumping) {//Player at the air
 		jumpAngle += JUMP_ANGLE_STEP;
 		if (jumpAngle == ANGLE_GROUND) { //Very near the ground
 			bJumping = false;
-            bHoving = false;
+			bHoving = false;
 			posCharacter.y = startY;
 		}
 		else {//going up when 0<=jumpAngle<=90, down when 90<jumpAngle<=180
@@ -152,7 +161,7 @@ void Player::computeNextMove() {
 	}
 
 	if (bHoving && Game::instance().getSpecialKey(GLUT_KEY_UP) && nJumps < MAX_JUMPS) {
-       computeJumping();
+		computeJumping();
 	}
 }
 

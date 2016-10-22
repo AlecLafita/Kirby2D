@@ -1,4 +1,6 @@
 #include "FireKirby.h"
+#include "../base/Game.h"
+
 #include <iostream>
 using namespace std;
 
@@ -15,8 +17,27 @@ FireKirby::FireKirby()
 	mNumSwallow = 2;
 }
 
-void FireKirby::update(int deltaTime) {
-	cout << "fire" << endl;
-	Player::update(deltaTime);
+void FireKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
+	Player::init(shaderProgram, scene);
+	//Creae fire object
+	mFire = new BaseObject();
+	mFire->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
+	mFire->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
+	mFire->init(shaderProgram, scene);
 }
 
+void FireKirby::update(int deltaTime) {
+	Player::update(deltaTime);
+	if (bAttacking && Game::instance().getKey('a'))
+		mFire->setPosition(glm::ivec2(posCharacter.x + getSize().x,posCharacter.y));
+}
+
+void FireKirby::render() {
+	Player::render();
+	if (bAttacking && Game::instance().getKey('a'))
+		mFire->render();
+}
+
+int FireKirby::getAttackSound() {
+	return SOUND_FIRE;
+}

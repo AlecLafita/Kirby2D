@@ -10,6 +10,7 @@ public:
 
 	virtual void init(ShaderProgram &shaderProgram, Scene* scene);
 	virtual void update(int deltaTime);
+	virtual void render(){ Character::render(); }
 
 	void computeNextMove();
 	void computeJumping();
@@ -24,6 +25,10 @@ public:
     }
 
 protected:
+	virtual void computeAttack();
+	virtual void computeMovement();
+	virtual void computeJump();
+	virtual int getAttackSound(){ return SOUND_VACUUMING; }
 	bool isFacingLeftSide();
 	bool isFacingRightSide();
 

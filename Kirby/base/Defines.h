@@ -41,8 +41,9 @@
 //Kirby constants
 #define INIT_PLAYER_X_TILES 2 //Initial Kirby position
 #define INIT_PLAYER_Y_TILES 2
-#define MAX_JUMPS 3 //How many time can Kirby jump
-#define SWALLOW_DISTANCE 50 //How far can Kirby swallow
+#define MAX_JUMPS 3 //How many times can Kirby jump
+#define SWALLOW_DISTANCE 60 //How far can Kirby swallow
+#define SWALLOW_Y_MAX_DISTANCE 20 //Max y distance that can be between Kirby and a character being swallowed
 #define SWALLOW_VELOCITY_FACTOR 10 //Factor of enemies being swallowed: the smaller, the faster
 
 //Camera size
@@ -59,9 +60,9 @@
 #define OBJECTS_SPRITESHEET_PATH "images/items.png"
 
 //SOUND
-#define NUM_OF_SOUNDS 3
+#define NUM_OF_SOUNDS 4
 enum {
-	SOUND_JUMPING, SOUND_VACUUMING, SOUND_DEATH
+	SOUND_JUMPING, SOUND_VACUUMING, SOUND_DEATH, SOUND_FIRE
 };
 
 #endif //KIRBY_CONSTANTS_H

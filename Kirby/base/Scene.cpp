@@ -305,6 +305,7 @@ void Scene::initObjects() {
 	//file format: num of objects
 	//			   objectType posX posY
 	ProjectileObject* mProjectileObject = new ProjectileObject();
+	mProjectileObject->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH);
 	mProjectileObject->setTexturePosition(glm::fvec2(0.25f, 0.25f));
 	mProjectileObject->init(texProgram, this);
 	mProjectileObject->setPosition(glm::vec2(10 * map->getTileSize(), 5 * map->getTileSize()));

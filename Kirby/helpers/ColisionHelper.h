@@ -42,5 +42,8 @@ private:
 
 	//Returns the euclidean distance between two positions
 	int distanceBetweenPositions(const glm::ivec2 pos1, const glm::ivec2 pos2) const;
+
+	//Returns if two caharacters are (near to be) at same horizontal line, used for kirby swalling
+	bool sameHorizontal(const glm::ivec2 pos1, const glm::ivec2 pos2) const;
 };
 

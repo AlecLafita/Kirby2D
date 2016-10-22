@@ -135,6 +135,7 @@ void Game::initSoundHelper() {
 	mSoundHelper->initSound(SOUND_JUMPING, "sounds/jumping.wav");
 	mSoundHelper->initSound(SOUND_VACUUMING, "sounds/vacuuming.wav");
 	mSoundHelper->initSound(SOUND_DEATH, "sounds/death.wav");
+	mSoundHelper->initSound(SOUND_FIRE, "sounds/fire.wav");
 }
 
 void Game::playSound(int soundIndex) {

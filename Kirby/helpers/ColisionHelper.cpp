@@ -76,8 +76,7 @@ bool ColisionHelper::mapMoveDown(const TileMap* tMap, Character* character) cons
 	{
 		if (map[y*mapTilesWidth + x] != 0)
 		{
-			if (pos.y - tileSize * y + size.y <= 4) //4 es FALL_STEP de Player.cpp
-			{
+			if (pos.y - tileSize * y + size.y <= FALL_STEP) {
 				character->setPosition(glm::ivec2(pos.x, tileSize * y - size.y));
 				return true;
 			}
@@ -140,7 +139,7 @@ bool ColisionHelper::characterCollidesCharacter(const Character* characterToColl
 bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
 	glm::ivec2 playerPos = player->getPosition();
 	glm::ivec2 enemyPos = enemy->getPosition();
-	if (player->isSwalling() && (distanceBetweenPositions(playerPos, enemyPos) <= SWALLOW_DISTANCE)) {
+	if (player->isSwalling() && (distanceBetweenPositions(playerPos, enemyPos) <= SWALLOW_DISTANCE) && sameHorizontal(playerPos, enemyPos)) {
 		//Move character to player
 		glm::ivec2 dir = playerPos - enemyPos;
 		enemy->setPosition(enemyPos + dir / SWALLOW_VELOCITY_FACTOR);
@@ -201,4 +200,8 @@ int ColisionHelper::distanceBetweenPositions(const glm::ivec2 pos1, const glm::i
 	return sqrt((pos1.x - pos2.x)*(pos1.x - pos2.x) + (pos1.y - pos2.y)*(pos1.y - pos2.y));
 }
 
+
+bool ColisionHelper::sameHorizontal(const glm::ivec2 pos1, const glm::ivec2 pos2) const{
+	return abs(pos1.y - pos2.y) < SWALLOW_Y_MAX_DISTANCE;
+}
 

@@ -1,4 +1,4 @@
-#version 300 es
+#version 330 
 
 uniform mat4 projection, modelview;
 uniform lowp vec2 texCoordDispl;

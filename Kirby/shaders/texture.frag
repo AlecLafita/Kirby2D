@@ -1,4 +1,4 @@
-#version 300 es
+#version 330 
 
 uniform lowp vec4 color;
 uniform lowp sampler2D tex;

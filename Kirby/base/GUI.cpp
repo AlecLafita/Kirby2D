@@ -19,7 +19,10 @@ void GUI::init() {
 
 	//Texture quads
 	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
-	glm::vec2 geomGUI[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), GUI_HEIGHT) };
+	glm::vec2 geomGUI[2] = {
+			glm::vec2(0.f, 0.f),
+			glm::vec2(float(SCREEN_WIDTH) - float(GUI_ABILITY_IMG_WIDTH) , GUI_HEIGHT)
+	};
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	

@@ -44,6 +44,8 @@
 //GUI
 #define GUI_HEIGHT 60
 #define HABILITY_SIZE 20
+#define GUI_ABILITY_IMG_WIDTH 40
+#define GUI_ABILITY_IMG_HEIGHT 32
 
 //OBJECTS
 #define OBJECTS_SPRITESHEET_PATH "images/items.png"

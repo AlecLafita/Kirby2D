@@ -30,7 +30,7 @@ public:
 	Scene();
 	~Scene();
 
-	void init(std::string levelPathFile, std::string backgroundPathFile);//, std::string enemiesLocationPathFile, std::string itemsLocationPathFile
+	void init(std::string levelPathFile, std::string backgroundPathFile, std::string enemiesLocationPathFile);// std::string itemsLocationPathFile
 	void update(int deltaTime);
 	void render();
 
@@ -52,7 +52,7 @@ public:
 
 private:
 	void initShaders();
-	void initEnemies();//std::string enemiesLocationPathFile
+	void initEnemies(std::string enemiesLocationPathFile);//std::string enemiesLocationPathFile
 	void initObjects();//std::string itemsLocationPathFile
 
 	bool characterCollidesEnemies(Character* character) const;

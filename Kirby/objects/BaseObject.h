@@ -11,8 +11,8 @@ public:
 	BaseObject();
 	~BaseObject(){}
 
-	void init(ShaderProgram &shaderProgram, Scene* scene);
-	void update(int deltaTime);
+	virtual void init(ShaderProgram &shaderProgram, Scene* scene);
+	virtual void update(int deltaTime);
 	void render();
 
 	void setTexturePosition(const glm::fvec2 &pos); //must be called before init

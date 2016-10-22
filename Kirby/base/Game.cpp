@@ -32,12 +32,12 @@ void Game::resetLevel() {
 		switch (levelAct) {
 		case 1:
 			cout << "level 1" << endl;
-			scene.init("levels/Cloudy_lvl.txt", "images/peppermint_palace.png");
+			scene.init("levels/Cloudy_lvl.txt", "images/peppermint_palace.png","levels/level01_enemies.txt");
 			mSoundHelper->playMusic("sounds/song_green_greens.wav");
 			break;
 		case 2:
 			cout << "level2" << endl;
-			scene.init("levels/kawaii.txt", "images/forest_bg.png");
+			scene.init("levels/kawaii.txt", "images/forest_bg.png", "levels/level01_enemies.txt");
 			mSoundHelper->playMusic("sounds/song_green_greens.wav");
 			break;
 		default:

@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Scene.h"
@@ -51,7 +53,7 @@ void Scene::resetScene() {
 }
 
 
-void Scene::init(std::string levelPathFile, std::string backgroundPathFile/*, std::string enemiesLocationPathFile, std::string itemsLocationPathFile*/)
+void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std::string enemiesLocationPathFile/*, std::string itemsLocationPathFile*/)
 {
 	resetScene();
 	bToReset = false;
@@ -71,7 +73,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile/*, st
     player = new Kirby();
 	player->init(texProgram, this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-	initEnemies();
+	initEnemies(enemiesLocationPathFile);
 	initObjects();
 
 	//Init camera
@@ -244,30 +246,64 @@ void Scene::initShaders(){
 
 
 //ENEMIES
-void Scene::initEnemies(){
-	//Jo faria una nova classe contenidora de tots els enemics que s'encarregues de init,update i render
-
+void Scene::initEnemies(std::string enemiesLocationPathFile){
 	//read from enemies text file
-	PinxoEnemy* mPinxoEnemy = new PinxoEnemy();
-	mPinxoEnemy->init(texProgram, this);
-	mPinxoEnemy->setPosition(glm::vec2(5 * map->getTileSize(), 5 * map->getTileSize()));
-	mEnemies.insert(mPinxoEnemy);
+	//file format: num of enemies
+	//			   enemyType posX posY
 
-	FlyingDummyEnemy* mFlyingDummyEnemy = new FlyingDummyEnemy();
-	mFlyingDummyEnemy->init(texProgram, this);
-	mFlyingDummyEnemy->setPosition(glm::vec2(20 * map->getTileSize(), 5 * map->getTileSize()));
-	mEnemies.insert(mFlyingDummyEnemy);
+	ifstream fin;
+	string line;
+	stringstream sstream;
 
-	WalkingDummyEnemy* mWalkingEnemy = new WalkingDummyEnemy();
-	mWalkingEnemy->init(texProgram, this);
-	mWalkingEnemy->setPosition(glm::vec2(10 * map->getTileSize(), 10 * map->getTileSize()));
-	mEnemies.insert(mWalkingEnemy);
-
+	fin.open(enemiesLocationPathFile.c_str());
+	if (!fin.is_open()) {
+		cout << "file already open!" << endl;
+		return;
+	}
+	getline(fin, line);
+	sstream.str(line);
+	int numEnemies;
+	sstream >> numEnemies;
+	cout << "num of enemies: " << numEnemies << endl;
+	int enemyType, posX, posY;
+	for (int i = 0; i < numEnemies; ++i) {
+		getline(fin, line); //sstream.str(line);
+		stringstream(line) >> enemyType >> posX >> posY;
+		//cout << enemyType << " " << posX << " " << posY << endl;
+		switch (enemyType) {
+			case 0: {//pinxo 
+				PinxoEnemy* mPinxoEnemy = new PinxoEnemy();
+				mPinxoEnemy->init(texProgram, this);
+				mPinxoEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY* map->getTileSize()));
+				mEnemies.insert(mPinxoEnemy);
+				break;
+			}
+			case 1: {//dummy fly
+				FlyingDummyEnemy* mFlyingDummyEnemy = new FlyingDummyEnemy();
+				mFlyingDummyEnemy->init(texProgram, this);
+				mFlyingDummyEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+				mEnemies.insert(mFlyingDummyEnemy);
+				break;
+			}
+			case 2: { //dummy walk
+				WalkingDummyEnemy* mWalkingEnemy = new WalkingDummyEnemy();
+				mWalkingEnemy->init(texProgram, this);
+				mWalkingEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+				mEnemies.insert(mWalkingEnemy);
+				break;
+			}
+			default:
+				cout << "unknown enemy!" << endl;
+				break;
+		}
+	}
 }
 
 //OBJECTS
 void Scene::initObjects() {
-	//read from objects text file
+	//read from enemies text file
+	//file format: num of objects
+	//			   objectType posX posY
 	ProjectileObject* mProjectileObject = new ProjectileObject();
 	mProjectileObject->setTexturePosition(glm::fvec2(0.25f, 0.25f));
 	mProjectileObject->init(texProgram, this);

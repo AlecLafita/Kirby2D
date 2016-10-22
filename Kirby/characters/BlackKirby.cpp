@@ -7,5 +7,11 @@
 BlackKirby::BlackKirby() {
 
     setPathToSpriteSheet("images/black_kirby_spritesheet.png");
-    mSpriteRows = 6;
+
+    mSpriteRows = 11;
+    mNumberAnimations = 11;
+
+    mNumDeath = 8;
+    mNumFly = 6;
+    mNumSwallow = 2;
 }

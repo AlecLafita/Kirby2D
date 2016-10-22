@@ -57,7 +57,7 @@ add_executable(${appName} characters/Player.h characters/Player.cpp AnimKeyframe
         characters/PinxoEnemy.h base/GUI.cpp base/GUI.h helpers/ColisionHelper.cpp helpers/ColisionHelper.h base/Text.cpp base/Text.h
         base/TexturedQuad.cpp base/TexturedQuad.h helpers/SoundHelper.h helpers/SoundHelper.cpp characters/BlackKirby.cpp characters/BlackKirby.h characters/Kirby.cpp characters/Kirby.h helpers/TransformationHelper.cpp helpers/TransformationHelper.h
         base/MainMenu.cpp base/MainMenu.h characters/FireKirby.cpp characters/FireKirby.h
-        characters/PowerType.h)
+        characters/PowerType.h )
 
 target_link_libraries(${appName} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${SOIL_LIBRARIES} ${SFML_LIBRARIES} ${FREETYPE_LIBRARIES}) # ${GLM_LIBRARIES}
 

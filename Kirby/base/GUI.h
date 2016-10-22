@@ -31,6 +31,9 @@ private:
 	TexturedQuad* mainTextureQuad; //GUI Background
 	Texture mainTexture;
 
+	TexturedQuad* abilityTexQuad;
+	Texture abilityTexture;
+
 	TexturedQuad* lifesQuad;
 	Texture lifesTexture;
 	Text lifesText;

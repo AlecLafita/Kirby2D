@@ -8,11 +8,12 @@ public:
 	Player();
 	~Player();
 
-	void computeNextMove();
-	void computeJumping();
-	void computeAnimation();
 	void init(ShaderProgram &shaderProgram, Scene* scene);
 	void update(int deltaTime);
+
+	void computeNextMove();
+	void computeJumping();
+	void computeAnimation(int deltaTime);
 
 	bool isSwalling() const { return bAttacking; }
 	void justDamaged(); //trigered when character has been damaged
@@ -37,6 +38,8 @@ private:
 	int mNumEatStandRight, mNumEatStandLeft;
 	int mNumEatMoveRight, mNumEatMoveLeft;
 	int mFlyRight, mFlyLeft;
+
+	int mAnimationTime;
 
 	//Constants
 	int START_ROW_EAT_STAND_RIGHT;

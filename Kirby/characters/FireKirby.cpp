@@ -28,8 +28,12 @@ void FireKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void FireKirby::update(int deltaTime) {
 	Player::update(deltaTime);
-	if (bAttacking && Game::instance().getKey('a'))
-		mFire->setPosition(glm::ivec2(posCharacter.x + getSize().x,posCharacter.y));
+	if (bAttacking && Game::instance().getKey('a')) {
+		if (isLeftDirection())
+			mFire->setPosition(glm::ivec2(posCharacter.x -OBJECT_SIZE_X, posCharacter.y));
+		else
+			mFire->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
+	}
 }
 
 void FireKirby::render() {

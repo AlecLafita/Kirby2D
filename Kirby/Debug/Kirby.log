@@ -1,8 +1,5 @@
-﻿Compilación iniciada a las 23/10/2016 1:46:39.
-     1>Proyecto "C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Kirby\Kirby.vcxproj" en el nodo 2 (Clean destinos).
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppClean.targets(76,5): warning : El proceso no puede obtener acceso al archivo 'c:\users\alec\desktop\alec\vj\vj-labs\debug\kirby.ilk' porque está siendo utilizado en otro proceso.
-     1>Compilación del proyecto terminada "C:\Users\Alec\Desktop\ALEC\VJ\vj-labs\Kirby\Kirby.vcxproj" (Clean destinos).
+﻿Compilación iniciada a las 23/10/2016 12:58:13.
 
 Compilación correcta.
 
-Tiempo transcurrido 00:00:00.22
+Tiempo transcurrido 00:00:00.12

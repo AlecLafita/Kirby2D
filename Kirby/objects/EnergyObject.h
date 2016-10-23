@@ -1,8 +1,7 @@
 #pragma once
 #include "BaseObject.h"
 
-class EnergyObject :
-	public BaseObject
+class EnergyObject : public BaseObject
 {
 public:
 	EnergyObject();

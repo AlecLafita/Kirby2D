@@ -15,19 +15,18 @@ void Game::init()
 
 void Game::setMenustate() {
 	levelAct = 0;
-	playerLives = 4;
+	playerLifes = 3; //Init number of lifes
 	mSoundHelper->playMusic("sounds/menu.wav");
 }
 
 
 void Game::resetLevel() {
-	playerLives--;
-	mGUI.setLifes(playerLives);
+	playerLifes--;
+	mGUI.setLifes(playerLifes);
 
-	if (playerLives == 0) {//Return to main menu
+	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
 	}
-
 	else {
 		switch (levelAct) {
 		case 1:
@@ -38,7 +37,7 @@ void Game::resetLevel() {
 		case 2:
 			cout << "level2" << endl;
 			scene.init("levels/kawaii.txt", "images/forest_bg.png", "levels/level01_enemies.txt","levels/level01_objects.txt");
-			mSoundHelper->playMusic("sounds/song_green_greens.wav");
+			mSoundHelper->playMusic("sounds/song_gourmet_race.wav");
 			break;
 		default:
 			cout << "WIN!" << endl;
@@ -51,7 +50,11 @@ void Game::resetLevel() {
 
 void Game::nextLevel() {
 	++levelAct; //Go to next level
-	++playerLives; //Per no perdre la vida de reset level (molt cutre,si xd)
+	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd)
+	/*if (levelAct == 3) //Num of total levels+1
+		levelAct = 0;
+		//go to records screen
+	*/
 	resetLevel();
 }
 
@@ -124,6 +127,13 @@ bool Game::getSpecialKey(int key) const
 }
 
 
+void Game::winLife() {
+	playerLifes++;
+	mGUI.setLifes(playerLifes);
+	playSound(SOUND_GET_LIFE);
+}
+
+
 //GUI functions
 void Game::setPlayerEnergy(int energy) {
 	mGUI.setPlayerEnergy(energy);
@@ -132,10 +142,13 @@ void Game::setPlayerEnergy(int energy) {
 //Sound functions
 void Game::initSoundHelper() {
 	mSoundHelper = new SoundHelper(NUM_OF_SOUNDS);
+	//Initialize here all the sound
 	mSoundHelper->initSound(SOUND_JUMPING, "sounds/jumping.wav");
 	mSoundHelper->initSound(SOUND_VACUUMING, "sounds/vacuuming.wav");
 	mSoundHelper->initSound(SOUND_DEATH, "sounds/death.wav");
 	mSoundHelper->initSound(SOUND_FIRE, "sounds/fire.wav");
+	mSoundHelper->initSound(SOUND_GET_ENERGY, "sounds/energy_acquired.wav");
+	mSoundHelper->initSound(SOUND_GET_LIFE, "sounds/new_life.wav");
 }
 
 void Game::playSound(int soundIndex) {

@@ -58,10 +58,10 @@ void Player::computeAttack(){
 			}
 		}
 
-		if (sprite->animation() != ATTACK_LEFT && sprite->animation() != ATTACK_RIGHT) { //a pressed but moving
+		/*if (sprite->animation() != ATTACK_LEFT && sprite->animation() != ATTACK_RIGHT) { //a pressed but moving
 			Game::instance().stopSound(getAttackSound());
 			bAttacking = false;
-		}
+		}*/
 		//return;
 	}
 	else {
@@ -209,7 +209,7 @@ void Player::recoverEnergy(int energyToRecover) {
 	energy += energyToRecover;
 	energy = min(energy, MAX_ENERGY);
 	Game::instance().setPlayerEnergy(energy);
-	//Game::instance().playSound(SOUND_GET_ENERGY);
+	Game::instance().playSound(SOUND_GET_ENERGY);
 
 }
 
@@ -243,7 +243,7 @@ bool Player::isFacingRightSide() {
     return sprite->animation() == ATTACK_RIGHT ||
            sprite->animation() == FLY_RIGHT ||
            sprite->animation() == STAND_RIGHT ||
-           sprite->animation() == MOVE_LEFT;
+		   sprite->animation() == MOVE_RIGHT;
 }
 Player::~Player()
 {

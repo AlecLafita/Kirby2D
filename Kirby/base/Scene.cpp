@@ -15,6 +15,7 @@
 #include "../characters/WalkingDummyEnemy.h"
 
 #include "../objects/EnergyObject.h"
+#include "../objects/LifeObject.h"
 
 Scene::Scene()
 {
@@ -25,19 +26,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	if (map != NULL)
-		delete map;
-	if (embellishmentMap != NULL)
-		delete embellishmentMap;
-	if (player != NULL)
-		delete player;
-	if (mBackground != NULL)
-		delete mBackground;
-	if (mColisionHelper != NULL)
-		delete mColisionHelper;
-
-	mEnemies.clear();
-	mPowerUps.clear();
+	resetScene();
 }
 
 void Scene::resetScene() {
@@ -237,7 +226,9 @@ bool Scene::playerTakesItem(BaseObject* obj) {
 			}
 			else  player->recoverEnergy(1);//other food
 		}
-		//else if ()
+		else if (LifeObject* o = dynamic_cast<LifeObject*>(obj)) {//recoverLife
+			Game::instance().winLife();
+		}
 		return true;
 	}
 	return false;
@@ -353,7 +344,7 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 	for (int i = 0; i < numObjects; ++i) {
 		getline(fin, line); //sstream.str(line);
 		stringstream(line) >> objectType >> posX >> posY;
-		//cout << enemyType << " " << posX << " " << posY << endl;
+		//cout << objectType << " " << posX << " " << posY << endl;
 		switch (objectType) {
 		case 0: {// 1 energy recovery -> diverse food
 			EnergyObject* oneEnergyRecovery = new EnergyObject();
@@ -365,15 +356,17 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 		}
 		case 1: { //full energy recovery ->tomato
 			EnergyObject* fullEnergyRecovery = new EnergyObject();
+			fullEnergyRecovery->setFullRecovery(true);
 			fullEnergyRecovery->init(texProgram, this);
 			fullEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
-			fullEnergyRecovery->setFullRecovery(true);
 			mPowerUps.insert(fullEnergyRecovery);
-			break;
 			break;
 		}
 		case 2: { //life recovery
-
+			LifeObject* lifeRecovery = new LifeObject();
+			lifeRecovery->init(texProgram, this);
+			lifeRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+			mPowerUps.insert(lifeRecovery);
 			break;
 		}
 		case 3: { // invencibility?

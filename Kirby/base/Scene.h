@@ -55,8 +55,8 @@ private:
 
 private:
 	bool bToReset;
-	TileMap *map;
-	TileMap *embellishmentMap;
+	TileMap *map; //Don't render this! only for collisions
+	TileMap *embellishmentMap; //Reneder this, not use it for collisions!
     Sprite *mBackground;
 	Texture spritesheetBg;
 	Player *player;

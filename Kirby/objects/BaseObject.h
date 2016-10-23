@@ -2,6 +2,7 @@
 
 #include "../base/Sprite.h"
 #include "../base/TileMap.h"
+#include "../base/Defines.h"
 
 class Scene;
 
@@ -21,7 +22,7 @@ public:
 	void setPosition(const glm::ivec2 &pos);
 
 	glm::ivec2 getPosition() { return posObj; }
-	glm::ivec2 getSize() { return glm::ivec2(16, 16); }
+	glm::ivec2 getSize() { return glm::ivec2(OBJECT_SIZE_X,OBJECT_SIZE_Y); }
 
 	bool isTaken() { return bTaken; }
 

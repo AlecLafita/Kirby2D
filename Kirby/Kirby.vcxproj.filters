@@ -80,6 +80,9 @@
     <ClCompile Include="objects\EnergyObject.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="objects\LifeObject.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
@@ -165,6 +168,9 @@
       <Filter>Characters</Filter>
     </ClInclude>
     <ClInclude Include="objects\EnergyObject.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\LifeObject.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

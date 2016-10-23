@@ -43,6 +43,9 @@ public:
 	void resetLevel();
 	void nextLevel();
 
+	//1 life obtained!
+	void winLife();
+
 	//GUI functions
 	void setPlayerEnergy(int energy);
 
@@ -63,7 +66,7 @@ private:
 	GUI mGUI;					
 	SoundHelper *mSoundHelper;
 
-	int playerLives;
+	int playerLifes;
 
 	int levelAct;
 

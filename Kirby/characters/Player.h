@@ -20,6 +20,9 @@ public:
 	void justDamaged(); //trigered when character has been damaged
 	void recoverEnergy (int energyToRecover); //triggered when gathered an item 
 
+	int getEnergy() { return energy; }
+	void setEnergy (int newEnergy) { energy = newEnergy; }
+
 	void getType() {}
     bool isBeingAnimated(){
         return bAnimating;

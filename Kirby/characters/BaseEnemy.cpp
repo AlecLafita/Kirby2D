@@ -15,8 +15,9 @@ BaseEnemy::BaseEnemy(){
 		Character::setPathToSpriteSheet("images/ugly_enemy_spritesheet.png");
 		break;
 
-		case 3:
+    case 2:
 			Character::setPathToSpriteSheet("images/bird_enemy_spritesheet.png");
+    break;
 		default:
 		break;
 	}

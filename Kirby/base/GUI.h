@@ -35,13 +35,14 @@ private:
 	TexturedQuad* abilityTexQuad;
 	Texture abilityTexture;
 
-	TexturedQuad* lifesQuad;
-	Texture lifesTexture;
 	Text lifesText;
 	int lifesAct;
 
 	TexturedQuad* energyQuad;
 	Texture energyTexture;
+
+	TexturedQuad* lifesQuad;
+	Texture lifesIndicatorTexture;
 
 	Text energyText;
 	int energyAct;

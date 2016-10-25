@@ -43,6 +43,15 @@ void GUI::init() {
     energyQuad = TexturedQuad::createTexturedQuad(geomEnergy, texCoords, texProgram);
     setPlayerEnergy(6); //TODO Do not leave this hardcoded! Should be initialized
 
+
+    posX = 500.f;
+    posY = 30.f;
+    glm::vec2 geomLife[2] = {glm::vec2(posX, posY),
+                                glm::vec2(posX + 22.f, posY+11.f)
+                               };
+    lifesQuad = TexturedQuad::createTexturedQuad(geomLife, texCoords, texProgram);
+    lifesIndicatorTexture.loadFromFile("images/lives_tex.png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 	//text
 	if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
 	cout << "Could not load font!!!" << endl;
@@ -74,7 +83,7 @@ void GUI::render(){
 
     //Energy
     energyQuad->render(energyTexture);
-
+    lifesQuad->render(lifesIndicatorTexture);
 	int vp[4];
 	glGetIntegerv(GL_VIEWPORT, vp);
 	//cout << vp[0] << " " << vp[1] << " " << vp[2] << " " << vp[3] << endl;
@@ -88,7 +97,7 @@ void GUI::render(){
 
 	energyText.render("Energy:", glm::vec2((2 * screen_width / 4) - 30, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
-	lifesText.render("Lifes: " + std::to_string(lifesAct), glm::vec2(3 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+	lifesText.render(std::to_string(lifesAct), glm::vec2((3 * screen_width / 4)+45.f, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 }
 
 void GUI::setPlayerEnergy(int energy) {

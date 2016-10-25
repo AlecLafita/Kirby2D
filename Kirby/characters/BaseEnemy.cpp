@@ -5,16 +5,19 @@ using namespace std;
 
 
 BaseEnemy::BaseEnemy(){
-	int en = rand() % 2; //number of enemies
+	int en = rand() % 3; //number of enemies
 	cout << en << endl;
 	switch (en) {
 	case 0:
 		Character::setPathToSpriteSheet("images/chicken_enemy_spritesheet.png");
 		break;
 	case 1:
-		Character::setPathToSpriteSheet("images/chicken_enemy_spritesheet.png");
+		Character::setPathToSpriteSheet("images/ugly_enemy_spritesheet.png");
 		break;
-	default:
+
+		case 3:
+			Character::setPathToSpriteSheet("images/bird_enemy_spritesheet.png");
+		default:
 		break;
 	}
 

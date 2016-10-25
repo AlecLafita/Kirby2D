@@ -42,6 +42,7 @@ private:
 
 	TexturedQuad* energyQuad;
 	Texture energyTexture;
+
 	Text energyText;
 	int energyAct;
 

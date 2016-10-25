@@ -24,8 +24,14 @@ void GUI::init() {
 			glm::vec2(float(SCREEN_WIDTH), GUI_HEIGHT)
 	};
     glm::vec2 geomAbility[2] = {
-			glm::vec2(float(0.f), 0.f),
+			glm::vec2(0.f, 0.f),
 			glm::vec2(float(GUI_ABILITY_IMG_WIDTH), GUI_HEIGHT)
+	};
+    float posX = 370.f;
+    float posY = 27.f;
+    glm::vec2 geomEnergy[2] = {
+            glm::vec2 (posX, posY),
+			glm::vec2(posX + 25.f, posY + 14.f)
 	};
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
@@ -34,16 +40,18 @@ void GUI::init() {
     abilityTexQuad = TexturedQuad::createTexturedQuad(geomAbility, texCoords, texProgram);
     abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 
+    energyQuad = TexturedQuad::createTexturedQuad(geomEnergy, texCoords, texProgram);
+    energyTexture.loadFromFile("images/energy_6.png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 	//text
 	if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
 	cout << "Could not load font!!!" << endl;
 	scoreAct = 0;
 
-	if (!energyText.init("fonts/OpenSans-Bold.ttf"))
-		cout << "Could not load font!!!" << endl;
-	//energyAct = MAX_ENERGY;
-
 	if (!lifesText.init("fonts/OpenSans-Bold.ttf")) 
+		cout << "Could not load font!!!" << endl;
+
+	if (!energyText.init("fonts/OpenSans-Bold.ttf"))
 		cout << "Could not load font!!!" << endl;
 
 }
@@ -64,6 +72,9 @@ void GUI::render(){
     //Ability
     abilityTexQuad->render(abilityTexture);
 
+    //Energy
+    energyQuad->render(energyTexture);
+
 	int vp[4];
 	glGetIntegerv(GL_VIEWPORT, vp);
 	//cout << vp[0] << " " << vp[1] << " " << vp[2] << " " << vp[3] << endl;
@@ -75,7 +86,7 @@ void GUI::render(){
 
 	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
-	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+	energyText.render("Energy:", glm::vec2((2 * screen_width / 4) - 30, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
 	lifesText.render("Lifes: " + std::to_string(lifesAct), glm::vec2(3 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 }

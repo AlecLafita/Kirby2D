@@ -26,9 +26,15 @@ void MainMenu::init() {
 	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
 	glm::vec2 geomGUI[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 
-	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
+	float posX = float(SCREEN_WIDTH - 300.f);
+	float posY = 20.f;
+	glm::vec2 geomLogo[2] = { glm::vec2(posX, posY), glm::vec2(posX + 120, posY + 73.2) };
 
+	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	mainTexture.loadFromFile("images/mainMenu.png", TEXTURE_PIXEL_FORMAT_RGB);
+
+	logoTextureQuad = TexturedQuad::createTexturedQuad(geomLogo, texCoords, texProgram);
+	logoTexture.loadFromFile("images/amazing_vj_1.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 
 	//text 
@@ -96,6 +102,7 @@ void MainMenu::render() {
 	//BACKGROUND
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	mainTextureQuad->render(mainTexture);
+    logoTextureQuad->render(logoTexture);
 
 	int vp[4];
 	glGetIntegerv(GL_VIEWPORT, vp);

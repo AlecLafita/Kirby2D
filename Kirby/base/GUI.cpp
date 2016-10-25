@@ -31,7 +31,7 @@ void GUI::init() {
     float posY = 27.f;
     glm::vec2 geomEnergy[2] = {
             glm::vec2 (posX, posY),
-			glm::vec2(posX + 25.f, posY + 14.f)
+			glm::vec2(posX + 30.f, posY + 16.8f) //Is 25 x 14 in reality
 	};
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
@@ -41,7 +41,7 @@ void GUI::init() {
     abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 
     energyQuad = TexturedQuad::createTexturedQuad(geomEnergy, texCoords, texProgram);
-    energyTexture.loadFromFile("images/energy_6.png", TEXTURE_PIXEL_FORMAT_RGBA);
+    setPlayerEnergy(6); //TODO Do not leave this hardcoded! Should be initialized
 
 	//text
 	if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
@@ -93,6 +93,8 @@ void GUI::render(){
 
 void GUI::setPlayerEnergy(int energy) {
 		energyAct = energy;
+    energyTexture.loadFromFile("images/energy_" + std::to_string(energy) + ".png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 }
 
 void GUI::setLifes(int lifes) {

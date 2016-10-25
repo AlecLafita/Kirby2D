@@ -1,11 +1,11 @@
-#version 330
+#version 300 es
 
 uniform lowp vec4 color;
 uniform lowp sampler2D tex;
 
 in lowp vec2 texCoordFrag;
 out lowp vec4 outColor;
-uniform float isDamaged;
+uniform lowp float isDamaged;
 
 void main()
 {

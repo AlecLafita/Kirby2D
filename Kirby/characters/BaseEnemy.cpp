@@ -55,7 +55,6 @@ void BaseEnemy::update(int deltaTime){
 			if (mScene->playerCanSwallow(this))
 				isDead = true;
 		}
-		//TODO: Implement IA Here!
 	}
 	Character::update(deltaTime);
 

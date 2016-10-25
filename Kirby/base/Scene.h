@@ -45,6 +45,7 @@ public:
 	bool playerTakesItem(BaseObject* obj);
 
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
+	Player* getPlayer(){ return  player;}
 
 private:
 	void initShaders();

@@ -214,6 +214,7 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
         cout << "Just swallowed an enemy!" << endl;
 		player = mTransformationHelper->transformPlayer(player, enemy,
                                                 texProgram, this);
+		Game::instance().setAbilityToShow(enemy->getType());
 	}
 	return hasSwallowed;
 }

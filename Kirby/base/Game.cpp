@@ -48,6 +48,11 @@ void Game::resetLevel() {
 
 }
 
+void Game::setAbilityToShow(PowerType type){
+
+	mGUI.setAbility(type);
+}
+
 void Game::nextLevel() {
 	++levelAct; //Go to next level
 	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd)

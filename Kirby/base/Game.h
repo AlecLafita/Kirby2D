@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "GUI.h"
 #include "../helpers/SoundHelper.h"
+#include "../characters/PowerType.h"
 
 
 // Game is a singleton (a class with a single instance) that represents our whole application
@@ -48,6 +49,7 @@ public:
 
 	//GUI functions
 	void setPlayerEnergy(int energy);
+	void setAbilityToShow(PowerType type);
 
 	//Sound functions
 	void playSound(int soundIndex);

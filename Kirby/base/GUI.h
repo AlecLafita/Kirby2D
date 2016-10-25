@@ -4,6 +4,7 @@
 #include "Text.h"
 #include "ShaderProgram.h"
 #include "Texture.h"
+#include "../characters/PowerType.h"
 
 class GUI
 {
@@ -15,10 +16,10 @@ public:
 	void render();
 
 	void addScore(int scoreToAdd){ scoreAct += scoreToAdd; }
-	void changeHability(std::string hab) { habilityAct = hab; }
 
 	void setPlayerEnergy(int energy);
 	void setLifes(int lifes); //TODO: Set lifes
+	void setAbility(PowerType type);
 
 
 private:
@@ -43,9 +44,6 @@ private:
 	Texture energyTexture;
 	Text energyText;
 	int energyAct;
-
-	Text habilityText;
-	std::string habilityAct;
 
 	Text scoreText;
 	unsigned int scoreAct;

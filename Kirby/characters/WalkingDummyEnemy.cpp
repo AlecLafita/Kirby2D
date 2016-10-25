@@ -20,8 +20,6 @@ void WalkingDummyEnemy::update(int deltaTime){
 
 	if (isInFrustrum()) {
 
-
-		//TODO: Implement IA Here!
 		glm::ivec2 playerPos = mScene->getPlayer()->getPosition();
 
 		int diffTilesX = (int)(playerPos.x - posCharacter.x) / TILE_SIZE_X;

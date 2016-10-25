@@ -34,16 +34,10 @@ void GUI::init() {
     abilityTexQuad = TexturedQuad::createTexturedQuad(geomAbility, texCoords, texProgram);
     abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 
-	//text 
-	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
-	if (!habilityText.init("fonts/OpenSans-Bold.ttf"))
-		//if(!habilityText.init("fonts/DroidSerif.ttf"))
-		cout << "Could not load font!!!" << endl;
-	habilityAct = "Normal";
-
-		if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
-		cout << "Could not load font!!!" << endl;
-		scoreAct = 0;
+	//text
+	if(!scoreText.init("fonts/OpenSans-Bold.ttf"))
+	cout << "Could not load font!!!" << endl;
+	scoreAct = 0;
 
 	if (!energyText.init("fonts/OpenSans-Bold.ttf"))
 		cout << "Could not load font!!!" << endl;
@@ -78,10 +72,7 @@ void GUI::render(){
 	int screen_width = vp[2]-vp[0];
 	int gui_height = screen_height/5;
 	int hab_size = gui_height / 3 < screen_width / 15 ? gui_height / 3 : screen_width / 15;
-	
-
-	habilityText.render("Hability: " + habilityAct, glm::vec2(0, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
-
+    
 	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
 	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
@@ -95,6 +86,35 @@ void GUI::setPlayerEnergy(int energy) {
 
 void GUI::setLifes(int lifes) {
 	lifesAct = lifes;
+}
+
+void GUI::setAbility(PowerType type) {
+
+	switch (type){
+
+		case PowerType::Fire:
+			cout << "Fire type" << endl;
+			abilityTexture.loadFromFile("images/fire_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
+			break;
+
+		case PowerType::Steam:
+			abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
+
+			break;
+
+		case PowerType::Electric:
+			cout << "Electric type" << endl;
+			abilityTexture.loadFromFile("images/electric_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
+
+			break;
+
+		default:
+		case PowerType::Normal:
+			//Do nothing
+			abilityTexture.loadFromFile("images/electric_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
+
+			break;
+	}
 }
 
 

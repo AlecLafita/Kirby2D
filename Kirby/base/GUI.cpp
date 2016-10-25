@@ -29,7 +29,7 @@ void GUI::init() {
 	};
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
-	mainTexture.loadFromFile("images/menu.png", TEXTURE_PIXEL_FORMAT_RGB);
+	mainTexture.loadFromFile("images/menu_gui.png", TEXTURE_PIXEL_FORMAT_RGB);
 
     abilityTexQuad = TexturedQuad::createTexturedQuad(geomAbility, texCoords, texProgram);
     abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
@@ -72,7 +72,7 @@ void GUI::render(){
 	int screen_width = vp[2]-vp[0];
 	int gui_height = screen_height/5;
 	int hab_size = gui_height / 3 < screen_width / 15 ? gui_height / 3 : screen_width / 15;
-    
+
 	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
 	energyText.render("Energy: " + std::to_string(energyAct), glm::vec2(2 * screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
@@ -108,11 +108,13 @@ void GUI::setAbility(PowerType type) {
 
 			break;
 
+        case PowerType ::Black:
+            abilityTexture.loadFromFile("images/black_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
+            break;
 		default:
 		case PowerType::Normal:
 			//Do nothing
-			abilityTexture.loadFromFile("images/electric_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
-
+			abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 			break;
 	}
 }

@@ -26,7 +26,7 @@ void MainMenu::init() {
 	glm::vec2 texCoords[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
 	glm::vec2 geomGUI[2] = { glm::vec2(0.f, 0.f), glm::vec2(float(SCREEN_WIDTH), float(SCREEN_HEIGHT)) };
 
-	float posX = float(SCREEN_WIDTH - 300.f);
+	float posX = float(SCREEN_WIDTH - 200.f);
 	float posY = 20.f;
 	glm::vec2 geomLogo[2] = { glm::vec2(posX, posY), glm::vec2(posX + 120, posY + 73.2) };
 
@@ -34,7 +34,7 @@ void MainMenu::init() {
 	mainTexture.loadFromFile("images/mainMenu.png", TEXTURE_PIXEL_FORMAT_RGB);
 
 	logoTextureQuad = TexturedQuad::createTexturedQuad(geomLogo, texCoords, texProgram);
-	logoTexture.loadFromFile("images/amazing_vj_1.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	logoTexture.loadFromFile("images/amazing_vj_shade.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 
 	//text 
@@ -83,7 +83,7 @@ void MainMenu::update(int deltaTime) {
 				Game::instance().nextLevel();
 				break;
 			case 1: //show instructions
-
+				Game::instance().showInstructions();
 				break;
 			case 2: //show records
 

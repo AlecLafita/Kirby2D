@@ -43,6 +43,7 @@ public:
 
 	void resetLevel();
 	void nextLevel();
+    void showInstructions();
 
 	//1 life obtained!
 	void winLife();

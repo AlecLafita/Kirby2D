@@ -19,6 +19,11 @@ void Game::setMenustate() {
 	mSoundHelper->playMusic("sounds/menu.wav");
 }
 
+void Game::showInstructions() {
+	cout << "level 1" << endl;
+	scene.init("levels/Cloudy_lvl.txt", "images/peppermint_palace.png","levels/level01_enemies.txt","levels/level01_objects.txt");
+	mSoundHelper->playMusic("sounds/song_green_greens.wav");
+}
 
 void Game::resetLevel() {
 	playerLifes--;

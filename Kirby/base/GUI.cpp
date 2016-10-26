@@ -110,6 +110,10 @@ void GUI::setLifes(int lifes) {
 	lifesAct = lifes;
 }
 
+void GUI::setScore(int score) {
+	scoreAct = score;
+}
+
 void GUI::setAbility(PowerType type) {
 
 	switch (type){

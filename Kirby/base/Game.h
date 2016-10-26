@@ -43,7 +43,10 @@ public:
 
 	void resetLevel();
 	void nextLevel();
-    void showInstructions();
+    //void showInstructions();
+
+	//add or substract score
+	void addScore(int score);
 
 	//1 life obtained!
 	void winLife();
@@ -72,6 +75,8 @@ private:
 	int playerLifes;
 
 	int levelAct;
+
+	int scoreAct;
 
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	// we can have access at any time

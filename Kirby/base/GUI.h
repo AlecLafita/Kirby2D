@@ -20,7 +20,7 @@ public:
 	void setPlayerEnergy(int energy);
 	void setLifes(int lifes); //TODO: Set lifes
 	void setAbility(PowerType type);
-
+	void setScore(int score);
 
 private:
 	void initShaders();
@@ -32,22 +32,27 @@ private:
 	TexturedQuad* mainTextureQuad; //GUI Background
 	Texture mainTexture;
 
+	//ability
 	TexturedQuad* abilityTexQuad;
 	Texture abilityTexture;
 
-	Text lifesText;
-	int lifesAct;
-
+	//score
+	Text scoreText;
+	unsigned int scoreAct;
+	
+	//Energy
 	TexturedQuad* energyQuad;
 	Texture energyTexture;
-
-	TexturedQuad* lifesQuad;
-	Texture lifesIndicatorTexture;
-
 	Text energyText;
 	int energyAct;
 
-	Text scoreText;
-	unsigned int scoreAct;
+	//Lifes
+	TexturedQuad* lifesQuad;
+	Texture lifesIndicatorTexture;
+	Text lifesText;
+	int lifesAct;
+
+
+
 };
 

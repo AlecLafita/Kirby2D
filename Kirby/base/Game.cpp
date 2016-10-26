@@ -15,15 +15,16 @@ void Game::init()
 
 void Game::setMenustate() {
 	levelAct = 0;
+	scoreAct = 0;
 	playerLifes = 3; //Init number of lifes
 	mSoundHelper->playMusic("sounds/menu.wav");
 }
 
-void Game::showInstructions() {
+/*void Game::showInstructions() {
 	cout << "level 1" << endl;
 	scene.init("levels/Cloudy_lvl.txt", "images/peppermint_palace.png","levels/level01_enemies.txt","levels/level01_objects.txt");
 	mSoundHelper->playMusic("sounds/song_green_greens.wav");
-}
+}*/
 
 void Game::resetLevel() {
 	playerLifes--;
@@ -31,6 +32,7 @@ void Game::resetLevel() {
 
 	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
+		mMainMenu.activateGameOver();
 	}
 	else {
 		switch (levelAct) {
@@ -58,14 +60,19 @@ void Game::setAbilityToShow(PowerType type){
 	mGUI.setAbility(type);
 }
 
+void Game::addScore(int score) {
+	scoreAct += score;
+	mGUI.setScore(scoreAct);
+}
+
 void Game::nextLevel() {
 	++levelAct; //Go to next level
 	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd)
-	/*if (levelAct == 3) //Num of total levels+1
-		levelAct = 0;
-		//go to records screen
-	*/
-	resetLevel();
+	if (levelAct == 3) {//Num of total levels+1
+		setMenustate();
+		mMainMenu.activateNewRecord();
+	}
+	else resetLevel();
 }
 
 bool Game::update(int deltaTime)

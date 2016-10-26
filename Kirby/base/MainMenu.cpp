@@ -18,6 +18,12 @@ void MainMenu::init() {
 	numOptions = 3; 
 	bUpPressed = false;
 	bDownPressed = false;
+	bEnterPressed = false;
+
+	bRecords = false;
+	bInstructions = false;
+	bGameOver = false;
+
 	//Shader
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
@@ -76,20 +82,34 @@ void MainMenu::update(int deltaTime) {
 	index = index % numOptions;
 
 
-	//Check if option selected
-	if (Game::instance().getKey(13)) { //enter key
-		switch (index){
-			case 0 : //start game
+	if (Game::instance().getKey(13) && !bEnterPressed) { //enter key
+		bEnterPressed = true;
+		if (bInstructions) //At instructions screen
+			bInstructions = false; //Exit instructions screen
+		else if (bRecords) 
+			bRecords = false; //May be different for records!
+		else if (bGameOver)
+			bGameOver = false;
+		else if (bNewRecord) {
+			bNewRecord = false;
+			bRecords = true; //Go to record screen
+		}
+		else { //Main menu screen, check if options are selected
+			switch (index){
+			case 0: //start game
 				Game::instance().nextLevel();
 				break;
 			case 1: //show instructions
-				Game::instance().showInstructions();
+				//Game::instance().showInstructions();
+				bInstructions = true;
 				break;
 			case 2: //show records
-
+				bRecords = true;
 				break;
+			}
 		}
 	}
+	else if (!Game::instance().getKey(13))bEnterPressed = false;
 }
 
 void MainMenu::render() {
@@ -112,7 +132,23 @@ void MainMenu::render() {
 	int height_offset = 20;
 
 
-	switch (index)  { //This only renders the actual "selected" text with different color
+	if (bInstructions) {//At instructions screen
+		//Render instructions
+		cout << "instructions";
+	}	
+	else if (bRecords) {
+		//render records
+		cout << "records";
+	}
+	else if (bGameOver) {
+		cout <<"GAME OVER";
+		//render game over
+	}
+	else if (bNewRecord) {
+		cout << "NEW RECORD";
+	}
+	else { //Main menu screen
+		switch (index)  { //This only renders the actual "selected" text with different color
 		case 0:
 			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
 			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
@@ -124,14 +160,23 @@ void MainMenu::render() {
 			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 2:
-			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0,0,0, 1));
+			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
 			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 
+		}
 	}
 }
 
+
+void MainMenu::activateGameOver() {
+	bGameOver = true;
+}
+
+void MainMenu::activateNewRecord() {
+	bNewRecord = true;
+}
 
 
 void MainMenu::initShaders(){

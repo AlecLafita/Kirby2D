@@ -16,6 +16,10 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	void activateGameOver();
+	void activateNewRecord();
+
+
 private:
 	void initShaders();
 
@@ -31,10 +35,15 @@ private:
 
 	int index;
 	int numOptions;
-	bool bUpPressed, bDownPressed;
+	bool bUpPressed, bDownPressed, bEnterPressed;
 
 	Text playText;
 	Text instructionsText;
 	Text recordsText;
+
+	bool bRecords; //Go to record screen
+	bool bInstructions; //Go to instructions scree
+	bool bGameOver; //Go to game over screen
+	bool bNewRecord; //go to record screen with possibility with adding new record
 };
 

@@ -9,5 +9,7 @@ public:
 
 	void update(int deltaTime);
 
+	int getScore() { return 200; }
+
 };
 

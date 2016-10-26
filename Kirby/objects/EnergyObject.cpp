@@ -18,6 +18,13 @@ EnergyObject::EnergyObject()
 	}
 }
 
+
+int EnergyObject::getScore() {
+	if (fullRecovery)
+		return 150;
+	else return 100;
+}
+
 void EnergyObject::update(int deltaTime) {
 	//if(isInfrustrum())
 	if (mScene->playerTakesItem(this)) bTaken = true;

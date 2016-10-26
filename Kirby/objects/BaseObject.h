@@ -16,6 +16,8 @@ public:
 	virtual void update(int deltaTime);
 	void render();
 
+	virtual int getScore() { return 0; }
+
 	void setPathToSpriteSheet(string pathToSpriteSheet); //must be called before init
 
 	void setTexturePosition(const glm::fvec2 &pos); //must be called before init

@@ -29,7 +29,7 @@ void Game::setMenustate() {
 void Game::resetLevel() {
 	playerLifes--;
 	mGUI.setLifes(playerLifes);
-
+	addScore(-1500);
 	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
 		mMainMenu.activateGameOver();
@@ -62,12 +62,14 @@ void Game::setAbilityToShow(PowerType type){
 
 void Game::addScore(int score) {
 	scoreAct += score;
+	scoreAct = min(max(0, scoreAct), 99999); //max score
 	mGUI.setScore(scoreAct);
 }
 
 void Game::nextLevel() {
 	++levelAct; //Go to next level
 	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd)
+	addScore(1500); //same "
 	if (levelAct == 3) {//Num of total levels+1
 		setMenustate();
 		mMainMenu.activateNewRecord();

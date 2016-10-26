@@ -8,6 +8,8 @@ public:
 	~EnergyObject() {}
 
 	void update(int deltaTime);
+	
+	int getScore();
 
 	void setFullRecovery(bool fullEnergy);
 	bool recoversFullEnergy() { return fullRecovery; }

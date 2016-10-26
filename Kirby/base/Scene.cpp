@@ -119,6 +119,7 @@ void Scene::update(int deltaTime)
 	//Delete dead enemies
 	for (set<BaseEnemy*>::iterator it = mEnemies.begin(); it != mEnemies.end();) {
 		if ((*it)->isCharacterDead()) {
+			Game::instance().addScore((*it)->getScore());
 			mEnemies.erase(it++);
 		}
 		else ++it;
@@ -126,6 +127,7 @@ void Scene::update(int deltaTime)
 	//Delete taken objects
 	for (set<BaseObject*>::iterator it = mPowerUps.begin(); it != mPowerUps.end();) {
 		if ((*it)->isTaken()) {
+			Game::instance().addScore((*it)->getScore());
 			mPowerUps.erase(it++);
 		}
 		else ++it;
@@ -216,6 +218,7 @@ bool Scene::playerCanSwallow(BaseEnemy* enemy) {
                                                 texProgram, this);
 		Game::instance().setAbilityToShow(enemy->getType());
 	}
+
 	return hasSwallowed;
 }
 

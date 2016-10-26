@@ -59,11 +59,11 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 	mColisionHelper = new ColisionHelper();
 	mTransformationHelper = new TransformationHelper();
 
-	//Init current map
+	//Init current map	
 	spritesheetBg.loadFromFile(backgroundPathFile, TEXTURE_PIXEL_FORMAT_RGBA);//May not need to be an attribute?
-	map = TileMap::createTileMap(levelPathFile, glm::vec2(0, 0), texProgram);
+	map = TileMap::createTileMap(levelPathFile + ".txt", glm::vec2(0, 0), texProgram);
 	mBackground = Sprite::createSprite(glm::ivec2(map->getMapWidth(), map->getMapHeight()), glm::vec2(1, 1), &spritesheetBg, &texProgram);
-	embellishmentMap = TileMap::createTileMap("levels/cloudy_lvl_no_collision.txt", glm::vec2(0, 0), texProgram);
+	embellishmentMap = TileMap::createTileMap(levelPathFile + "_no_cols.txt", glm::vec2(0, 0), texProgram);
 
 	//Init characters, items
     player = new Kirby();

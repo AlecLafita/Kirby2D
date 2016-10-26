@@ -13,6 +13,7 @@
 #include "../characters/PinxoEnemy.h"
 #include "../characters/FlyingDummyEnemy.h"
 #include "../characters/WalkingDummyEnemy.h"
+#include "../characters/FireEnemy.h"
 
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
@@ -59,7 +60,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 	mColisionHelper = new ColisionHelper();
 	mTransformationHelper = new TransformationHelper();
 
-	//Init current map	
+	//Init current map
 	spritesheetBg.loadFromFile(backgroundPathFile, TEXTURE_PIXEL_FORMAT_RGBA);//May not need to be an attribute?
 	map = TileMap::createTileMap(levelPathFile + ".txt", glm::vec2(0, 0), texProgram);
 	mBackground = Sprite::createSprite(glm::ivec2(map->getMapWidth(), map->getMapHeight()), glm::vec2(1, 1), &spritesheetBg, &texProgram);
@@ -320,6 +321,13 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 				mWalkingEnemy->init(texProgram, this);
 				mWalkingEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
 				mEnemies.insert(mWalkingEnemy);
+				break;
+			}
+			case 3:{
+				FireEnemy* fireEnemy = new FireEnemy();
+                fireEnemy->init(texProgram, this);
+                fireEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+				mEnemies.insert(fireEnemy);
 				break;
 			}
 			default:

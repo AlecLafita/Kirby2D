@@ -15,6 +15,7 @@ Player::Player() {
 void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	
 	Character::init(shaderProgram,scene);
+    mAttackSoundTime = 2300;
 	bHoving = false;
 	nJumps = 0;
 	energy = MAX_ENERGY;
@@ -25,7 +26,7 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 void Player::update(int deltaTime){
     if(!bAnimating){
 
-        computeNextMove();
+        computeNextMove(deltaTime);
     } else {
 
         computeAnimation(deltaTime);
@@ -34,18 +35,18 @@ void Player::update(int deltaTime){
 }
 
 
-void Player::computeNextMove() {
-	computeAttack();
+void Player::computeNextMove(int deltaTime) {
+	computeAttack(deltaTime);
 	computeMovement();
 	computeJump();
 }
 
-void Player::computeAttack(){
+void Player::computeAttack(int deltaTime){
 	// ---- ATTACK ----
 	//Attacking block, only for Kirby(no abilities)
 	if (Game::instance().getKey('a')) { //attack (swallow)
 		if (!bAttacking){
-
+			mAttackTime = 0;
 			Game::instance().playSound(getAttackSound());
 
 			if (isFacingLeftSide()){
@@ -55,6 +56,18 @@ void Player::computeAttack(){
 			else if (isFacingRightSide()){
 				sprite->changeAnimation(ATTACK_RIGHT);
 				bAttacking = true;
+			}
+		} else {
+
+			mAttackTime += deltaTime;
+			if(mAttackTime > mAttackSoundTime){
+
+				if (isFacingLeftSide()){
+					sprite->changeAnimation(STAND_LEFT);
+				}
+				else {
+					sprite->changeAnimation(STAND_RIGHT);
+				}
 			}
 		}
 

@@ -12,7 +12,7 @@ public:
 	virtual void update(int deltaTime);
 	virtual void render(){ Character::render(); }
 
-	void computeNextMove();
+	void computeNextMove(int deltaTime);
 	void computeJumping();
 	void computeAnimation(int deltaTime);
 
@@ -30,12 +30,15 @@ public:
 
 
 protected:
-	virtual void computeAttack();
+	virtual void computeAttack(int deltaTime);
 	virtual void computeMovement();
 	virtual void computeJump();
 	virtual int getAttackSound(){ return SOUND_VACUUMING; }
 	bool isFacingLeftSide();
 	bool isFacingRightSide();
+
+protected:
+    int mAttackSoundTime;
 
 private:
 	bool bHoving;
@@ -49,7 +52,7 @@ private:
 	int mNumEatMoveRight, mNumEatMoveLeft;
 	int mFlyRight, mFlyLeft;
 
-	int mAnimationTime;
+	int mAnimationTime, mAttackTime;
 
 	//Constants
 	int START_ROW_EAT_STAND_RIGHT;

@@ -12,6 +12,7 @@ FireKirby::FireKirby()
 	//mSpriteRows = 11;
 	mNumberAnimations = 10;
 
+	mAttackSoundTime = 1300;
 	mNumDeath = 8;
 	mNumFly = 6;
 	mNumSwallow = 2;

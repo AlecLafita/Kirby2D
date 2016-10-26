@@ -9,6 +9,8 @@ Player::Player() {
     bAnimating = false;
 	mSpriteRows = 6;
 	mNumberAnimations = 6;
+
+    mNumSwallow = 2;
 }
 
 

@@ -13,6 +13,7 @@ enum BasicPlayerAnims //even -> left, odd ->right
 	MOVE_LEFT, MOVE_RIGHT,
 	ATTACK_LEFT, ATTACK_RIGHT,
 	FLY_LEFT, FLY_RIGHT,
+	SWALLOW_LEFT, SWALLOW_RIGHT,
 	DEATH
 };
 

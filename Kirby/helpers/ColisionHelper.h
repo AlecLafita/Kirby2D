@@ -26,8 +26,8 @@ public:
 	//Can player swallow character?
 	bool playerSwallowCharacter( Player* player, BaseEnemy* enemy)const;
 
-	//Can player take the item?
-	bool playerGetsItem(Player* player, BaseObject* object) const;
+	//Does the character collides with an item?
+	bool characterCollidesObject(Character* character, BaseObject* object) const;
 
 private:
 	//Check if two quads intersect, pos is the left-top vertex

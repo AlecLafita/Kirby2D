@@ -2,7 +2,7 @@
 #define PROJECT_KIRBY_FIRE_H
 
 #include "Player.h"
-#include "../objects/BaseObject.h"
+#include "../objects/BigObject.h"
 
 class FireKirby : public Player {
 public:
@@ -13,14 +13,16 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	BigObject* getFire() { return mFire; }
+
 protected:
 	//void computeAttack();
-	/*void computeMovement();
-	void computeJump();*/
+	//void computeMovement();
+	//void computeJump();
 	int getAttackSound();
 
 private:
-	BaseObject* mFire;
+	BigObject* mFire;
 };
 
 #endif

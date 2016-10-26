@@ -206,24 +206,29 @@ bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 }
 
 //Check also if enemy is hit by Kirby attacks!
-bool Scene::playerCanSwallow(BaseEnemy* enemy) {
-	if (!dynamic_cast<Kirby*>(player)) { //Kiry with ability -> can not swallow!
-		return false;
+bool Scene::playerCanKill(BaseEnemy* enemy) {
+
+	if (Kirby* k = dynamic_cast<Kirby*>(player)) { //normal Kiry -> swallow!
+		bool hasSwallowed = mColisionHelper->playerSwallowCharacter(player, enemy);
+		if (hasSwallowed) {
+			cout << "Just swallowed an enemy!" << endl;
+			player = mTransformationHelper->transformPlayer(player, enemy,
+				texProgram, this);
+			Game::instance().setAbilityToShow(enemy->getType());
+		}
+
+		return hasSwallowed;
+	}
+	else if (FireKirby* f = dynamic_cast<FireKirby*> (player)) {
+		
+		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
 	}
 
-	bool hasSwallowed =  mColisionHelper->playerSwallowCharacter(player, enemy);
-	if (hasSwallowed) {
-        cout << "Just swallowed an enemy!" << endl;
-		player = mTransformationHelper->transformPlayer(player, enemy,
-                                                texProgram, this);
-		Game::instance().setAbilityToShow(enemy->getType());
-	}
-
-	return hasSwallowed;
+	
 }
 
 bool Scene::playerTakesItem(BaseObject* obj) {
-	if (mColisionHelper->playerGetsItem(player, obj)) { 
+	if (mColisionHelper->characterCollidesObject(player, obj)) { 
 		if (EnergyObject* o = dynamic_cast<EnergyObject*>(obj)) { //recover energy
 			if (o->recoversFullEnergy()) { //tomato
 				player->recoverEnergy(MAX_ENERGY);

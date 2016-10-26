@@ -24,7 +24,7 @@ public:
 	void setPosition(const glm::ivec2 &pos);
 
 	glm::ivec2 getPosition() { return posObj; }
-	glm::ivec2 getSize() { return glm::ivec2(OBJECT_SIZE_X,OBJECT_SIZE_Y); }
+	virtual glm::ivec2 getSize() { return glm::ivec2(OBJECT_SIZE_X,OBJECT_SIZE_Y); }
 
 	bool isTaken() { return bTaken; }
 

@@ -150,8 +150,8 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 	return false;
 }
 
-bool ColisionHelper::playerGetsItem(Player* player, BaseObject* object) const {
-	return quadsCollision(player->getPosition(), player->getSize(), object->getPosition(), object->getSize());
+bool ColisionHelper::characterCollidesObject(Character* character, BaseObject* object) const{
+	return quadsCollision(character->getPosition(), character->getSize(), object->getPosition(), object->getSize());
 }
 
 

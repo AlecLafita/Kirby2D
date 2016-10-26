@@ -18,7 +18,7 @@ void WalkingDummyEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
 void WalkingDummyEnemy::update(int deltaTime){
 
-	if (isInFrustrum()) {
+	//if (isInFrustrum()) {
 
 		glm::ivec2 playerPos = mScene->getPlayer()->getPosition();
 
@@ -66,5 +66,5 @@ void WalkingDummyEnemy::update(int deltaTime){
 		}
 		posCharacter += dir;
 		BaseEnemy::update(deltaTime);
-	}
+	//}
 }

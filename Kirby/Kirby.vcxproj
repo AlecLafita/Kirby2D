@@ -38,6 +38,7 @@
     <ClInclude Include="helpers\SoundHelper.h" />
     <ClInclude Include="helpers\TransformationHelper.h" />
     <ClInclude Include="objects\BaseObject.h" />
+    <ClInclude Include="objects\BigObject.h" />
     <ClInclude Include="objects\EnergyObject.h" />
     <ClInclude Include="objects\LifeObject.h" />
     <ClInclude Include="objects\ProjectileObject.h" />
@@ -68,6 +69,7 @@
     <ClCompile Include="helpers\TransformationHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="objects\BaseObject.cpp" />
+    <ClCompile Include="objects\BigObject.cpp" />
     <ClCompile Include="objects\EnergyObject.cpp" />
     <ClCompile Include="objects\LifeObject.cpp" />
     <ClCompile Include="objects\ProjectileObject.cpp" />

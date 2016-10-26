@@ -60,6 +60,9 @@
 #define OBJECTS_SPRITESHEET_PATH "images/items.png"
 #define OBJECT_SIZE_X 16
 #define OBJECT_SIZE_Y 16
+#define BIG_OBJECTS_SPRITESHEET_PATH "images/fire_attack.png"
+#define BIG_OBJECT_SIZE_X 32
+#define BIG_OBJECT_SIZE_Y 32
 
 //SOUND
 #define NUM_OF_SOUNDS 6

@@ -41,7 +41,7 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
         case PowerType::Normal:
             //Do nothing
             cout << "Normal type" << endl;
-            player = new BlackKirby();
+            //player = new BlackKirby();
             break;
     }
 

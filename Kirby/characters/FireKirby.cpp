@@ -20,19 +20,27 @@ FireKirby::FireKirby()
 void FireKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 	Player::init(shaderProgram, scene);
 	//Creae fire object
-	mFire = new BaseObject();
-	mFire->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
-	mFire->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
+	mFire = new BigObject();
+	//mFire->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
+	//mFire->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
 	mFire->init(shaderProgram, scene);
 }
 
 void FireKirby::update(int deltaTime) {
 	Player::update(deltaTime);
 	if (bAttacking && Game::instance().getKey('a')) {
-		if (isLeftDirection())
-			mFire->setPosition(glm::ivec2(posCharacter.x -OBJECT_SIZE_X, posCharacter.y));
-		else
+		if (isLeftDirection()) {
+			mFire->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
+			mFire->update(deltaTime);
+		}
+		else {
 			mFire->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
+			mFire->update(deltaTime);
+		}
+	}
+	else {
+		if (isLeftDirection()) mFire->setLeftAnimation();
+		else mFire->setRightAnimation(); 
 	}
 }
 
@@ -41,6 +49,7 @@ void FireKirby::render() {
 	if (bAttacking && Game::instance().getKey('a'))
 		mFire->render();
 }
+
 
 int FireKirby::getAttackSound() {
 	return SOUND_FIRE;

@@ -5,8 +5,7 @@
 #include "../base/Defines.h"
 
 
-// Player is basically a Sprite that represents the player. As such it has
-// all properties it needs to track its movement, jumping, and collisions.
+// Character respresent any general character(player or enemy). Abstract class
 
 enum BasicPlayerAnims //even -> left, odd ->right
 {

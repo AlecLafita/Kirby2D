@@ -40,7 +40,7 @@ public:
 	bool collisionMoveRightOnlyMap(Character* character) const;
 	bool collisionMoveLeftOnlyMap(Character* character) const;
 
-	bool playerCanSwallow(BaseEnemy* enemy) ;
+	bool playerCanKill(BaseEnemy* enemy) ;
 
 	bool playerTakesItem(BaseObject* obj);
 

@@ -35,7 +35,7 @@ void PinxoEnemy::init(ShaderProgram &shaderProgram,Scene *scene){
 
 void PinxoEnemy::update(int deltaTime){
 
-    if (isInFrustrum()){
+    //if (isInFrustrum()){
 		posCharacter += dir;
 		if (dir.y < 0) { //Go top
 			if (mScene->collisionMoveUp(this)) {
@@ -50,5 +50,5 @@ void PinxoEnemy::update(int deltaTime){
 			}
 		}
         BaseEnemy::update(deltaTime);
-    }
+    //}
 }

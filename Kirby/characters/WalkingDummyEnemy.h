@@ -10,8 +10,5 @@ public:
 	void init(ShaderProgram &shaderProgram, Scene* scene);
 	void update(int deltaTime);
 
-	PowerType getType() const {
-		return PowerType::Normal;
-	}
 };
 

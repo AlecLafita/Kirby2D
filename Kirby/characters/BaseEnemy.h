@@ -14,7 +14,7 @@ public:
 
 	virtual int getScore(){ return 200; }
 
-	PowerType getType() const {
+	virtual PowerType getType() const {
         return PowerType::Normal;
     };
 

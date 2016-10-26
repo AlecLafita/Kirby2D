@@ -16,7 +16,7 @@ void FlyingDummyEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
 
 void FlyingDummyEnemy::update(int deltaTime){
-	if (isInFrustrum()){
+	//if (isInFrustrum()){
 		posCharacter += dir;
 		if (dir.x < 0) { //Go left
 			if (mScene->collisionMoveLeft(this)) {
@@ -56,5 +56,5 @@ void FlyingDummyEnemy::update(int deltaTime){
 
 		BaseEnemy::update(deltaTime);
 		++actY;
-	}
+	//}
 }

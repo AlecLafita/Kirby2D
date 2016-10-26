@@ -56,7 +56,7 @@ void BaseEnemy::update(int deltaTime){
 
 	if (isInFrustrum()){
 		if (isSwallable) {
-			if (mScene->playerCanSwallow(this))
+			if (mScene->playerCanKill(this))
 				isDead = true;
 		}
 	}

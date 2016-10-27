@@ -111,6 +111,27 @@ bool ColisionHelper::mapMoveUp(const TileMap* tMap, Character* character) const 
 	return false;
 }
 
+bool ColisionHelper::mapFalls(const TileMap* tMap, BaseEnemy* enemy) {
+	glm::ivec2 pos = enemy->getPosition();
+	glm::ivec2 size = enemy->getSize();
+
+	int x0, x1, y;
+	int tileSize = tMap->getTileSize();
+
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y = (pos.y + size.y + 1) / tileSize;
+	int mapTilesWidth = tMap->getMapTilesWidth();
+	int* map = tMap->getMap();
+	for (int x = x0; x <= x1; x++)
+	{
+		if (map[y*mapTilesWidth + x] == 0){
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool ColisionHelper::characterCollidesCharacter(const Character* characterToCollide, Character* character) const {
 	glm::ivec2 pos = character->getPosition();

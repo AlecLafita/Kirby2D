@@ -190,6 +190,11 @@ bool Scene::collisionMoveUp(Character* character) const {
 	return mapCollision || enemyCollision;
 }
 
+bool Scene::collisionCanFall(BaseEnemy* enemy) const {
+	return mColisionHelper->mapFalls(map, enemy);
+}
+
+
 bool Scene::characterCollidesEnemies(Character* character) const{
 	bool collision = false; //Can be improved checking if true after each enemy and returning(with few enemies doesn't matter)
 
@@ -323,7 +328,7 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 				mEnemies.insert(mWalkingEnemy);
 				break;
 			}
-			case 3:{
+			case 3:{ //Fire
 				FireEnemy* fireEnemy = new FireEnemy();
                 fireEnemy->init(texProgram, this);
                 fireEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));

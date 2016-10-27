@@ -20,6 +20,9 @@ public:
 	bool mapMoveDown(const TileMap* tMap, Character* character) const;
 	bool mapMoveUp(const TileMap* tMap, Character* character) const;
 
+	//If enemy are near a precipice
+	bool mapFalls(const TileMap* map, BaseEnemy* enemy);
+
 	//The second parameter is the one checking collisions
 	bool characterCollidesCharacter(const Character* characterToCollide, Character* character) const;
 

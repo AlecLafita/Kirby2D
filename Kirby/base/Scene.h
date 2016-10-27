@@ -37,6 +37,8 @@ public:
 	bool collisionMoveDown(Character* character) const;
 	bool collisionMoveUp(Character* character) const;
 
+	bool collisionCanFall(BaseEnemy* enemy) const;
+
 	bool collisionMoveRightOnlyMap(Character* character) const;
 	bool collisionMoveLeftOnlyMap(Character* character) const;
 

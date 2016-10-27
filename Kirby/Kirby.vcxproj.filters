@@ -86,6 +86,9 @@
     <ClCompile Include="objects\BigObject.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="characters\FireEnemy.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimKeyframes.h" />
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="objects\BigObject.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="characters\FireEnemy.h">
+      <Filter>Characters</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

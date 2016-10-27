@@ -27,6 +27,7 @@
     <ClInclude Include="characters\BaseEnemy.h" />
     <ClInclude Include="characters\BlackKirby.h" />
     <ClInclude Include="characters\Character.h" />
+    <ClInclude Include="characters\FireEnemy.h" />
     <ClInclude Include="characters\FlyingDummyEnemy.h" />
     <ClInclude Include="characters\FireKirby.h" />
     <ClInclude Include="characters\Kirby.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="characters\BaseEnemy.cpp" />
     <ClCompile Include="characters\BlackKirby.cpp" />
     <ClCompile Include="characters\Character.cpp" />
+    <ClCompile Include="characters\FireEnemy.cpp" />
     <ClCompile Include="characters\FlyingDummyEnemy.cpp" />
     <ClCompile Include="characters\FireKirby.cpp" />
     <ClCompile Include="characters\Kirby.cpp" />

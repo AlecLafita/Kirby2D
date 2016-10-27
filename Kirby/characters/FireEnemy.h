@@ -9,8 +9,7 @@
 #include "BaseEnemy.h"
 #include "WalkingDummyEnemy.h"
 
-class FireEnemy :
-        public WalkingDummyEnemy
+class FireEnemy :  public WalkingDummyEnemy
 {
 
 public:

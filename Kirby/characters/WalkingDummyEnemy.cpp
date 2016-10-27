@@ -60,19 +60,20 @@ void WalkingDummyEnemy::searchPlayer() {
 			//Left of him!
 			if (sprite->animation() != MOVE_RIGHT){
 				sprite->changeAnimation(MOVE_RIGHT);
-				dir.x = -dir.x;
 			}
+			if (dir.x < 0) dir.x = -dir.x; //go to player
 		}
 		else if (diffTilesX < 0){
 			//RIGHT of him!
 			if (sprite->animation() != MOVE_LEFT){
 				sprite->changeAnimation(MOVE_LEFT);
-				dir.x = -dir.x;
 			}
+			if (dir.x >0) dir.x = -dir.x; //go to player
 		}
 		else {
 			//Just above him!
 			//Do nothing :D
+			//Maybe stop updating? -> enemy not move
 		}
 	}
 }

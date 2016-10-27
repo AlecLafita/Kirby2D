@@ -42,7 +42,7 @@
 #define INIT_PLAYER_X_TILES 2 //Initial Kirby position
 #define INIT_PLAYER_Y_TILES 2
 #define MAX_JUMPS 3 //How many times can Kirby jump
-#define SWALLOW_DISTANCE 60 //How far can Kirby swallow
+#define SWALLOW_DISTANCE 64 //How far can Kirby swallow
 #define SWALLOW_Y_MAX_DISTANCE 20 //Max y distance that can be between Kirby and a character being swallowed
 #define SWALLOW_VELOCITY_FACTOR 10 //Factor of enemies being swallowed: the smaller, the faster
 

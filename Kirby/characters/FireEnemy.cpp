@@ -41,6 +41,20 @@ void FireEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 void FireEnemy::update(int deltaTime){
 
     //if (isInFrustrum()) {
+
+	if (isAttacking) {
+		//Maybe stop attacking
+		int ran = rand() % 3000;
+		if (ran > 1000 && ran < 1300) {// stop
+			if (dir.x > 0) sprite->changeAnimation(STAND_RIGHT);
+			else sprite->changeAnimation(STAND_LEFT);
+			isAttacking = false;
+		}
+		else { //continue attacking
+			BaseEnemy::update(deltaTime);
+			return;
+		}
+	}
 	searchPlayer();
 
 	//Move to corresponding direction
@@ -57,13 +71,19 @@ void FireEnemy::update(int deltaTime){
 			sprite->changeAnimation(MOVE_LEFT);
 			posCharacter -= dir;
 			dir = -dir;
-
 		}
 	}
 
 	posCharacter.y += FALL_STEP;//going down
-	mScene->collisionMoveDown(this); //if it's at floor, will undo previous increment, otherwise will fall
-
+	bool atGround = mScene->collisionMoveDown(this); //if it's at floor, will undo previous increment, otherwise will fall
+	if (!isAttacking && atGround) {
+		int ran = rand() % 3000;
+		if (ran > 2000 && ran < 2030) {// start attacking
+			if (dir.x > 0) sprite->changeAnimation(ATTACK_RIGHT);
+			else sprite->changeAnimation(ATTACK_LEFT);
+			isAttacking = true;
+		}
+	}
     BaseEnemy::update(deltaTime);
     //}
 }

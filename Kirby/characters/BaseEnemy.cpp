@@ -39,6 +39,7 @@ BaseEnemy::BaseEnemy(){
 	START_ROW_FLY_LEFT= 3;
 
 	dir = glm::ivec2(0, 0);
+	isAttacking = false;
 }
 
 

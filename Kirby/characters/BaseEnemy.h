@@ -23,5 +23,6 @@ protected:
 	
 	glm::ivec2 dir; //Direction of the enemy to go 
 
+	bool isAttacking;
 };
 

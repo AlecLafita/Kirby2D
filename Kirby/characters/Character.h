@@ -29,7 +29,7 @@ public:
 
 	void init(ShaderProgram &shaderProgram,Scene* scene);
 	void update(int deltaTime);
-	void render();
+	virtual void render();
 	
 	void setPathToSpriteSheet(string pathToSpriteSheet); //must be called before init
 	void setPosition (const glm::vec2 &pos);
@@ -37,9 +37,11 @@ public:
 	glm::ivec2 getSize() const { return glm::ivec2(CHARACTER_SIZE_X, CHARACTER_SIZE_Y); }
 	void setPosition(glm::ivec2 pos) { posCharacter = pos; }
 	bool isCharacterDead() const{ return isDead; }
+
+	//Redundancy with this and Player's isleftDireciton!
 	bool isLeftDirection() const { return (sprite->animation() % 2) == 0; } //is character loocking to left?
 
-	void justDamaged(); //trigered when character has been damaged
+	virtual void justDamaged(); //trigered when character has been damaged
 
 	virtual void getType() {}
 
@@ -64,6 +66,7 @@ protected:
 	bool isDead;//Ready to be deleted
 
 	int framesDamaged; //Frames needed for the character to sopt being damaged(can not get more damage until it's 0)
+	glm::ivec2 directionDamaged; //Direction to send character when being damaged
 
     // Constants
     int START_ROW_STAND_RIGHT;

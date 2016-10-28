@@ -8,6 +8,7 @@
 #pragma once
 #include "BaseEnemy.h"
 #include "WalkingDummyEnemy.h"
+#include "../objects/BigObject.h"
 
 class FireEnemy :  public WalkingDummyEnemy
 {
@@ -18,10 +19,15 @@ public:
 
     void init(ShaderProgram &shaderProgram, Scene* scene);
     void update(int deltaTime);
+	void render();
+
+	BigObject* getFire() { return mFire; }
 
     PowerType getType() const {
         return PowerType::Fire;
     };
+private:
+	BigObject* mFire;
 
 };
 

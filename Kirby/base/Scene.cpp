@@ -200,7 +200,12 @@ bool Scene::characterCollidesEnemies(Character* character) const{
 
 	for (BaseEnemy* enemy : mEnemies) {
 		collision = collision || mColisionHelper->characterCollidesCharacter(enemy, character);
+		if (FireEnemy* fenemy = dynamic_cast<FireEnemy*>(enemy))
+			collision = collision || mColisionHelper->characterCollidesObject(character, fenemy->getFire());
 	}
+	Player *p = dynamic_cast<Player*>(character);
+	if (p && collision) //enemies can not get damaged between them!
+		p->justDamaged();
 	return collision;
 }
 
@@ -211,7 +216,6 @@ bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 	return mColisionHelper->mapMoveLeft(map, character);
 }
 
-//Check also if enemy is hit by Kirby attacks!
 bool Scene::playerCanKill(BaseEnemy* enemy) {
 
 	if (Kirby* k = dynamic_cast<Kirby*>(player)) { //normal Kiry -> swallow!
@@ -229,8 +233,6 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
 		
 		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
 	}
-
-	
 }
 
 bool Scene::playerTakesItem(BaseObject* obj) {

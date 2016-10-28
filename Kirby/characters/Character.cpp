@@ -12,6 +12,7 @@ Character::Character(){
 	mSpriteRows = 6;
 	isDead = false;
 	framesDamaged = 0;
+	directionDamaged = glm::ivec2(0, 0);
 
 	//Default
 	mNumStand = 3;
@@ -119,24 +120,20 @@ void Character::setPathToSpriteSheet(string path){
 void Character::update(int deltaTime)
 {
 	if (framesDamaged > 0) { //To test how this behaviour with enemies near
-		if (framesDamaged % DAMAGED_RATE == 0) sprite->setIsDamaged(1.0f);
+		if (framesDamaged % DAMAGED_RATE == 0) sprite->setIsDamaged(1.0f); //damage "animation"
 		else sprite->setIsDamaged(0.0f);
 
-		if ((sprite->animation() % 2) == 0) {//looking left, send to right
-			posCharacter.x += DAMAGED_DISTANCE;
-			if (mScene->collisionMoveRightOnlyMap(this)) {
-				posCharacter.x -= DAMAGED_DISTANCE;
-			}
+		posCharacter += glm::ivec2(DAMAGED_DISTANCE, 0)*directionDamaged;
+		if (directionDamaged.x >0) { //sending to right
+			if (mScene->collisionMoveRightOnlyMap(this))
+				posCharacter -= glm::ivec2(DAMAGED_DISTANCE, 0)*directionDamaged;
 		}
 		else {
-			posCharacter.x -= DAMAGED_DISTANCE;
-			if (mScene->collisionMoveLeftOnlyMap(this)) {
-				posCharacter.x += DAMAGED_DISTANCE;
-			}
+			if (mScene->collisionMoveLeftOnlyMap(this)) 
+				posCharacter -= glm::ivec2(DAMAGED_DISTANCE, 0)*directionDamaged;
 		}
 		--framesDamaged;
 	}
-	//cout << framesDamaged << endl;
 
 	sprite->update(deltaTime);
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
@@ -154,9 +151,13 @@ void Character::setPosition(const glm::vec2 &pos)
 }
 
 void Character::justDamaged() {
-	if (framesDamaged == 0) 
+	if (framesDamaged == 0) {
 		framesDamaged = DAMAGED_TIME;
-	
+		if (isLeftDirection()) //looking left, send to right
+			directionDamaged = glm::ivec2(1, 0);
+		else
+			directionDamaged = glm::ivec2(-1, 0);	
+	}	
 }
 
 

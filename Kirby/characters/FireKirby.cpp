@@ -40,6 +40,7 @@ void FireKirby::update(int deltaTime) {
 		}
 	}
 	else {
+		mFire->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
 		if (isLeftDirection()) mFire->setLeftAnimation();
 		else mFire->setRightAnimation(); 
 	}

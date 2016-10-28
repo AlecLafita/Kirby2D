@@ -102,10 +102,8 @@ bool ColisionHelper::mapMoveUp(const TileMap* tMap, Character* character) const 
 	int* map = tMap->getMap();
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapTilesWidth + x] != 0)
-		{
+		if (map[y*mapTilesWidth + x] != 0) {
 			return true;
-
 		}
 	}
 	return false;
@@ -123,8 +121,7 @@ bool ColisionHelper::mapFalls(const TileMap* tMap, BaseEnemy* enemy) {
 	y = (pos.y + size.y + 1) / tileSize;
 	int mapTilesWidth = tMap->getMapTilesWidth();
 	int* map = tMap->getMap();
-	for (int x = x0; x <= x1; x++)
-	{
+	for (int x = x0; x <= x1; x++) {
 		if (map[y*mapTilesWidth + x] == 0){
 			return true;
 		}
@@ -134,28 +131,8 @@ bool ColisionHelper::mapFalls(const TileMap* tMap, BaseEnemy* enemy) {
 }
 
 bool ColisionHelper::characterCollidesCharacter(const Character* characterToCollide, Character* character) const {
-	glm::ivec2 pos = character->getPosition();
-	glm::ivec2 size = character->getSize();
-	
-	/*
-	int right_char = getRightCollisionBox(character);
-	int top_char = getTopCollisionBox(character);
-	int bottom_char = getBottomCollisionBox(character);
-
-	int left_charToCollide = getLeftCollisionBox(characterToCollide);
-	int right_charToCollide = getRightCollisionBox(characterToCollide);
-	int top_charToCollide = getTopCollisionBox(characterToCollide);
-	int bottom_charToCollide = getBottomCollisionBox(characterToCollide);
-
-	return generalColision(right_char, top_char, bottom_char, left_charToCollide, right_charToCollide,top_charToCollide, bottom_charToCollide);
-	*/
-	//return quadsCollision(pos, size, characterToCollide->getPosition(), size); //All characters same size??
-	bool res = quadsCollision(character->getPosition(), character->getSize(),
+	return quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
-	Player *p = dynamic_cast<Player*>(character); //maybe do this in scene better??
-	if ( p && res)
-		p->justDamaged();
-	return res;
 }
 
 bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
@@ -174,36 +151,6 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 bool ColisionHelper::characterCollidesObject(Character* character, BaseObject* object) const{
 	return quadsCollision(character->getPosition(), character->getSize(), object->getPosition(), object->getSize());
 }
-
-
-/*
-bool ColisionHelper::generalColision(int right_char, int top_char, int bottom_char,
-	int left_charToCollide, int right_charToCollide, int top_charToCollide, int bottom_charToCollide) const {
-
-	return (right_char > left_charToCollide &&  right_char < right_charToCollide && //basic for right collision
-		( (top_char < bottom_charToCollide && top_char > top_charToCollide) || //same size, char bottom from charToCollide
-		  (bottom_char > top_charToCollide && bottom_char < bottom_charToCollide) || //same size, char up from charToCollide
-		  (top_char <= top_charToCollide && bottom_char >= bottom_charToCollide) || //char bigger or equal(surrounding) than charToCollide
-		  (top_char > top_charToCollide && bottom_char < bottom_charToCollide) //char smaller(surrounded) than charToCollide
-		 ));
-}
-
-int ColisionHelper::getLeftCollisionBox(const Character* character) const{
-	return character->getPosition().x;
-}
-
-int ColisionHelper::getRightCollisionBox(const Character* character) const{
-	return character->getPosition().x + character->getPosition().x;
-}
-
-int ColisionHelper::getTopCollisionBox(const Character* character) const{
-	return character->getPosition().y;
-}
-
-int ColisionHelper::getBottomCollisionBox(const Character* character) const{
-	return character->getPosition().y + character->getSize().y;
-}
-*/
 
 bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const{
 	//It can be divided for the four sides 

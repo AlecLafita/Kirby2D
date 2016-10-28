@@ -10,7 +10,6 @@ public:
 
 	virtual void init(ShaderProgram &shaderProgram, Scene* scene);
 	virtual void update(int deltaTime);
-	virtual void render(){ Character::render(); }
 
 	void computeNextMove(int deltaTime);
 	void computeJumping();
@@ -34,7 +33,7 @@ protected:
 	virtual void computeMovement();
 	virtual void computeJump();
 	virtual int getAttackSound(){ return SOUND_VACUUMING; }
-	bool isFacingLeftSide();
+	bool isFacingLeftSide(); //Redundancy with this and Character's is lookingLeft!
 	bool isFacingRightSide();
 
 protected:

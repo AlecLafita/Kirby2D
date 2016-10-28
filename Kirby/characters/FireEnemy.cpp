@@ -35,6 +35,11 @@ void FireEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
     WalkingDummyEnemy::init(shaderProgram, scene);
     sprite->changeAnimation(MOVE_LEFT);
+	mFire = new BigObject();
+	//mFire->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
+	//mFire->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
+	mFire->init(shaderProgram, scene);
+
 }
 
 
@@ -45,13 +50,15 @@ void FireEnemy::update(int deltaTime){
 	if (isAttacking) {
 		//Maybe stop attacking
 		int ran = rand() % 3000;
-		if (ran > 1000 && ran < 1300) {// stop
+		if (ran > 1000 && ran < 1050) {// stop
 			if (dir.x > 0) sprite->changeAnimation(STAND_RIGHT);
 			else sprite->changeAnimation(STAND_LEFT);
 			isAttacking = false;
+			mFire->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
 		}
 		else { //continue attacking
 			BaseEnemy::update(deltaTime);
+			mFire->update(deltaTime);
 			return;
 		}
 	}
@@ -79,11 +86,22 @@ void FireEnemy::update(int deltaTime){
 	if (!isAttacking && atGround) {
 		int ran = rand() % 3000;
 		if (ran > 2000 && ran < 2030) {// start attacking
-			if (dir.x > 0) sprite->changeAnimation(ATTACK_RIGHT);
-			else sprite->changeAnimation(ATTACK_LEFT);
+			if (dir.x > 0)  {
+				sprite->changeAnimation(ATTACK_RIGHT);
+				mFire->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
+			}
+			else {
+				sprite->changeAnimation(ATTACK_LEFT);
+				mFire->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
+			}
 			isAttacking = true;
 		}
 	}
     BaseEnemy::update(deltaTime);
     //}
+}
+
+void FireEnemy::render() {
+	BaseEnemy::render();
+	if (isAttacking) mFire->render();
 }

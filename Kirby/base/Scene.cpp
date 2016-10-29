@@ -234,6 +234,9 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
 	else if (FireKirby* f = dynamic_cast<FireKirby*> (player)) {
 		
 		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
+	}else if (AquaKirby* aquaK = dynamic_cast<AquaKirby*> (player)) {
+
+		return mColisionHelper->characterCollidesObject(enemy,aquaK->getAqua());
 	}
 }
 

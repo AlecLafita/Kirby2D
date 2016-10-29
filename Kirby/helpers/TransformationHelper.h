@@ -10,6 +10,7 @@
 #include "../characters/FireKirby.h"
 #include "../characters/Kirby.h"
 #include "../characters/BlackKirby.h"
+#include "../characters/AquaKirby.h"
 #include "../characters/BaseEnemy.h"
 
 class TransformationHelper {

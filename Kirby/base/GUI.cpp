@@ -128,9 +128,9 @@ void GUI::setAbility(PowerType type) {
 
 			break;
 
-		case PowerType::Electric:
-			cout << "Electric type" << endl;
-			abilityTexture.loadFromFile("images/electric_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
+		case PowerType::Ice:
+			cout << "Ice type" << endl;
+			abilityTexture.loadFromFile("images/ice_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 
 			break;
 

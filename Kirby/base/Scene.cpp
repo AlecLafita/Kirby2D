@@ -14,6 +14,7 @@
 #include "../characters/FlyingDummyEnemy.h"
 #include "../characters/WalkingDummyEnemy.h"
 #include "../characters/FireEnemy.h"
+#include "../characters/IcyEnemy.h"
 
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
@@ -87,14 +88,6 @@ void Scene::update(int deltaTime)
 		Game::instance().nextLevel();
 		return;
 	}
-
-	//TODO: Remove this. For testing purposes
-    if(Game::instance().getKey('b')){
-
-        player = new FireKirby();
-        player->init(texProgram,this);
-        player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-    }
 
 	//Update game stuff
 	currentTime += deltaTime;
@@ -344,6 +337,21 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 				mEnemies.insert(fireEnemy);
 				break;
 			}
+
+            case 4: { // Ice enemy
+                IcyEnemy* icyEnemy = new IcyEnemy();
+                icyEnemy->init(texProgram, this);
+                icyEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                mEnemies.insert(icyEnemy);
+				break;
+            }
+            case 5: { // Aqua enemy
+                IcyEnemy* icyEnemy = new IcyEnemy();
+                icyEnemy->init(texProgram, this);
+                icyEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                mEnemies.insert(icyEnemy);
+				break;
+            }
 			default:
 				cout << "unknown enemy!" << endl;
 				break;

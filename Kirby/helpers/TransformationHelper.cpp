@@ -37,8 +37,8 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
         case PowerType::Steam:
             break;
 
-        case PowerType::Electric:
-            cout << "Electric type" << endl;
+        case PowerType::Ice:
+            cout << "Ice type" << endl;
 
             break;
 

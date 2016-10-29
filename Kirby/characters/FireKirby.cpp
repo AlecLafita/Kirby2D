@@ -31,7 +31,7 @@ void FireKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void FireKirby::update(int deltaTime) {
 	Player::update(deltaTime);
-	if (bAttacking && Game::instance().getKey('a')) {
+	if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A'))) {
 		if (isLeftDirection()) {
 			mFire->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
 			mFire->update(deltaTime);
@@ -50,7 +50,7 @@ void FireKirby::update(int deltaTime) {
 
 void FireKirby::render() {
 	Player::render();
-	if (bAttacking && Game::instance().getKey('a'))
+	if (bAttacking && (Game::instance().getKey('a')) || Game::instance().getKey('A'))
 		mFire->render();
 }
 

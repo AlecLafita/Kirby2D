@@ -47,7 +47,7 @@ void Player::computeNextMove(int deltaTime) {
 void Player::computeAttack(int deltaTime){
 	// ---- ATTACK ----
 	//Attacking block, only for Kirby(no abilities)
-	if (Game::instance().getKey('a')) { //attack (swallow)
+	if (Game::instance().getKey('a') || Game::instance().getKey('A')) { //attack (swallow)
 		if (!bAttacking){
 			mAttackTime = 0;
 			Game::instance().playSound(getAttackSound());

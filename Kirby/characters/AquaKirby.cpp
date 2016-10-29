@@ -31,7 +31,7 @@ void AquaKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void AquaKirby::update(int deltaTime) {
     Player::update(deltaTime);
-    if (bAttacking && Game::instance().getKey('a')) {
+    if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A') )) {
         if (isLeftDirection()) {
             mAqua->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
             mAqua->update(deltaTime);
@@ -50,7 +50,7 @@ void AquaKirby::update(int deltaTime) {
 
 void AquaKirby::render() {
     Player::render();
-    if (bAttacking && Game::instance().getKey('a'))
+    if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A')))
         mAqua->render();
 }
 

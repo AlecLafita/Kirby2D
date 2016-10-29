@@ -24,7 +24,7 @@ void AquaKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
     Player::init(shaderProgram, scene);
     //Creae fire object
     mAqua = new BigObject();
-    //mAqua->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
+    mAqua->setPathToSpriteSheet(BIG_OBJECTS_AQUA_PATH); //OBJECT SPRITESHEET
     //mAqua->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
     mAqua->init(shaderProgram, scene);
 }

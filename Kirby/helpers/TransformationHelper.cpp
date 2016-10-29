@@ -23,7 +23,7 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
     glm::vec2 playerOldPos = player->getPosition();
 	int playerOldEnergy = player->getEnergy();
     int startAnim = 0;
-    if(!player->isFacingRightSide()){
+    if(player->isFacingRightSide()){
 
         startAnim = 1;
     }

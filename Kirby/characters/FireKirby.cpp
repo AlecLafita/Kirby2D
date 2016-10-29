@@ -16,6 +16,8 @@ FireKirby::FireKirby()
 	mNumDeath = 8;
 	mNumFly = 6;
 	mNumSwallow = 2;
+
+	START_ROW_DEATH = 9;
 }
 
 void FireKirby::init(ShaderProgram &shaderProgram, Scene* scene) {

@@ -185,6 +185,7 @@ void Player::computeAnimation(int deltaTime) {
 
     if(isDead){
 
+        cout << "is dead" << (sprite->animation() == DEATH) << endl;
         if(sprite->animation() != DEATH){
             sprite->changeAnimation(DEATH);
         }

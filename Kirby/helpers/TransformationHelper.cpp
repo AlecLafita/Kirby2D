@@ -50,9 +50,9 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
             break;
     }
 
+    player->setStartAnimation(startAnim);
     player->init(shaderProgram, scene);
     player->setPosition(playerOldPos);
-    player->setStartAnimation(startAnim);
 	player->setEnergy(playerOldEnergy);
     return player;
 }

@@ -54,6 +54,7 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 	cout << "START_ROW_ATTACK_LEFT  = " << START_ROW_ATTACK_LEFT << endl;
 	cout << "START_ROW_FLY_RIGHT = " << START_ROW_FLY_RIGHT << endl;
 	cout << "START_ROW_FLY_LEFT = " << START_ROW_FLY_LEFT << endl;
+	cout << "START_ROW_DEATH = " << START_ROW_DEATH << endl;
 
 	float columnSize = 1.f / float(mSpriteColumns);
 	float rowSize = 1.f / float(mSpriteRows);
@@ -105,6 +106,7 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
 
 	// ----------- DEATH ANIMATIONS -----------
     sprite->setAnimationSpeed(DEATH, NUM_OF_FRAMES);
+    cout << "Num death " << mNumDeath;
     for (int i = 0; i < mNumDeath; ++i) {
         sprite->addKeyframe(DEATH, glm::vec2(i*columnSize, START_ROW_DEATH*rowSize));
     }

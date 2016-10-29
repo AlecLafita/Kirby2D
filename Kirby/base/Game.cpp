@@ -168,6 +168,7 @@ void Game::initSoundHelper() {
 	mSoundHelper->initSound(SOUND_FIRE, "sounds/fire.wav");
 	mSoundHelper->initSound(SOUND_GET_ENERGY, "sounds/energy_acquired.wav");
 	mSoundHelper->initSound(SOUND_GET_LIFE, "sounds/new_life.wav");
+	mSoundHelper->initSound(SOUND_TRANSFORMATION, "sounds/ability_acquired.wav");
 }
 
 void Game::playSound(int soundIndex) {

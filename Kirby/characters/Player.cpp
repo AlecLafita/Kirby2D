@@ -21,6 +21,7 @@ void Player::init(ShaderProgram &shaderProgram, Scene *scene){
 	bHoving = false;
 	nJumps = 0;
 	energy = MAX_ENERGY;
+    bReadyToTransform = false;
 	isSwallable = false; //Kirby can't swallow itself (this may not be necesary for the game logic)
 
 }
@@ -259,6 +260,12 @@ bool Player::isFacingRightSide() {
            sprite->animation() == FLY_RIGHT ||
            sprite->animation() == STAND_RIGHT ||
 		   sprite->animation() == MOVE_RIGHT;
+}
+
+
+void Player::playTransformationSound() {
+
+	Game::instance().playSound(SOUND_TRANSFORMATION);
 }
 Player::~Player()
 {

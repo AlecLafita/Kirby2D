@@ -45,8 +45,12 @@ public:
 
 	virtual void getType() {}
 
+	void setStartAnimation(int animId){ mStartAnimation = animId;}
+	int getStartAnimation(){ return mStartAnimation;}
+
 protected:
 
+	int mStartAnimation;
 	bool bJumping, bAttacking;
 	glm::ivec2 posCharacter;
 	int jumpAngle, startY;

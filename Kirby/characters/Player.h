@@ -27,14 +27,16 @@ public:
         return bAnimating;
     }
 
+	void playTransformationSound();
+    bool isReadyToTransform() { return bReadyToTransform; }
+    bool isFacingLeftSide(); //Redundancy with this and Character's is lookingLeft!
+    bool isFacingRightSide();
 
 protected:
 	virtual void computeAttack(int deltaTime);
 	virtual void computeMovement();
 	virtual void computeJump();
 	virtual int getAttackSound(){ return SOUND_VACUUMING; }
-	bool isFacingLeftSide(); //Redundancy with this and Character's is lookingLeft!
-	bool isFacingRightSide();
 
 protected:
     int mAttackSoundTime;
@@ -43,7 +45,7 @@ private:
 	bool bHoving;
 	int nJumps;
 
-	bool bAnimating;
+	bool bAnimating, bReadyToTransform;
 
 	int energy;
 

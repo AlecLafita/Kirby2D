@@ -7,6 +7,7 @@
 
 Character::Character(){
 
+	mStartAnimation = 1;
 	mNumberAnimations = 4;
 	mSpriteColumns = 10;
 	mSpriteRows = 6;
@@ -108,7 +109,7 @@ void Character::init(ShaderProgram &shaderProgram, Scene* scene)
         sprite->addKeyframe(DEATH, glm::vec2(i*columnSize, START_ROW_DEATH*rowSize));
     }
 
-	sprite->changeAnimation(1);
+	sprite->changeAnimation(mStartAnimation);
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 }
 

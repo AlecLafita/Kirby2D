@@ -22,6 +22,11 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
 
     glm::vec2 playerOldPos = player->getPosition();
 	int playerOldEnergy = player->getEnergy();
+    int startAnim = 0;
+    if(!player->isFacingRightSide()){
+
+        startAnim = 1;
+    }
     switch (enemy->getType()){
 
         case PowerType::Fire:
@@ -47,7 +52,7 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
 
     player->init(shaderProgram, scene);
     player->setPosition(playerOldPos);
+    player->setStartAnimation(startAnim);
 	player->setEnergy(playerOldEnergy);
-
     return player;
 }

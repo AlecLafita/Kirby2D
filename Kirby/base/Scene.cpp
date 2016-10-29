@@ -222,6 +222,8 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
 		bool hasSwallowed = mColisionHelper->playerSwallowCharacter(player, enemy);
 		if (hasSwallowed) {
 			cout << "Just swallowed an enemy!" << endl;
+			Game::instance().stopSound(SOUND_VACUUMING);
+			player->playTransformationSound();
 			player = mTransformationHelper->transformPlayer(player, enemy,
 				texProgram, this);
 			Game::instance().setAbilityToShow(enemy->getType());
@@ -234,6 +236,8 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
 		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
 	}
 }
+
+
 
 bool Scene::playerTakesItem(BaseObject* obj) {
 	if (mColisionHelper->characterCollidesObject(player, obj)) { 

@@ -89,6 +89,11 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
+	//TODO: Remove this. For testing purposes
+	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
+		player = mTransformationHelper->transformPlayer(player, new PinxoEnemy(), texProgram, this);
+	}
+
 	//Update game stuff
 	currentTime += deltaTime;
 	player->update(deltaTime);

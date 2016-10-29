@@ -130,6 +130,8 @@ bool ColisionHelper::mapFalls(const TileMap* tMap, BaseEnemy* enemy) {
 	return false;
 }
 
+
+
 bool ColisionHelper::characterCollidesCharacter(const Character* characterToCollide, Character* character) const {
 	return quadsCollision(character->getPosition(), character->getSize(),
 		characterToCollide->getPosition(), characterToCollide->getSize());
@@ -138,7 +140,13 @@ bool ColisionHelper::characterCollidesCharacter(const Character* characterToColl
 bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
 	glm::ivec2 playerPos = player->getPosition();
 	glm::ivec2 enemyPos = enemy->getPosition();
-	if (player->isSwalling() && (distanceBetweenPositions(playerPos, enemyPos) <= SWALLOW_DISTANCE) && sameHorizontal(playerPos, enemyPos)) {
+	int diffInX = (playerPos.x - enemyPos.x);
+	if (player->isSwalling()
+		&& (distanceBetweenPositions(playerPos, enemyPos) <= SWALLOW_DISTANCE)
+		&& sameHorizontal(playerPos, enemyPos)
+			&& (( diffInX > 0 && player->isLeftDirection()) || ( diffInX < 0 && !player->isLeftDirection()))
+			) {
+
 		//Move character to player
 		glm::ivec2 dir = playerPos - enemyPos;
 		enemy->setPosition(enemyPos + dir / SWALLOW_VELOCITY_FACTOR);

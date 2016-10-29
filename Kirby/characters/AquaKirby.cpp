@@ -56,5 +56,5 @@ void AquaKirby::render() {
 
 
 int AquaKirby::getAttackSound() {
-    return SOUND_FIRE;
+    return SOUND_FIRE; //TODO: Change for another one
 }

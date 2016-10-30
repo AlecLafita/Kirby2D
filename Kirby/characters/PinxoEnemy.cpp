@@ -21,6 +21,8 @@ PinxoEnemy::PinxoEnemy(){
     START_ROW_MOVE_LEFT = 0;
 
 	dir = glm::ivec2(0,1);
+
+	isSwallable = false;
 }
 
 PinxoEnemy::~PinxoEnemy(){

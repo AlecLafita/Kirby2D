@@ -30,6 +30,7 @@ void Game::resetLevel() {
 	playerLifes--;
 	mGUI.setLifes(playerLifes);
 	addScore(-1500);
+	cout << "Player lifes " << playerLifes << endl;
 	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
 		mMainMenu.activateGameOver();
@@ -67,14 +68,18 @@ void Game::addScore(int score) {
 }
 
 void Game::nextLevel() {
+	cout << "Actual lvl: " << levelAct << endl;
 	++levelAct; //Go to next level
-	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd)
+	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd) // Laura: HAHAHAHAHAHA Cutre indeed. xdddd
 	addScore(1500); //same "
 	if (levelAct == 3) {//Num of total levels+1
 		setMenustate();
 		mMainMenu.activateNewRecord();
 	}
-	else resetLevel();
+	else {
+
+		resetLevel();
+	}
 }
 
 bool Game::update(int deltaTime)
@@ -169,6 +174,8 @@ void Game::initSoundHelper() {
 	mSoundHelper->initSound(SOUND_GET_ENERGY, "sounds/energy_acquired.wav");
 	mSoundHelper->initSound(SOUND_GET_LIFE, "sounds/new_life.wav");
 	mSoundHelper->initSound(SOUND_TRANSFORMATION, "sounds/ability_acquired.wav");
+	mSoundHelper->initSound(SOUND_ENTER_DOOR, "sounds/enter_door.wav");
+	mSoundHelper->initSound(MENU_SELECTION, "sounds/menu_selection.wav");
 }
 
 void Game::playSound(int soundIndex) {

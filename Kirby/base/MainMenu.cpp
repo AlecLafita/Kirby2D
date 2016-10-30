@@ -66,14 +66,14 @@ void MainMenu::update(int deltaTime) {
 	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !bUpPressed) {
 		--index;
 		bUpPressed = true;
-		//soundhelper-> setSound
+		Game::instance().playSound(MENU_SELECTION);
 	}
 	else if (!Game::instance().getSpecialKey(GLUT_KEY_UP)) bUpPressed = false;
 
 	if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !bDownPressed) {
 		++index;
 		bDownPressed = true;
-		//soundhelper-> setSound
+        Game::instance().playSound(MENU_SELECTION);
 
 	}
 	else if(!Game::instance().getSpecialKey(GLUT_KEY_DOWN)) bDownPressed = false;

@@ -83,8 +83,11 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 void Scene::update(int deltaTime)
 {
 
+
 	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('n')){
+	if (Game::instance().getKey('n')
+		//&& isDoorBehind(player, embellishmentMap)
+			){
 		Game::instance().nextLevel();
 		return;
 	}

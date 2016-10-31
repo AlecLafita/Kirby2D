@@ -66,6 +66,8 @@
 #define BIG_OBJECT_SIZE_X 32
 #define BIG_OBJECT_SIZE_Y 32
 
+#define MENU_LVL 0
+
 //SOUND
 #define NUM_OF_SOUNDS 9
 enum {

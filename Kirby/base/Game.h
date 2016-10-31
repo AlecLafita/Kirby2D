@@ -43,7 +43,7 @@ public:
 
 	void resetLevel();
 	void nextLevel();
-    //void showInstructions();
+    void showInstructions();
 
 	//add or substract score
 	void addScore(int score);
@@ -51,7 +51,11 @@ public:
 	//1 life obtained!
 	void winLife();
 
-	//GUI functions
+    void setMenustate();
+
+    void setExitedInstructions(bool value);
+
+    //GUI functions
 	void setPlayerEnergy(int energy);
 	void setAbilityToShow(PowerType type);
 
@@ -62,13 +66,13 @@ public:
 	void stopMusic();
 
 private:
-	void setMenustate();
 	void initSoundHelper();
 	
 private:
 	bool bPlay;                       // Continue to play game?
 	Scene scene;                      // Scene to render
 	MainMenu mMainMenu;
+
 	GUI mGUI;					
 	SoundHelper *mSoundHelper;
 

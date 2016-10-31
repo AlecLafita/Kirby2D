@@ -42,6 +42,9 @@ void MainMenu::init() {
 	logoTextureQuad = TexturedQuad::createTexturedQuad(geomLogo, texCoords, texProgram);
 	logoTexture.loadFromFile("images/amazing_vj_shade.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
+	instructionsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
+	instruccionsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 
 	//text 
 	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
@@ -61,9 +64,10 @@ void MainMenu::init() {
 	//energyAct = MAX_ENERGY;
 }
 
+
 void MainMenu::update(int deltaTime) {
 	//Change option
-	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !bUpPressed) {
+	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !bUpPressed && !bInstructions && !bRecords) {
 		--index;
 		bUpPressed = true;
 		Game::instance().playSound(MENU_SELECTION);
@@ -100,9 +104,8 @@ void MainMenu::update(int deltaTime) {
 				Game::instance().nextLevel();
 				break;
 			case 1: //show instructions
-				//Game::instance().showInstructions();
-				bInstructions = true;
-				break;
+                bInstructions = true;
+                break;
 			case 2: //show records
 				bRecords = true;
 				break;
@@ -134,14 +137,13 @@ void MainMenu::render() {
 
 	if (bInstructions) {//At instructions screen
 		//Render instructions
-		cout << "instructions";
-	}	
+
+        instructionsQuad->render(instruccionsTex);
+	}
 	else if (bRecords) {
 		//render records
-		cout << "records";
 	}
 	else if (bGameOver) {
-		cout <<"GAME OVER";
 		//render game over
 	}
 	else if (bNewRecord) {

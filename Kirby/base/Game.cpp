@@ -14,17 +14,11 @@ void Game::init()
 }
 
 void Game::setMenustate() {
-	levelAct = 0;
+	levelAct = MENU_LVL;
 	scoreAct = 0;
 	playerLifes = 3; //Init number of lifes
 	mSoundHelper->playMusic("sounds/menu.wav");
 }
-
-/*void Game::showInstructions() {
-	cout << "level 1" << endl;
-	scene.init("levels/Cloudy_lvl.txt", "images/peppermint_palace.png","levels/level01_enemies.txt","levels/level01_objects.txt");
-	mSoundHelper->playMusic("sounds/song_green_greens.wav");
-}*/
 
 void Game::resetLevel() {
 	playerLifes--;
@@ -82,24 +76,29 @@ void Game::nextLevel() {
 	}
 }
 
-bool Game::update(int deltaTime)
-{
-	if (levelAct == 0)  //Main menu
-		mMainMenu.update(deltaTime);
-	else  
+bool Game::update(int deltaTime) {
+    if (levelAct == MENU_LVL) {  //Main menu
+
+        mMainMenu.update(deltaTime);
+    }
+    else {
+
 		scene.update(deltaTime);
-	
-	return bPlay;
+    }
+
+
+    return bPlay;
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (levelAct == 0) { //Main menu
-		mMainMenu.render();
-	}
-	else{
+	if (levelAct == MENU_LVL) { //Main menu
+
+        mMainMenu.render();
+	}  else {
+
 		scene.render();
 		mGUI.render();
 	}

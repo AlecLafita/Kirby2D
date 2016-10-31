@@ -19,6 +19,8 @@ public:
 	void activateGameOver();
 	void activateNewRecord();
 
+	void setInstructions(bool value){ bInstructions = value; }
+
 
 private:
 	void initShaders();
@@ -40,6 +42,9 @@ private:
 	Text playText;
 	Text instructionsText;
 	Text recordsText;
+
+    TexturedQuad* instructionsQuad; //Instructions Background
+    Texture instruccionsTex;
 
 	bool bRecords; //Go to record screen
 	bool bInstructions; //Go to instructions scree

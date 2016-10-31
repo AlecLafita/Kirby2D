@@ -15,6 +15,7 @@
 #include "../characters/WalkingDummyEnemy.h"
 #include "../characters/FireEnemy.h"
 #include "../characters/IcyEnemy.h"
+#include "../characters/AttackEnemy.h"
 
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
@@ -44,7 +45,7 @@ void Scene::resetScene() {
 		delete mColisionHelper;
 
 	mPowerUps.clear();
-	 mEnemies.clear();
+	mEnemies.clear();
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
@@ -86,7 +87,7 @@ void Scene::update(int deltaTime)
 
 	//TODO: Remove this. For testing purposes
 	if (Game::instance().getKey('n')
-		//&& isDoorBehind(player, embellishmentMap)
+		//isDoorBehind(player, embellishmentMap)
 			){
 		Game::instance().nextLevel();
 		return;
@@ -107,6 +108,9 @@ void Scene::update(int deltaTime)
 	for (BaseObject* object : mPowerUps){
 		object->update(deltaTime);
 	}
+
+	portal1->update(deltaTime);
+	portal2->update(deltaTime);
 
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
@@ -166,6 +170,9 @@ void Scene::render() {
 	for (BaseObject* projectileObject : mPowerUps){
 		projectileObject->render();
 	}
+	portal1->render();
+	portal2->render();
+
 }
 
 //Collision functions, always call the helper to solve them: first check collision with tilemap,then check collision with other characters
@@ -181,7 +188,6 @@ bool Scene::collisionMoveLeft(Character* character) const {
 }
 bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
-	//Maybe not return bool, if jumping on enemy kills it	
 	bool enemyCollision = characterCollidesEnemies(character);
 	return mapCollision || enemyCollision;
 }
@@ -201,9 +207,10 @@ bool Scene::characterCollidesEnemies(Character* character) const{
 
 	for (BaseEnemy* enemy : mEnemies) {
 		collision = collision || mColisionHelper->characterCollidesCharacter(enemy, character);
-		if (FireEnemy* fenemy = dynamic_cast<FireEnemy*>(enemy))
-			collision = collision || mColisionHelper->characterCollidesObject(character, fenemy->getFire());
+		if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy))
+			collision = collision || mColisionHelper->characterCollidesObject(character, aEnemy->getAttack());
 	}
+
 	Player *p = dynamic_cast<Player*>(character);
 	if (p && collision) //enemies can not get damaged between them!
 		p->justDamaged();
@@ -225,20 +232,24 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
 			cout << "Just swallowed an enemy!" << endl;
 			Game::instance().stopSound(SOUND_VACUUMING);
 			player->playTransformationSound();
+			if (enemy->getType() == PowerType::Normal) Game::instance().stopSound(SOUND_TRANSFORMATION);
 			player = mTransformationHelper->transformPlayer(player, enemy,
 				texProgram, this);
 			Game::instance().setAbilityToShow(enemy->getType());
 		}
-
 		return hasSwallowed;
 	}
-	else if (FireKirby* f = dynamic_cast<FireKirby*> (player)) {
-		
-		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
-	}else if (AquaKirby* aquaK = dynamic_cast<AquaKirby*> (player)) {
 
+	else if (FireKirby* f = dynamic_cast<FireKirby*> (player)) 
+		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
+
+	else if (IceKirby* iceK = dynamic_cast<IceKirby*> (player)) 
+		return mColisionHelper->characterCollidesObject(enemy,iceK->getIce());
+
+	else if (AquaKirby* aquaK = dynamic_cast<AquaKirby*> (player))
 		return mColisionHelper->characterCollidesObject(enemy,aquaK->getAqua());
-	}
+
+	return false;
 }
 
 
@@ -257,6 +268,11 @@ bool Scene::playerTakesItem(BaseObject* obj) {
 		return true;
 	}
 	return false;
+}
+
+void Scene::playerTakesPortal(PortalObject* p) {
+	bool actual = p->getType();
+	
 }
 
 
@@ -425,5 +441,12 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 			break;
 		}
 	}
+	portal1 = new PortalObject(false);
+	portal1->init(texProgram,this);
+	portal1->setPosition(glm::vec2(10 * map->getTileSize(), 10 * map->getTileSize()));
+
+	portal2 = new PortalObject(true);
+	portal2->init(texProgram,this);
+	portal2->setPosition(glm::vec2(20 * map->getTileSize(), 10 * map->getTileSize()));
 }
 

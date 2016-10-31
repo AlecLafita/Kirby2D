@@ -1,22 +1,15 @@
-//
-// Created by quokka on 29/10/16.
-//
 
-//
-// Created by quokka on 26/10/16.
-//
-
-#include "IcyEnemy.h"
+#include "AttackEnemy.h"
 #include "../base/Scene.h"
 
 
-IcyEnemy::IcyEnemy()
+AttackEnemy::AttackEnemy()
 {
-    //dir = glm::ivec2(-1, 0);
+    dir = glm::ivec2(-1, 0);
 
-    Character::setPathToSpriteSheet("images/snowy_enemy_spritesheet.png");
+    //Character::setPathToSpriteSheet("images/snowy_enemy_spritesheet.png");
 
-    /*mNumberAnimations = 8;
+    mNumberAnimations = 8;
 
     mSpriteRows = 6;
 
@@ -31,23 +24,19 @@ IcyEnemy::IcyEnemy()
     START_ROW_MOVE_RIGHT = 2;
     START_ROW_MOVE_LEFT = 3;
     START_ROW_ATTACK_RIGHT = 4;
-    START_ROW_ATTACK_LEFT = 5;*/
+    START_ROW_ATTACK_LEFT = 5;
 }
 
 
-void IcyEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
+void AttackEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
-    AttackEnemy::init(shaderProgram, scene);
-    /*WalkingDummyEnemy::init(shaderProgram, scene);
+    WalkingDummyEnemy::init(shaderProgram, scene);
     sprite->changeAnimation(MOVE_LEFT);
-    mIce = new BigObject();*/
-    mAttack->setPathToSpriteSheet(BIG_OBJECTS_ICE_PATH);
-    mAttack->init(shaderProgram, scene);
-
+    mAttack = new BigObject();
 }
 
-/*
-void IcyEnemy::update(int deltaTime){
+
+void AttackEnemy::update(int deltaTime){
 
     //if (isInFrustrum()) {
 
@@ -58,11 +47,11 @@ void IcyEnemy::update(int deltaTime){
             if (dir.x > 0) sprite->changeAnimation(STAND_RIGHT);
             else sprite->changeAnimation(STAND_LEFT);
             isAttacking = false;
-            mIce->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
+            mAttack->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
         }
         else { //continue attacking
             BaseEnemy::update(deltaTime);
-            mIce->update(deltaTime);
+            mAttack->update(deltaTime);
             return;
         }
     }
@@ -92,11 +81,11 @@ void IcyEnemy::update(int deltaTime){
         if (ran > 2000 && ran < 2030) {// start attacking
             if (dir.x > 0)  {
                 sprite->changeAnimation(ATTACK_RIGHT);
-                mIce->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
+                mAttack->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
             }
             else {
                 sprite->changeAnimation(ATTACK_LEFT);
-                mIce->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
+                mAttack->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
             }
             isAttacking = true;
         }
@@ -105,8 +94,7 @@ void IcyEnemy::update(int deltaTime){
     //}
 }
 
-void IcyEnemy::render() {
+void AttackEnemy::render() {
     BaseEnemy::render();
-    if (isAttacking) mIce->render();
+    if (isAttacking) mAttack->render();
 }
-*/

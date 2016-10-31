@@ -1,10 +1,10 @@
-#version 300 es
+#version 120
 
-uniform lowp vec4 color;
+uniform vec4 color;
 
-out lowp vec4 outColor;
+//out vec4 outColor;
 
 void main()
 {
-	outColor = color;
+	gl_FragColor = color;
 }

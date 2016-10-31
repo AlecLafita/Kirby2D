@@ -11,6 +11,8 @@
 #include "../helpers/TransformationHelper.h"
 #include "Defines.h"
 
+#include "../objects/PortalObject.h"
+
 #include <set>
 
 // Scene contains all the entities of our game.
@@ -46,6 +48,8 @@ public:
 
 	bool playerTakesItem(BaseObject* obj);
 
+	void playerTakesPortal(PortalObject* p);
+
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 	Player* getPlayer(){ return  player;}
 
@@ -72,6 +76,9 @@ private:
 	TransformationHelper* mTransformationHelper;
 
 	int cameraLeftXposition;
+
+	PortalObject* portal1;
+	PortalObject* portal2;
 };
 
 

@@ -7,10 +7,10 @@
 
 #pragma once
 #include "BaseEnemy.h"
-#include "WalkingDummyEnemy.h"
+#include "AttackEnemy.h"
 #include "../objects/BigObject.h"
 
-class FireEnemy :  public WalkingDummyEnemy
+class FireEnemy :  public AttackEnemy
 {
 
 public:
@@ -18,16 +18,16 @@ public:
     ~FireEnemy() {}
 
     void init(ShaderProgram &shaderProgram, Scene* scene);
-    void update(int deltaTime);
-	void render();
+    //void update(int deltaTime);
+	//void render();
 
-	BigObject* getFire() { return mFire; }
+	//BigObject* getFire() { return mFire; }
 
     PowerType getType() const {
         return PowerType::Fire;
     };
 private:
-	BigObject* mFire;
+	//BigObject* mFire;
 
 };
 

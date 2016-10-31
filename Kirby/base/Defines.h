@@ -60,7 +60,7 @@
 #define OBJECTS_SPRITESHEET_PATH "images/items.png"
 #define OBJECT_SIZE_X 16
 #define OBJECT_SIZE_Y 16
-#define BIG_OBJECTS_SPRITESHEET_PATH "images/fire_attack.png"
+#define BIG_OBJECTS_FIRE_PATH "images/fire_attack.png"
 #define BIG_OBJECTS_AQUA_PATH "images/aqua_attack.png"
 #define BIG_OBJECTS_ICE_PATH "images/aqua_attack.png"
 #define BIG_OBJECT_SIZE_X 32

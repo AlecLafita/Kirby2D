@@ -8,10 +8,10 @@
 
 FireEnemy::FireEnemy()
 {
-    dir = glm::ivec2(-1, 0);
+    //dir = glm::ivec2(-1, 0);
 
     Character::setPathToSpriteSheet("images/firy_enemy_spritesheet.png");
-
+/*
     mNumberAnimations = 8;
 
     mSpriteRows = 6;
@@ -27,22 +27,21 @@ FireEnemy::FireEnemy()
     START_ROW_MOVE_RIGHT = 2;
     START_ROW_MOVE_LEFT = 3;
     START_ROW_ATTACK_RIGHT = 4;
-    START_ROW_ATTACK_LEFT = 5;
+    START_ROW_ATTACK_LEFT = 5;*/
 }
 
 
 void FireEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
-
-    WalkingDummyEnemy::init(shaderProgram, scene);
+	AttackEnemy::init(shaderProgram, scene);
+    /*WalkingDummyEnemy::init(shaderProgram, scene);
     sprite->changeAnimation(MOVE_LEFT);
-	mFire = new BigObject();
-	//mFire->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
-	//mFire->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
-	mFire->init(shaderProgram, scene);
+	mFire = new BigObject();*/
+	mAttack->setPathToSpriteSheet(BIG_OBJECTS_FIRE_PATH); //OBJECT SPRITESHEET
+	mAttack->init(shaderProgram, scene);
 
 }
 
-
+/*
 void FireEnemy::update(int deltaTime){
 
     //if (isInFrustrum()) {
@@ -105,3 +104,4 @@ void FireEnemy::render() {
 	BaseEnemy::render();
 	if (isAttacking) mFire->render();
 }
+*/

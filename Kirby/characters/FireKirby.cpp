@@ -24,8 +24,7 @@ void FireKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 	Player::init(shaderProgram, scene);
 	//Creae fire object
 	mFire = new BigObject();
-	//mFire->setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH); //OBJECT SPRITESHEET
-	//mFire->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
+	mFire->setPathToSpriteSheet(BIG_OBJECTS_FIRE_PATH); //OBJECT SPRITESHEET
 	mFire->init(shaderProgram, scene);
 }
 

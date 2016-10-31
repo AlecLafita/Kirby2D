@@ -7,10 +7,10 @@
 
 #pragma once
 #include "BaseEnemy.h"
-#include "WalkingDummyEnemy.h"
+#include "AttackEnemy.h"
 #include "../objects/BigObject.h"
 
-class IcyEnemy :  public WalkingDummyEnemy
+class IcyEnemy :  public AttackEnemy
 {
 
 public:
@@ -18,16 +18,16 @@ public:
     ~IcyEnemy() {}
 
     void init(ShaderProgram &shaderProgram, Scene* scene);
-    void update(int deltaTime);
-    void render();
+    //void update(int deltaTime);
+    //void render();
 
-    BigObject* getIce() { return mIce; }
+    //BigObject* getIce() { return mIce; }
 
     PowerType getType() const {
         return PowerType::Ice;
     };
 private:
-    BigObject* mIce;
+    //BigObject* mIce;
 
 };
 

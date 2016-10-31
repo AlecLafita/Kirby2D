@@ -1,11 +1,11 @@
-#version 300 es
+#version 120
 
 uniform mat4 projection, modelview;
-uniform lowp vec2 texCoordDispl;
+uniform vec2 texCoordDispl;
 
-in vec2 position;
-in vec2 texCoord;
-out vec2 texCoordFrag;
+attribute vec2 position;
+attribute vec2 texCoord;
+varying vec2 texCoordFrag;
 
 void main()
 {

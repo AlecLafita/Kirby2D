@@ -44,6 +44,9 @@ void WalkingDummyEnemy::update(int deltaTime){
 			}
 		}
 	}
+	posCharacter.y += FALL_STEP;//going down
+    mScene->collisionMoveDown(this); //if it's at floor, will undo previous increment, otherwise will fall
+    
 	BaseEnemy::update(deltaTime);
 	//}
 }

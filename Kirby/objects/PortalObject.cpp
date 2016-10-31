@@ -3,9 +3,10 @@
 #include "../base/Defines.h"
 #include "../base/Scene.h"
 
-PortalObject::PortalObject(int type)
+PortalObject::PortalObject(int type, int index)
 {
 	this->type = type;
+	this->index	= index;
 	mNumberAnimations = 1;
 	setPathToSpriteSheet(BIG_OBJECTS_FIRE_PATH);
 	bTaken = false;

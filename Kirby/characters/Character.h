@@ -13,7 +13,7 @@ enum BasicPlayerAnims //even -> left, odd ->right
 	MOVE_LEFT, MOVE_RIGHT,
 	ATTACK_LEFT, ATTACK_RIGHT,
 	FLY_LEFT, FLY_RIGHT,
-	SWALLOW_LEFT, SWALLOW_RIGHT,
+	//SWALLOW_LEFT, SWALLOW_RIGHT,
 	DEATH
 };
 
@@ -48,6 +48,9 @@ public:
 	void setStartAnimation(int animId){ mStartAnimation = animId;}
 	int getStartAnimation(){ return mStartAnimation;}
 
+	int getNoPortal() {return noPortal;}
+	void setNoPortal(int nop) {noPortal = nop;}
+
 protected:
 
 	int mStartAnimation;
@@ -71,6 +74,8 @@ protected:
 
 	int framesDamaged; //Frames needed for the character to sopt being damaged(can not get more damage until it's 0)
 	glm::ivec2 directionDamaged; //Direction to send character when being damaged
+
+	int noPortal;//Frames until can use another portal
 
     // Constants
     int START_ROW_STAND_RIGHT;

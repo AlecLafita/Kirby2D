@@ -37,7 +37,8 @@
 	#define JUMP_HEIGHT 70
 	#define FALL_STEP 4
 	#define ANGLE_GROUND 180
-
+	//Frames to wait between portal teleportation
+	#define PORTAL_WAITING_TIME 45
 //Kirby constants
 #define INIT_PLAYER_X_TILES 2 //Initial Kirby position
 #define INIT_PLAYER_Y_TILES 2

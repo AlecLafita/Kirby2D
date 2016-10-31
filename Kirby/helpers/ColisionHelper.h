@@ -7,6 +7,7 @@ class Character;
 class Player;
 class BaseEnemy;
 class BaseObject;
+class PortalObject;
 
 class ColisionHelper{
 public:
@@ -31,6 +32,9 @@ public:
 
 	//Does the character collides with an item?
 	bool characterCollidesObject(Character* character, BaseObject* object) const;
+
+	//Is the character on a portal?-> teleport it! 
+	void characterDoesTeleport(Character* character, PortalObject* portalAct,PortalObject* portalDest) const;
 
 private:
 	//Check if two quads intersect, pos is the left-top vertex

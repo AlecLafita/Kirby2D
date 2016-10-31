@@ -13,7 +13,7 @@ FireKirby::FireKirby()
 	mNumberAnimations = 11;
 
 	mAttackSoundTime = 1300;
-	mNumDeath = 8;
+	mNumDeath = 7;
 	mNumFly = 6;
 	mNumSwallow = 2;
 

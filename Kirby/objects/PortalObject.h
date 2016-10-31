@@ -5,7 +5,7 @@
 class PortalObject : public BaseObject
 {
 public:
-	PortalObject(int type);
+	PortalObject(int type, int index);
 	~PortalObject(){}
 
 	void init(ShaderProgram &shaderProgram, Scene* scene);
@@ -14,8 +14,10 @@ public:
 	glm::ivec2 getSize() { return glm::ivec2(BIG_OBJECT_SIZE_X, BIG_OBJECT_SIZE_Y); } 
 
 	int getType(){return type;}
+	int getIndex(){return index;}
 
 private:
 	bool type;
+	int index;
 };
 

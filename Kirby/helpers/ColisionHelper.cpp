@@ -2,7 +2,7 @@
 #include "../base/TileMap.h"
 #include "../characters/Player.h"
 #include "../characters/BaseEnemy.h"
-#include "../objects/BaseObject.h"
+#include "../objects/PortalObject.h"
 
 #include "../base/Defines.h"
 
@@ -159,6 +159,25 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 bool ColisionHelper::characterCollidesObject(Character* character, BaseObject* object) const{
 	return quadsCollision(character->getPosition(), character->getSize(), object->getPosition(), object->getSize());
 }
+
+void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* portalAct, PortalObject* portalDest) const {
+	glm::ivec2 newPos;
+	if (characterCollidesObject(character, portalAct) && (character->getNoPortal() == 0)) {
+		character->setNoPortal(PORTAL_WAITING_TIME);
+
+		int diffY = portalAct->getPosition().y - character->getPosition().y;		
+		newPos = portalDest->getPosition();
+		newPos.y -= diffY;
+
+		if (character->isLeftDirection())
+			newPos.x -= character->getSize().x;
+		else 
+			newPos.x += character->getSize().x;
+
+		character->setPosition(newPos);
+	}
+}
+
 
 bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const{
 	//It can be divided for the four sides 

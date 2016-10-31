@@ -109,10 +109,12 @@ void Scene::update(int deltaTime)
 	for (BaseObject* object : mPowerUps){
 		object->update(deltaTime);
 	}
-
-	portal1->update(deltaTime);
-	portal2->update(deltaTime);
-
+	for (PortalObject* portal : mPortals1) {
+		portal->update(deltaTime);
+	}
+	for (PortalObject* portal : mPortals2) {
+		portal->update(deltaTime);
+	}
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
 	if (playerPos.x  < float(SCREEN_WIDTH - 1) / 2) //left of the screen limit
@@ -171,8 +173,12 @@ void Scene::render() {
 	for (BaseObject* projectileObject : mPowerUps){
 		projectileObject->render();
 	}
-	portal1->render();
-	portal2->render();
+	for (PortalObject* portal : mPortals1) {
+		portal->render();
+	}
+	for (PortalObject* portal : mPortals2) {
+		portal->render();
+	}
 
 }
 
@@ -272,47 +278,20 @@ bool Scene::playerTakesItem(BaseObject* obj) {
 }
 
 void Scene::characterTakesPortal(PortalObject* p) {
-	glm::ivec2 newPos;
+	//player
+	int index = p->getIndex();
+	if ( p->getType())
+		mColisionHelper->characterDoesTeleport(player,mPortals1[index],mPortals2[index]);
+	else 
+		mColisionHelper->characterDoesTeleport(player,mPortals2[index],mPortals1[index]);
 
-	//Player
-	if (mColisionHelper->characterCollidesObject(player, p)) {
-		//position of object portal to teleport
-		if (p->getType()) {
-			newPos = portal1->getPosition();
-		}
-		else {
-			newPos = portal2->getPosition();
-		}
-
-		if (player->isFacingLeftSide()) {
-			newPos.x -= player->getSize().x;
-		}
-		else {
-			newPos.x += player->getSize().x;
-		}
-		player->setPosition(newPos);
+	//enemies
+	for (BaseEnemy* enemy : mEnemies) {
+		if ( p->getType())
+			mColisionHelper->characterDoesTeleport(enemy,mPortals1[index],mPortals2[index]);
+		else 
+			mColisionHelper->characterDoesTeleport(enemy,mPortals2[index],mPortals1[index]);
 	}
-
-	//Enemies
-	/*for (BaseEnemy* enemy : mEnemies) {
-		if (!mColisionHelper->characterCollidesObject(enemy, p)) continue;
-		//position of object portal to teleport
-		if (p->getType()) {
-			newPos = portal1->getPosition();
-		}
-		else {
-			newPos = portal2->getPosition();
-		}
-
-		if (enemy->isLeftDirection()) {
-			newPos.x -= enemy->getSize().x;
-		}
-		else {
-			newPos.x += enemy->getSize().x;
-		}
-		enemy->setPosition(newPos);
-	}*/
-
 }
 
 
@@ -421,6 +400,8 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 				break;
 		}
 	}
+
+	fin.close();
 }
 
 //OBJECTS
@@ -481,12 +462,33 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 			break;
 		}
 	}
-	portal1 = new PortalObject(false);
-	portal1->init(texProgram,this);
-	portal1->setPosition(glm::vec2(10 * map->getTileSize(), 10 * map->getTileSize()));
 
-	portal2 = new PortalObject(true);
-	portal2->init(texProgram,this);
-	portal2->setPosition(glm::vec2(20 * map->getTileSize(), 10 * map->getTileSize()));
+	//Read portals
+	//Number of pairs of portals
+	//	PositionPortal1(x,y) PositionPortal2(x,y) 
+	int numPortals;
+	getline(fin, line);
+	stringstream(line) >> numPortals;
+	cout << "num of portals: " << numPortals << endl;
+	mPortals1.resize(numPortals);
+	mPortals2.resize(numPortals);
+	int portalType, posXP1, posYP1, posXP2, posYP2;
+	for (int i = 0; i < numPortals; ++i) {
+		getline(fin, line);
+		stringstream(line) >> posXP1 >> posYP1 >> posXP2 >> posYP2;
+
+		PortalObject* portal1 = new PortalObject(false,i);
+		portal1->init(texProgram,this);
+		portal1->setPosition(glm::vec2(posXP1 * map->getTileSize(), posYP1 * map->getTileSize()));
+
+		PortalObject* portal2 = new PortalObject(true,i);
+		portal2->init(texProgram,this);
+		portal2->setPosition(glm::vec2(posXP2 * map->getTileSize(), posYP2 * map->getTileSize()));
+
+		mPortals1[i] = portal1;
+		mPortals2[i] = portal2;
+	}
+
+	fin.close();
 }
 

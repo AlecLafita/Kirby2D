@@ -9,7 +9,9 @@ Kirby::Kirby() {
 
     setPathToSpriteSheet("images/kirby_spritesheet.png");
     mSpriteRows = 11;
-    mNumberAnimations = 11;
+    mNumberAnimations = 9;
+
+	START_ROW_DEATH = 10;
 
     mNumDeath = 8;
     mNumFly = 6;

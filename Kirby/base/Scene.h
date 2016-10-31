@@ -72,13 +72,15 @@ private:
 	glm::mat4 projection;
 	set<BaseEnemy*> mEnemies;
 	set<BaseObject*> mPowerUps;
+	vector<PortalObject* > mPortals1;
+	vector<PortalObject* > mPortals2;
 	ColisionHelper* mColisionHelper;
 	TransformationHelper* mTransformationHelper;
 
 	int cameraLeftXposition;
 
-	PortalObject* portal1;
-	PortalObject* portal2;
+	//PortalObject* portal1;
+	//PortalObject* portal2;
 };
 
 

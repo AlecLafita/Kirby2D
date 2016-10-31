@@ -14,7 +14,7 @@ IceKirby::IceKirby()
     mSpriteRows = 10;
 
     //mSpriteRows = 11;
-    mNumberAnimations = 10;
+    mNumberAnimations = 9;
 
     mAttackSoundTime = 1300;
     mNumDeath = 3;

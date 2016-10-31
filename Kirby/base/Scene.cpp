@@ -87,9 +87,7 @@ void Scene::update(int deltaTime)
 
 
 	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('n')
-		//isDoorBehind(player, embellishmentMap)
-			){
+	if (Game::instance().getKey('n')			){
 		Game::instance().nextLevel();
 		return;
 	}

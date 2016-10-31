@@ -1,4 +1,4 @@
-#include "FireKirby.h"
+	#include "FireKirby.h"
 #include "../base/Game.h"
 
 #include <iostream>
@@ -10,7 +10,7 @@ FireKirby::FireKirby()
 	mSpriteRows = 10;
 
 	//mSpriteRows = 11;
-	mNumberAnimations = 10;
+	mNumberAnimations = 11;
 
 	mAttackSoundTime = 1300;
 	mNumDeath = 8;

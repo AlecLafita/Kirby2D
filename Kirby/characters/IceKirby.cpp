@@ -14,12 +14,13 @@ IceKirby::IceKirby()
     mSpriteRows = 10;
 
     //mSpriteRows = 11;
-    mNumberAnimations = 10;
+    mNumberAnimations = 11 ;
 
     mAttackSoundTime = 1300;
     mNumDeath = 3;
     mNumFly = 6;
     mNumSwallow = 2;
+    mNumAttack = 2;
 
     START_ROW_DEATH = 9;
 }

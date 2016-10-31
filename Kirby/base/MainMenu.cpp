@@ -46,22 +46,22 @@ void MainMenu::init() {
 	instruccionsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
     creditsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
-	creditsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	creditsTex.loadFromFile("images/credits.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 
 	//text 
 	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
-	if (!playText.init("fonts/OpenSans-Bold.ttf"))
+	if (!playText.init("fonts/VCR_OSD_MONO.ttf"))
 		//if(!habilityText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 
 	//if (!scoreText.init("fonts/OpenSans-Regular.ttf"))
-	if (!instructionsText.init("fonts/OpenSans-Bold.ttf"))
+	if (!instructionsText.init("fonts/VCR_OSD_MONO.ttf"))
 		//if(!scoreText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 
 	//if (!energyText.init("fonts/OpenSans-Regular.ttf"))
-	if (!recordsText.init("fonts/OpenSans-Bold.ttf"))
+	if (!recordsText.init("fonts/VCR_OSD_MONO.ttf"))
 		//if(!energyText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 	//energyAct = MAX_ENERGY;
@@ -157,17 +157,17 @@ void MainMenu::render() {
 		case 0:
 			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
 			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			recordsText.render("Credits", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 1:
 			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
 			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
-			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			recordsText.render("Credits", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 2:
 			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
 			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("Records", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
+			recordsText.render("Credits", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 
 		}

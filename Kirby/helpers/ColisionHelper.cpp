@@ -161,18 +161,17 @@ bool ColisionHelper::characterCollidesObject(Character* character, BaseObject* o
 }
 
 void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* portalAct, PortalObject* portalDest) const {
-	glm::ivec2 newPos;
 	if (characterCollidesObject(character, portalAct) && (character->getNoPortal() == 0)) {
 		character->setNoPortal(PORTAL_WAITING_TIME);
+		glm::ivec2 newPos= portalDest->getPosition();
 
-		int diffY = portalAct->getPosition().y - character->getPosition().y;		
-		newPos = portalDest->getPosition();
-		newPos.y -= diffY;
-
-		if (character->isLeftDirection())
+		glm::ivec2 diff = character->getPosition() - portalAct->getPosition();
+		newPos.y += diff.y;
+		
+		if (diff.x > 0 ) //Character at left side
 			newPos.x -= character->getSize().x;
 		else 
-			newPos.x += character->getSize().x;
+			newPos.x += portalAct->getSize().x;
 
 		character->setPosition(newPos);
 	}

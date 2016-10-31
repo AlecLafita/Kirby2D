@@ -79,8 +79,6 @@ private:
 
 	int cameraLeftXposition;
 
-	//PortalObject* portal1;
-	//PortalObject* portal2;
 };
 
 

@@ -8,10 +8,8 @@ PortalObject::PortalObject(int type, int index)
 	this->type = type;
 	this->index	= index;
 	mNumberAnimations = 1;
-	setPathToSpriteSheet(BIG_OBJECTS_FIRE_PATH);
+	setPathToSpriteSheet(PORTAL_OBJECT_PATH);
 	bTaken = false;
-	//START_ROW_LEFT = 0;
-	//START_ROW_RIGHT = 0;
 }
 
 
@@ -19,24 +17,18 @@ PortalObject::PortalObject(int type, int index)
 void PortalObject::init(ShaderProgram &shaderProgram, Scene* scene) {
 	mScene = scene;
 
-	int mSpriteColumns = 10;
-	int mSpriteRows = 1;
+	int mSpriteColumns = 1;
+	int mSpriteRows = 2;
 
 	float columnSize = 1.f / float(mSpriteColumns);
 	float rowSize = 1.f / float(mSpriteRows);
 
 	spritesheet.loadFromFile(mPathToSpritesheet, TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(BIG_OBJECT_SIZE_X, BIG_OBJECT_SIZE_Y), glm::vec2(columnSize, rowSize), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(OBJECT_SIZE_X, BIG_OBJECT_SIZE_Y), glm::vec2(columnSize, rowSize), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(mNumberAnimations);
-	/*sprite->setAnimationSpeed(LEFT, 8);
-	sprite->setAnimationSpeed(RIGHT, 8);
-
-	for (int i = 0; i < mSpriteColumns; ++i) {
-		sprite->addKeyframe(LEFT, glm::vec2(i*columnSize, START_ROW_LEFT*rowSize));
-		sprite->addKeyframe(RIGHT, glm::vec2(i*columnSize, START_ROW_RIGHT*rowSize));
-	}*/
 	sprite->setAnimationSpeed(0,8);
-	sprite->addKeyframe(0, glm::vec2(0,0));
+	if (type) sprite->addKeyframe(0, glm::vec2(0,0));
+	else sprite->addKeyframe(0, glm::vec2(0,rowSize));
 	sprite->changeAnimation(0);
 }
 

@@ -41,6 +41,11 @@ void Game::resetLevel() {
 			scene.init("levels/kawaii", "images/forest_bg.png", "levels/level01_enemies.txt","levels/level01_objects.txt");
 			mSoundHelper->playMusic("sounds/song_green_greens.wav");
 			break;
+		case 3:
+			cout << "level3" << endl;
+			scene.init("levels/portals_lvl_03", "images/forest_bg.png", "levels/level01_enemies.txt","levels/lvl03_objects.txt");
+			mSoundHelper->playMusic("sounds/song_green_greens.wav");
+			break;
 		default:
 			cout << "WIN!" << endl;
 			break;
@@ -66,7 +71,7 @@ void Game::nextLevel() {
 	++levelAct; //Go to next level
 	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd) // Laura: HAHAHAHAHAHA Cutre indeed. xdddd
 	addScore(1500); //same "
-	if (levelAct == 3) {//Num of total levels+1
+	if (levelAct == 4) {//Num of total levels+1
 		int tmpScore = scoreAct;
 		setMenustate();
 		mMainMenu.activateNewRecord(tmpScore);

@@ -50,6 +50,8 @@ void Scene::resetScene() {
 
 	mPowerUps.clear();
 	mEnemies.clear();
+	mPortals1.clear();
+	mPortals2.clear();
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
@@ -497,16 +499,16 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 	cout << "num of portals: " << numPortals << endl;
 	mPortals1.resize(numPortals);
 	mPortals2.resize(numPortals);
-	int portalType, posXP1, posYP1, posXP2, posYP2;
+	int posXP1, posYP1, posXP2, posYP2;
 	for (int i = 0; i < numPortals; ++i) {
 		getline(fin, line);
 		stringstream(line) >> posXP1 >> posYP1 >> posXP2 >> posYP2;
 
-		PortalObject* portal1 = new PortalObject(false,i);
+		PortalObject* portal1 = new PortalObject(true,i);
 		portal1->init(texProgram,this);
 		portal1->setPosition(glm::vec2(posXP1 * map->getTileSize(), posYP1 * map->getTileSize()));
 
-		PortalObject* portal2 = new PortalObject(true,i);
+		PortalObject* portal2 = new PortalObject(false,i);
 		portal2->init(texProgram,this);
 		portal2->setPosition(glm::vec2(posXP2 * map->getTileSize(), posYP2 * map->getTileSize()));
 

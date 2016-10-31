@@ -38,7 +38,7 @@
 	#define FALL_STEP 4
 	#define ANGLE_GROUND 180
 	//Frames to wait between portal teleportation
-	#define PORTAL_WAITING_TIME 45
+	#define PORTAL_WAITING_TIME 20
 //Kirby constants
 #define INIT_PLAYER_X_TILES 2 //Initial Kirby position
 #define INIT_PLAYER_Y_TILES 2
@@ -64,6 +64,7 @@
 #define BIG_OBJECTS_FIRE_PATH "images/fire_attack.png"
 #define BIG_OBJECTS_AQUA_PATH "images/aqua_attack.png"
 #define BIG_OBJECTS_ICE_PATH "images/aqua_attack.png"
+#define PORTAL_OBJECT_PATH "images/portals.png"
 #define BIG_OBJECT_SIZE_X 32
 #define BIG_OBJECT_SIZE_Y 32
 

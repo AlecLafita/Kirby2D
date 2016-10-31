@@ -7,6 +7,8 @@
 #include "Game.h"
 #include <GL/glut.h>
 
+#include <glm/glm.hpp>
+
 #include "../characters/BlackKirby.h"
 #include "../characters/FireKirby.h"
 #include "../characters/Kirby.h"
@@ -92,10 +94,21 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
+
 	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
-		player = mTransformationHelper->transformPlayer(player, new PinxoEnemy(), texProgram, this);
+	if (Game::instance().getKey('P') || Game::instance().getKey('p')){
+
+		glm::vec2 playerPos = player->getPosition();
+		cout << "Current player pos: " << playerPos.x/TILE_SIZE_X << " "<<  playerPos.y/TILE_SIZE_Y << " " << endl;
+		return;
 	}
+
+	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
+        PinxoEnemy* dummyPinxo = new PinxoEnemy();
+		player = mTransformationHelper->transformPlayer(player, dummyPinxo, texProgram, this);
+        Game::instance().setAbilityToShow(dummyPinxo->getType());
+        delete dummyPinxo;
+    }
 
 	//Update game stuff
 	currentTime += deltaTime;

@@ -17,7 +17,7 @@ public:
 	void render();
 
 	void activateGameOver();
-	void activateNewRecord();
+	void activateNewRecord(int score);
 
 	void setInstructions(bool value){ bInstructions = value; }
 
@@ -37,6 +37,7 @@ private:
 	bool bUpPressed, bDownPressed, bEnterPressed;
 
 	Text playText;
+	Text scoreText;
 	Text instructionsText;
 	Text recordsText;
 
@@ -52,6 +53,7 @@ private:
     TexturedQuad* winQuad; //Game over Background
     Texture winTex;
 
+    int lastScore;
 	bool bCredits; //Go to credits screen
 	bool bInstructions; //Go to instructions scree
 	bool bGameOver; //Go to game over screen

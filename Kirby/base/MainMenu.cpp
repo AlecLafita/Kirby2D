@@ -23,6 +23,7 @@ void MainMenu::init() {
 	bCredits = false;
 	bInstructions = false;
 	bGameOver = false;
+    bNewRecord = false;
 
 	//Shader
 	initShaders();
@@ -54,6 +55,9 @@ void MainMenu::init() {
 
 	//text 
 	if (!playText.init("fonts/VCR_OSD_MONO.ttf"))
+		cout << "Could not load font!!!" << endl;
+
+    if (!scoreText.init("fonts/VCR_OSD_MONO.ttf"))
 		cout << "Could not load font!!!" << endl;
 
 	if (!instructionsText.init("fonts/VCR_OSD_MONO.ttf"))
@@ -95,7 +99,6 @@ void MainMenu::update(int deltaTime) {
 			bGameOver = false;
 		else if (bNewRecord) {
 			bNewRecord = false;
-			bCredits = true; //Go to record screen
 		}
 		else { //Main menu screen, check if options are selected
 			switch (index){
@@ -133,6 +136,7 @@ void MainMenu::render() {
 	int text_size = min(screen_height / 8,screen_width/8); //Value that makes the text to fit better on background
 	int height_offset = 20;
 
+//    scoreText.render("", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
 
 	if (bInstructions) {//At instructions screen
 		//Render instructions
@@ -148,7 +152,8 @@ void MainMenu::render() {
 	}
 	else if (bNewRecord) {
         winQuad->render(winTex);
-	}
+        scoreText.render(std::to_string(lastScore), glm::vec2(280, 260), text_size, glm::vec4(0, 0, 0, 1));
+    }
 	else { //Main menu screen
 		switch (index)  { //This only renders the actual "selected" text with different color
 		case 0:
@@ -176,8 +181,9 @@ void MainMenu::activateGameOver() {
 	bGameOver = true;
 }
 
-void MainMenu::activateNewRecord() {
+void MainMenu::activateNewRecord(int score) {
 	bNewRecord = true;
+    lastScore = score;
 }
 
 

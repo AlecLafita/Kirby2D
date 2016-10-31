@@ -67,8 +67,9 @@ void Game::nextLevel() {
 	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd) // Laura: HAHAHAHAHAHA Cutre indeed. xdddd
 	addScore(1500); //same "
 	if (levelAct == 3) {//Num of total levels+1
+		int tmpScore = scoreAct;
 		setMenustate();
-		mMainMenu.activateNewRecord();
+		mMainMenu.activateNewRecord(tmpScore);
 	}
 	else {
 

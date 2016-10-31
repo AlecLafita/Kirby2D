@@ -11,7 +11,7 @@
 #include "../helpers/TransformationHelper.h"
 #include "Defines.h"
 
-#include "../objects/PortalObject.h"
+class PortalObject;
 
 #include <set>
 
@@ -48,7 +48,7 @@ public:
 
 	bool playerTakesItem(BaseObject* obj);
 
-	void playerTakesPortal(PortalObject* p);
+	void characterTakesPortal(PortalObject* p);
 
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 	Player* getPlayer(){ return  player;}

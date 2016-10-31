@@ -1,6 +1,7 @@
 #include "PortalObject.h"
 #include <iostream>
 #include "../base/Defines.h"
+#include "../base/Scene.h"
 
 PortalObject::PortalObject(int type)
 {
@@ -40,6 +41,6 @@ void PortalObject::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void PortalObject::update(int deltaTime) {
 	//if(isInfrustrum())
-	mScene->playerTakesPortal(this);
+	mScene->characterTakesPortal(this);
 	BaseObject::update(deltaTime);
 }

@@ -19,6 +19,7 @@
 
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
+#include "../objects/PortalObject.h"
 
 Scene::Scene()
 {
@@ -270,9 +271,48 @@ bool Scene::playerTakesItem(BaseObject* obj) {
 	return false;
 }
 
-void Scene::playerTakesPortal(PortalObject* p) {
-	bool actual = p->getType();
-	
+void Scene::characterTakesPortal(PortalObject* p) {
+	glm::ivec2 newPos;
+
+	//Player
+	if (mColisionHelper->characterCollidesObject(player, p)) {
+		//position of object portal to teleport
+		if (p->getType()) {
+			newPos = portal1->getPosition();
+		}
+		else {
+			newPos = portal2->getPosition();
+		}
+
+		if (player->isFacingLeftSide()) {
+			newPos.x -= player->getSize().x;
+		}
+		else {
+			newPos.x += player->getSize().x;
+		}
+		player->setPosition(newPos);
+	}
+
+	//Enemies
+	/*for (BaseEnemy* enemy : mEnemies) {
+		if (!mColisionHelper->characterCollidesObject(enemy, p)) continue;
+		//position of object portal to teleport
+		if (p->getType()) {
+			newPos = portal1->getPosition();
+		}
+		else {
+			newPos = portal2->getPosition();
+		}
+
+		if (enemy->isLeftDirection()) {
+			newPos.x -= enemy->getSize().x;
+		}
+		else {
+			newPos.x += enemy->getSize().x;
+		}
+		enemy->setPosition(newPos);
+	}*/
+
 }
 
 

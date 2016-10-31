@@ -48,6 +48,9 @@ void MainMenu::init() {
     gameOverQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	gameOverTex.loadFromFile("images/game_over.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
+    winQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
+	winTex.loadFromFile("images/win_screen.png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 
 	//text 
 	if (!playText.init("fonts/VCR_OSD_MONO.ttf"))
@@ -144,7 +147,7 @@ void MainMenu::render() {
         gameOverQuad->render(gameOverTex);
 	}
 	else if (bNewRecord) {
-		cout << "NEW RECORD";
+        winQuad->render(winTex);
 	}
 	else { //Main menu screen
 		switch (index)  { //This only renders the actual "selected" text with different color

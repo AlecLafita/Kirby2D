@@ -49,6 +49,9 @@ private:
     TexturedQuad* gameOverQuad; //Game over Background
     Texture gameOverTex;
 
+    TexturedQuad* winQuad; //Game over Background
+    Texture winTex;
+
 	bool bCredits; //Go to credits screen
 	bool bInstructions; //Go to instructions scree
 	bool bGameOver; //Go to game over screen

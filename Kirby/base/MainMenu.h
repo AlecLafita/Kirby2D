@@ -46,7 +46,10 @@ private:
     TexturedQuad* instructionsQuad; //Instructions Background
     Texture instruccionsTex;
 
-	bool bRecords; //Go to record screen
+    TexturedQuad* creditsQuad; //Instructions Background
+    Texture creditsTex;
+
+	bool bCredits; //Go to credits screen
 	bool bInstructions; //Go to instructions scree
 	bool bGameOver; //Go to game over screen
 	bool bNewRecord; //go to record screen with possibility with adding new record

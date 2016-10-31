@@ -20,7 +20,7 @@ void MainMenu::init() {
 	bDownPressed = false;
 	bEnterPressed = false;
 
-	bRecords = false;
+	bCredits = false;
 	bInstructions = false;
 	bGameOver = false;
 
@@ -45,6 +45,9 @@ void MainMenu::init() {
 	instructionsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	instruccionsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
+    creditsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
+	creditsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 
 	//text 
 	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
@@ -67,14 +70,14 @@ void MainMenu::init() {
 
 void MainMenu::update(int deltaTime) {
 	//Change option
-	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !bUpPressed && !bInstructions && !bRecords) {
+	if (Game::instance().getSpecialKey(GLUT_KEY_UP) && !bUpPressed && !bInstructions && !bCredits) {
 		--index;
 		bUpPressed = true;
 		Game::instance().playSound(MENU_SELECTION);
 	}
 	else if (!Game::instance().getSpecialKey(GLUT_KEY_UP)) bUpPressed = false;
 
-	if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !bDownPressed) {
+	if (Game::instance().getSpecialKey(GLUT_KEY_DOWN) && !bDownPressed && !bInstructions && !bCredits) {
 		++index;
 		bDownPressed = true;
         Game::instance().playSound(MENU_SELECTION);
@@ -90,13 +93,13 @@ void MainMenu::update(int deltaTime) {
 		bEnterPressed = true;
 		if (bInstructions) //At instructions screen
 			bInstructions = false; //Exit instructions screen
-		else if (bRecords) 
-			bRecords = false; //May be different for records!
+		else if (bCredits) 
+			bCredits = false; //May be different for records!
 		else if (bGameOver)
 			bGameOver = false;
 		else if (bNewRecord) {
 			bNewRecord = false;
-			bRecords = true; //Go to record screen
+			bCredits = true; //Go to record screen
 		}
 		else { //Main menu screen, check if options are selected
 			switch (index){
@@ -106,8 +109,8 @@ void MainMenu::update(int deltaTime) {
 			case 1: //show instructions
                 bInstructions = true;
                 break;
-			case 2: //show records
-				bRecords = true;
+			case 2: //show credits
+				bCredits = true;
 				break;
 			}
 		}
@@ -137,12 +140,12 @@ void MainMenu::render() {
 
 	if (bInstructions) {//At instructions screen
 		//Render instructions
-
         instructionsQuad->render(instruccionsTex);
 	}
-	else if (bRecords) {
+	else if (bCredits) {
 		//render records
-	}
+        creditsQuad->render(creditsTex);
+    }
 	else if (bGameOver) {
 		//render game over
 	}

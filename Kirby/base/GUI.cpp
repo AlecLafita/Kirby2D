@@ -123,9 +123,8 @@ void GUI::setAbility(PowerType type) {
 			abilityTexture.loadFromFile("images/fire_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 			break;
 
-		case PowerType::Steam:
-			abilityTexture.loadFromFile("images/normal_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
-
+		case PowerType::Aqua:
+			abilityTexture.loadFromFile("images/aqua_ability.png", TEXTURE_PIXEL_FORMAT_RGB);
 			break;
 
 		case PowerType::Ice:

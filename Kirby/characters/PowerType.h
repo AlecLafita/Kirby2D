@@ -11,7 +11,7 @@ enum class PowerType : int {
     Normal = 0, //Has no powers!
     Fire = 1,
     Ice = 2,
-    Steam = 3,
+    Aqua = 3,
     Black = 4
 };
 

@@ -34,7 +34,8 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
             player = new FireKirby();
             break;
 
-        case PowerType::Steam:
+        case PowerType::Aqua:
+            player = new AquaKirby();
             break;
 
         case PowerType::Ice:

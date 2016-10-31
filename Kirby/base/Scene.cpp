@@ -18,6 +18,7 @@
 #include "../characters/FireEnemy.h"
 #include "../characters/IcyEnemy.h"
 #include "../characters/AttackEnemy.h"
+#include "../characters/AquaEnemy.h"
 
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
@@ -87,9 +88,8 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 void Scene::update(int deltaTime)
 {
 
-
 	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('n')			){
+	if (Game::instance().getKey('n')){
 		Game::instance().nextLevel();
 		return;
 	}
@@ -103,6 +103,8 @@ void Scene::update(int deltaTime)
 		return;
 	}
 
+
+	// --------------- LOSE ABILITY ---------------
 	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
         if (Kirby* k = dynamic_cast<Kirby*>(player)) {
             //TODO Laura: This is horrible. How to make diff in casts?
@@ -412,10 +414,10 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 				break;
             }
             case 5: { // Aqua enemy
-                IcyEnemy* icyEnemy = new IcyEnemy();
-                icyEnemy->init(texProgram, this);
-                icyEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
-                mEnemies.insert(icyEnemy);
+                AquaEnemy* aquaEnemy = new AquaEnemy();
+				aquaEnemy->init(texProgram, this);
+				aquaEnemy->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                mEnemies.insert(aquaEnemy);
 				break;
             }
 			default:

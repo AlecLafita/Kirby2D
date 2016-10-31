@@ -157,19 +157,19 @@ void MainMenu::render() {
 	else { //Main menu screen
 		switch (index)  { //This only renders the actual "selected" text with different color
 		case 0:
-			playText.render("*", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
-			instructionsText.render("", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			playText.render("*", glm::vec2(50, 170), text_size, glm::vec4(1, 1, 1, 1));
+			instructionsText.render("", glm::vec2(10, text_size + height_offset+ screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			recordsText.render("", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 1:
 			playText.render("", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("*", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
+			instructionsText.render("*", glm::vec2(50, 220), text_size, glm::vec4(1, 1, 1, 1));
 			recordsText.render("", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 2:
 			playText.render("", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
 			instructionsText.render("", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("*", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
+			recordsText.render("*", glm::vec2(50, 265), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 
 		}

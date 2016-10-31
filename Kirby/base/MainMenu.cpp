@@ -37,10 +37,10 @@ void MainMenu::init() {
 	glm::vec2 geomLogo[2] = { glm::vec2(posX, posY), glm::vec2(posX + 120, posY + 73.2) };
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
-	mainTexture.loadFromFile("images/mainMenu.png", TEXTURE_PIXEL_FORMAT_RGB);
+	mainTexture.loadFromFile("images/mainMenu_hard.png", TEXTURE_PIXEL_FORMAT_RGB);
 
-	logoTextureQuad = TexturedQuad::createTexturedQuad(geomLogo, texCoords, texProgram);
-	logoTexture.loadFromFile("images/amazing_vj_shade.png", TEXTURE_PIXEL_FORMAT_RGBA);
+//	logoTextureQuad = TexturedQuad::createTexturedQuad(geomLogo, texCoords, texProgram);
+//	logoTexture.loadFromFile("images/amazing_vj_shade.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 	instructionsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	instruccionsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -128,7 +128,7 @@ void MainMenu::render() {
 	//BACKGROUND
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	mainTextureQuad->render(mainTexture);
-    logoTextureQuad->render(logoTexture);
+//    logoTextureQuad->render(logoTexture);
 
 	int vp[4];
 	glGetIntegerv(GL_VIEWPORT, vp);
@@ -155,19 +155,19 @@ void MainMenu::render() {
 	else { //Main menu screen
 		switch (index)  { //This only renders the actual "selected" text with different color
 		case 0:
-			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
-			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("Credits", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			playText.render("*", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
+			instructionsText.render("", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			recordsText.render("", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 1:
-			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
-			recordsText.render("Credits", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			playText.render("", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
+			instructionsText.render("*", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
+			recordsText.render("", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
 			break;
 		case 2:
-			playText.render("Play", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("Instructions", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("Credits", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
+			playText.render("", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
+			instructionsText.render("", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			recordsText.render("*", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 
 		}

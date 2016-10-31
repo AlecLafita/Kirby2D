@@ -32,9 +32,6 @@ private:
 	TexturedQuad* mainTextureQuad; //GUI Background
 	Texture mainTexture;
 
-	TexturedQuad* logoTextureQuad; //GUI Logo
-	Texture logoTexture;
-
 	int index;
 	int numOptions;
 	bool bUpPressed, bDownPressed, bEnterPressed;

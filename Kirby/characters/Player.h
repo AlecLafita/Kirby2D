@@ -22,7 +22,6 @@ public:
 	int getEnergy() { return energy; }
 	void setEnergy (int newEnergy) { energy = newEnergy; }
 
-	void getType() {}
     bool isBeingAnimated(){
         return bAnimating;
     }

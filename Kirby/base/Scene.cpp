@@ -104,10 +104,16 @@ void Scene::update(int deltaTime)
 	}
 
 	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
-        PinxoEnemy* dummyPinxo = new PinxoEnemy();
-		player = mTransformationHelper->transformPlayer(player, dummyPinxo, texProgram, this);
-        Game::instance().setAbilityToShow(dummyPinxo->getType());
-        delete dummyPinxo;
+        if (Kirby* k = dynamic_cast<Kirby*>(player)) {
+            //TODO Laura: This is horrible. How to make diff in casts?
+        } else {
+
+            PinxoEnemy* dummyPinxo = new PinxoEnemy();
+            player = mTransformationHelper->transformPlayer(player, dummyPinxo, texProgram, this);
+            Game::instance().setAbilityToShow(dummyPinxo->getType());
+            player->playTransformationSound();
+            delete dummyPinxo;
+        }
     }
 
 	//Update game stuff

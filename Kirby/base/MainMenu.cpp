@@ -39,32 +39,25 @@ void MainMenu::init() {
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	mainTexture.loadFromFile("images/mainMenu_hard.png", TEXTURE_PIXEL_FORMAT_RGB);
 
-//	logoTextureQuad = TexturedQuad::createTexturedQuad(geomLogo, texCoords, texProgram);
-//	logoTexture.loadFromFile("images/amazing_vj_shade.png", TEXTURE_PIXEL_FORMAT_RGBA);
-
 	instructionsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	instruccionsTex.loadFromFile("images/instructions_bg_w_text.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
     creditsQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	creditsTex.loadFromFile("images/credits.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
+    gameOverQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
+	gameOverTex.loadFromFile("images/game_over.png", TEXTURE_PIXEL_FORMAT_RGBA);
+
 
 	//text 
-	//if (!habilityText.init("fonts/OpenSans-Regular.ttf"))
 	if (!playText.init("fonts/VCR_OSD_MONO.ttf"))
-		//if(!habilityText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 
-	//if (!scoreText.init("fonts/OpenSans-Regular.ttf"))
 	if (!instructionsText.init("fonts/VCR_OSD_MONO.ttf"))
-		//if(!scoreText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
 
-	//if (!energyText.init("fonts/OpenSans-Regular.ttf"))
 	if (!recordsText.init("fonts/VCR_OSD_MONO.ttf"))
-		//if(!energyText.init("fonts/DroidSerif.ttf"))
 		cout << "Could not load font!!!" << endl;
-	//energyAct = MAX_ENERGY;
 }
 
 
@@ -148,6 +141,7 @@ void MainMenu::render() {
     }
 	else if (bGameOver) {
 		//render game over
+        gameOverQuad->render(gameOverTex);
 	}
 	else if (bNewRecord) {
 		cout << "NEW RECORD";

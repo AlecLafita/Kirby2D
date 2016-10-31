@@ -43,8 +43,11 @@ private:
     TexturedQuad* instructionsQuad; //Instructions Background
     Texture instruccionsTex;
 
-    TexturedQuad* creditsQuad; //Instructions Background
+    TexturedQuad* creditsQuad; //Credits Background
     Texture creditsTex;
+
+    TexturedQuad* gameOverQuad; //Game over Background
+    Texture gameOverTex;
 
 	bool bCredits; //Go to credits screen
 	bool bInstructions; //Go to instructions scree

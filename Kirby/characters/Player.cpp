@@ -207,8 +207,8 @@ void Player::justDamaged() {
         }
 	
 		Game::instance().setPlayerEnergy(energy);
-
-        if(energy == 0){
+		Game::instance().playSound(SOUND_DAMAGE);
+		if(energy == 0){
 
 			Game::instance().stopMusic();
 			Game::instance().playSound(SOUND_DEATH);

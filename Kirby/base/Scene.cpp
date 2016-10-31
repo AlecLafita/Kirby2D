@@ -250,7 +250,9 @@ bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 
 bool Scene::playerCanKill(BaseEnemy* enemy) {
 
-	if (Kirby* k = dynamic_cast<Kirby*>(player)) { //normal Kiry -> swallow!
+    bool result;
+
+    if (Kirby* k = dynamic_cast<Kirby*>(player)) { //normal Kiry -> swallow!
 		bool hasSwallowed = mColisionHelper->playerSwallowCharacter(player, enemy);
 		if (hasSwallowed) {
 			cout << "Just swallowed an enemy!" << endl;
@@ -264,16 +266,20 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
 		return hasSwallowed;
 	}
 
-	else if (FireKirby* f = dynamic_cast<FireKirby*> (player)) 
-		return mColisionHelper->characterCollidesObject(enemy,f->getFire());
+	else if (FireKirby* f = dynamic_cast<FireKirby*> (player))
+		result = mColisionHelper->characterCollidesObject(enemy,f->getFire());
 
 	else if (IceKirby* iceK = dynamic_cast<IceKirby*> (player)) 
-		return mColisionHelper->characterCollidesObject(enemy,iceK->getIce());
+		result = mColisionHelper->characterCollidesObject(enemy,iceK->getIce());
 
 	else if (AquaKirby* aquaK = dynamic_cast<AquaKirby*> (player))
-		return mColisionHelper->characterCollidesObject(enemy,aquaK->getAqua());
+		result = mColisionHelper->characterCollidesObject(enemy,aquaK->getAqua());
 
-	return false;
+    if(result){
+
+        Game::instance().playSound(SOUND_DAMAGE);
+    }
+	return result;
 }
 
 

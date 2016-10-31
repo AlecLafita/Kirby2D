@@ -176,6 +176,7 @@ void Game::initSoundHelper() {
 	mSoundHelper->initSound(SOUND_TRANSFORMATION, "sounds/ability_acquired.wav");
 	mSoundHelper->initSound(SOUND_ENTER_DOOR, "sounds/enter_door.wav");
 	mSoundHelper->initSound(MENU_SELECTION, "sounds/menu_selection.wav");
+	mSoundHelper->initSound(SOUND_DAMAGE, "sounds/damage.wav");
 }
 
 void Game::playSound(int soundIndex) {

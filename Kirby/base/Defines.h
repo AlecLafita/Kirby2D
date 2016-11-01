@@ -30,7 +30,7 @@
 	#define MOVEMENT_DEFAULT 2 //How quick character moves
 	//Damage
 	#define DAMAGED_DISTANCE 3 //How far will character move when damaged per frame
-	#define DAMAGED_TIME 30 //How many frames a character is being damaged
+	#define DAMAGED_TIME 50 //How many frames a character is being damaged
 	#define DAMAGED_RATE 6 //Damage color to activate each (this define) frames 
 	//Jump constants
 	#define JUMP_ANGLE_STEP 4

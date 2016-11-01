@@ -60,6 +60,7 @@ private:
 
 	bool characterCollidesEnemies(Character* character) const;
 
+	void loseAbility();
 private:
 	bool bToReset;
 	TileMap *map; //Don't render this! only for collisions

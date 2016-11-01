@@ -50,6 +50,8 @@ public:
 
 	int getNoPortal() {return noPortal;}
 	void setNoPortal(int nop) {noPortal = nop;}
+	void setStartY(int newstartY) {startY = newstartY;}
+	int getStartY() {return startY;}
 
 protected:
 

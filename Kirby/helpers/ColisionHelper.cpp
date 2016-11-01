@@ -174,6 +174,9 @@ void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* p
 			newPos.x += portalAct->getSize().x;
 
 		character->setPosition(newPos);
+
+		int diffStartY = character->getStartY() - portalAct->getPosition().y;
+		character->setStartY(portalDest->getPosition().y + diffStartY);
 	}
 }
 

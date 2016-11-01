@@ -39,12 +39,17 @@ Scene::~Scene()
 void Scene::resetScene() {
 	if (map != NULL)
 		delete map;
-	if (embellishmentMap != NULL)
+
+	/*if (embellishmentMap != NULL)
 		delete embellishmentMap;
+		cout << "embillmap" << endl;*/
+
 	if (player != NULL)
 		delete player;
+
 	if (mBackground != NULL)
 		delete mBackground;
+
 	if (mColisionHelper != NULL)
 		delete mColisionHelper;
 
@@ -61,14 +66,12 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 {
 	resetScene();
 	bToReset = false;
-	cout << "reseted" << endl;
 
 	initShaders();
-	cout << "postShaders" << endl;
+
 	//Init helpers
 	mColisionHelper = new ColisionHelper();
 	mTransformationHelper = new TransformationHelper();
-	cout << "helpers" << endl;
 
 	//Init current map
 	spritesheetBg.loadFromFile(backgroundPathFile, TEXTURE_PIXEL_FORMAT_RGBA);//May not need to be an attribute?
@@ -76,17 +79,12 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 	mBackground = Sprite::createSprite(glm::ivec2(map->getMapWidth(), map->getMapHeight()), glm::vec2(1, 1), &spritesheetBg, &texProgram);
 	embellishmentMap = TileMap::createTileMap(levelPathFile + "_no_cols.txt", glm::vec2(0, 0), texProgram);
 
-	cout << "maps" << endl;
-
 	//Init characters, items
     player = new Kirby();
 	player->init(texProgram, this);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-		cout << "player" << endl;
-
+	Game::instance().setAbilityToShow(PowerType::Normal);//Set as normal Kirby
 	initEnemies(enemiesLocationPathFile);
-		cout << "enemies" << endl;
-
 	initObjects(itemsLocationPathFile);
 
 	//Init camera
@@ -116,16 +114,7 @@ void Scene::update(int deltaTime)
 
 	// --------------- LOSE ABILITY ---------------
 	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
-        if (Kirby* k = dynamic_cast<Kirby*>(player)) {
-            //TODO Laura: This is horrible. How to make diff in casts?
-        } else {
-
-            PinxoEnemy* dummyPinxo = new PinxoEnemy();
-            player = mTransformationHelper->transformPlayer(player, dummyPinxo, texProgram, this);
-            Game::instance().setAbilityToShow(dummyPinxo->getType());
-            player->playTransformationSound();
-            delete dummyPinxo;
-        }
+		loseAbility();
     }
 
 	//Update game stuff
@@ -329,6 +318,18 @@ void Scene::characterTakesPortal(PortalObject* p) {
 	}
 }
 
+void Scene::loseAbility() {
+	if (Kirby* k = dynamic_cast<Kirby*>(player)) {
+        //TODO Laura: This is horrible. How to make diff in casts?
+    } else {
+
+        PinxoEnemy* dummyPinxo = new PinxoEnemy();
+        player = mTransformationHelper->transformPlayer(player, dummyPinxo, texProgram, this);
+        Game::instance().setAbilityToShow(dummyPinxo->getType());
+        player->playTransformationSound();
+        delete dummyPinxo;
+    }
+}
 
 //SHADERS
 void Scene::initShaders(){

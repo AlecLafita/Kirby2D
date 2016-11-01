@@ -144,13 +144,12 @@ void Player::computeMovement() {
 
 void Player::computeJump() {
 
-	//Jumping block (common for all kirbys???)
 	if (bJumping) {//Player at the air
 		jumpAngle += JUMP_ANGLE_STEP;
-		if (jumpAngle == ANGLE_GROUND) { //Very near the ground
+		if (mScene->collisionMoveDown(this) || jumpAngle == ANGLE_GROUND) { //Very near the ground
 			bJumping = false;
 			bHoving = false;
-			posCharacter.y = startY;
+			//posCharacter.y = startY;
 		}
 		else {//going up when 0<=jumpAngle<=90, down when 90<jumpAngle<=180
 			posCharacter.y = int(startY - JUMP_HEIGHT * sin(3.14159f * jumpAngle / 180.f));

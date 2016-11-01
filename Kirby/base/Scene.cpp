@@ -103,7 +103,8 @@ void Scene::update(int deltaTime)
 
 	//TODO: Remove this. For testing purposes
 	if (Game::instance().getKey('n') || bGoToNextLevel){
-		Game::instance().nextLevel();
+		Game::instance().playSound(SOUND_ENTER_DOOR);
+        Game::instance().nextLevel();
 		return;
 	}
 

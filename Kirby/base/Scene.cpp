@@ -29,7 +29,8 @@ Scene::Scene()
 {
 	map = NULL;
 	player = NULL;
-	mColisionHelper = NULL;	
+	mColisionHelper = NULL;
+	mDoorNextLvl = NULL;
 }
 
 Scene::~Scene()
@@ -58,7 +59,7 @@ void Scene::resetScene() {
 	mEnemies.clear();
 	mPortals1.clear();
 	mPortals2.clear();
-	delete mDoorNextLvl;
+	mDoorNextLvl = NULL;
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
@@ -99,6 +100,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 void Scene::update(int deltaTime)
 {
 
+
 	//TODO: Remove this. For testing purposes
 	if (Game::instance().getKey('n') || bGoToNextLevel){
 		Game::instance().nextLevel();
@@ -110,7 +112,7 @@ void Scene::update(int deltaTime)
 	if (Game::instance().getKey('P') || Game::instance().getKey('p')){
 
 		glm::vec2 playerPos = player->getPosition();
-		cout << "Current player pos: " << playerPos.x/TILE_SIZE_X << " "<<  playerPos.y/TILE_SIZE_Y << " " << endl;
+		cout << "Current player pos: " << playerPos.x/map->getTileSize() << " "<<  playerPos.y/map->getTileSize() << " " << endl;
 		return;
 	}
 
@@ -124,7 +126,10 @@ void Scene::update(int deltaTime)
 	currentTime += deltaTime;
 	player->update(deltaTime);
 
-	mDoorNextLvl->update(deltaTime);
+    if(mDoorNextLvl != NULL){
+
+		mDoorNextLvl->update(deltaTime);
+    }
 
 	for (BaseEnemy* enemy : mEnemies) {
 		enemy->update(deltaTime);
@@ -503,7 +508,7 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 			mPowerUps.insert(lifeRecovery);
 			break;
 		}
-		case 3: { // invencibility?
+		case 3: { // Door
 			mDoorNextLvl = new DoorObject();
 			mDoorNextLvl->init(texProgram, this);
 			mDoorNextLvl->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));

@@ -12,6 +12,7 @@
 #include "Defines.h"
 
 class PortalObject;
+class DoorObject;
 
 #include <set>
 
@@ -47,6 +48,7 @@ public:
 	bool playerCanKill(BaseEnemy* enemy) ;
 
 	bool playerTakesItem(BaseObject* obj);
+	bool playerTakesDoorNextLevel(DoorObject* obj);
 
 	void characterTakesPortal(PortalObject* p);
 
@@ -63,6 +65,7 @@ private:
 	void loseAbility();
 private:
 	bool bToReset;
+    bool bGoToNextLevel;
 	TileMap *map; //Don't render this! only for collisions
 	TileMap *embellishmentMap; //Reneder this, not use it for collisions!
     Sprite *mBackground;
@@ -78,6 +81,7 @@ private:
 	ColisionHelper* mColisionHelper;
 	TransformationHelper* mTransformationHelper;
 
+	BaseObject* mDoorNextLvl;
 	int cameraLeftXposition;
 
 };

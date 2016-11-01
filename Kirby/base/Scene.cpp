@@ -23,6 +23,7 @@
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
 #include "../objects/PortalObject.h"
+#include "../objects/DoorObject.h"
 
 Scene::Scene()
 {
@@ -57,6 +58,7 @@ void Scene::resetScene() {
 	mEnemies.clear();
 	mPortals1.clear();
 	mPortals2.clear();
+	delete mDoorNextLvl;
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
@@ -66,6 +68,7 @@ void Scene::init(std::string levelPathFile, std::string backgroundPathFile, std:
 {
 	resetScene();
 	bToReset = false;
+    bGoToNextLevel = false;
 
 	initShaders();
 
@@ -97,7 +100,7 @@ void Scene::update(int deltaTime)
 {
 
 	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('n')){
+	if (Game::instance().getKey('n') || bGoToNextLevel){
 		Game::instance().nextLevel();
 		return;
 	}
@@ -121,6 +124,8 @@ void Scene::update(int deltaTime)
 	currentTime += deltaTime;
 	player->update(deltaTime);
 
+	mDoorNextLvl->update(deltaTime);
+
 	for (BaseEnemy* enemy : mEnemies) {
 		enemy->update(deltaTime);
 	}
@@ -133,6 +138,7 @@ void Scene::update(int deltaTime)
 	for (PortalObject* portal : mPortals2) {
 		portal->update(deltaTime);
 	}
+
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
 	if (playerPos.x  < float(SCREEN_WIDTH - 1) / 2) //left of the screen limit
@@ -180,7 +186,7 @@ void Scene::render() {
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	mBackground->render();
-	//map->render(); //should be commented!
+	map->render(); //should be commented!
     embellishmentMap->render();
 	player->render();
 	//render enemies
@@ -306,15 +312,23 @@ void Scene::characterTakesPortal(PortalObject* p) {
 	int index = p->getIndex();
 	if ( p->getType())
 		mColisionHelper->characterDoesTeleport(player,mPortals1[index],mPortals2[index]);
-	else 
+	else
 		mColisionHelper->characterDoesTeleport(player,mPortals2[index],mPortals1[index]);
 
 	//enemies
 	for (BaseEnemy* enemy : mEnemies) {
 		if ( p->getType())
 			mColisionHelper->characterDoesTeleport(enemy,mPortals1[index],mPortals2[index]);
-		else 
+		else
 			mColisionHelper->characterDoesTeleport(enemy,mPortals2[index],mPortals1[index]);
+	}
+}
+
+bool Scene::playerTakesDoorNextLevel(DoorObject *obj) {
+
+	if (mColisionHelper->characterCollidesObject(player, obj)) {
+
+        bGoToNextLevel = true;
 	}
 }
 
@@ -490,7 +504,9 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 			break;
 		}
 		case 3: { // invencibility?
-
+			mDoorNextLvl = new DoorObject();
+			mDoorNextLvl->init(texProgram, this);
+			mDoorNextLvl->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
 			break;
 		}
 		default:

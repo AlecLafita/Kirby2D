@@ -38,6 +38,7 @@ protected:
 	bool bTaken; //Object has been taken, make it dissapear on the next frames
 	int mNumberAnimations;
 	glm::ivec2 posObj;
+	float sizeInSpriteSheetX, sizeInSpriteSheetY;
 
 };
 

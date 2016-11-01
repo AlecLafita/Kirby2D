@@ -180,7 +180,7 @@ void Scene::render() {
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	mBackground->render();
-	map->render();
+	//map->render(); //should be commented!
     embellishmentMap->render();
 	player->render();
 	//render enemies

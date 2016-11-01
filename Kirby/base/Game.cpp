@@ -23,7 +23,7 @@ void Game::setMenustate() {
 void Game::resetLevel() {
 	playerLifes--;
 	mGUI.setLifes(playerLifes);
-	addScore(-1500);
+	addScore(-1000);
 	cout << "Player lifes " << playerLifes << endl;
 	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
@@ -43,8 +43,8 @@ void Game::resetLevel() {
 			break;
 		case 3:
 			cout << "level3" << endl;
-			scene.init("levels/portals_lvl_03", "images/forest_bg.png", "levels/lvl03_enemies.txt","levels/lvl03_objects.txt");
-			mSoundHelper->playMusic("sounds/song_green_greens.wav");
+			scene.init("levels/portals_lvl_03", "images/galaxy.png", "levels/lvl03_enemies.txt","levels/lvl03_objects.txt");
+			mSoundHelper->playMusic("sounds/dedede_theme.wav");
 			break;
 		default:
 			cout << "WIN!" << endl;
@@ -70,7 +70,7 @@ void Game::nextLevel() {
 	cout << "Actual lvl: " << levelAct << endl;
 	++levelAct; //Go to next level
 	++playerLifes; //Per no perdre la vida de reset level (molt cutre,si xd) // Laura: HAHAHAHAHAHA Cutre indeed. xdddd
-	addScore(1500); //same "
+	addScore(1000); //same "
 	if (levelAct == 4) {//Num of total levels+1
 		int tmpScore = scoreAct;
 		setMenustate();

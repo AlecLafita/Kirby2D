@@ -11,6 +11,9 @@ AquaEnemy::AquaEnemy() {
     Character::setPathToSpriteSheet("images/aqua_enemy_spritesheet.png");
 
     //Sprite rows
+    mNumStand = 2;
+    mNumAttack = 2;
+
     START_ROW_STAND_RIGHT = START_ROW_ATTACK_RIGHT = 0;
     START_ROW_STAND_LEFT = START_ROW_ATTACK_LEFT = 1;
     START_ROW_MOVE_RIGHT = 2;

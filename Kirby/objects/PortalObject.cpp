@@ -34,6 +34,6 @@ void PortalObject::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void PortalObject::update(int deltaTime) {
 	//if(isInfrustrum())
-	mScene->characterTakesPortal(this);
+	mScene->elementTakesPortal(this);
 	BaseObject::update(deltaTime);
 }

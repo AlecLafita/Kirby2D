@@ -74,6 +74,7 @@ void Game::nextLevel() {
 	if (levelAct == 4) {//Num of total levels+1
 		int tmpScore = scoreAct;
 		setMenustate();
+		playSound(SOUND_VICTORY);
 		mMainMenu.activateNewRecord(tmpScore);
 	}
 	else {
@@ -182,6 +183,7 @@ void Game::initSoundHelper() {
 	mSoundHelper->initSound(SOUND_ENTER_DOOR, "sounds/enter_door.wav");
 	mSoundHelper->initSound(MENU_SELECTION, "sounds/menu_selection.wav");
 	mSoundHelper->initSound(SOUND_DAMAGE, "sounds/damage.wav");
+	mSoundHelper->initSound(SOUND_VICTORY,"sounds/victory.wav");
 }
 
 void Game::playSound(int soundIndex) {

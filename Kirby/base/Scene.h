@@ -50,7 +50,7 @@ public:
 	bool playerTakesItem(BaseObject* obj);
 	bool playerTakesDoorNextLevel(DoorObject* obj);
 
-	void characterTakesPortal(PortalObject* p);
+	void elementTakesPortal(PortalObject* p);
 
 	bool objectCollides(BaseObject *o);
 

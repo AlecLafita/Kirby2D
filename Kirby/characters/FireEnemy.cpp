@@ -26,8 +26,8 @@ bool FireEnemy::computeAttack() {
     //Maybe stop attacking
     int ran = rand() % 3000;
     if (ran > 1000 && ran < 1050) {// stop
-        if (dir.x > 0) sprite->changeAnimation(STAND_RIGHT);
-        else sprite->changeAnimation(STAND_LEFT);
+        if (dir.x > 0) sprite->changeAnimation(MOVE_RIGHT);
+        else sprite->changeAnimation(MOVE_LEFT);
         isAttacking = false;
         mAttack->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
     	return false;

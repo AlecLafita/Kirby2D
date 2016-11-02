@@ -21,7 +21,6 @@ public:
     //void update(int deltaTime);
     //void render();
 
-    //BigObject* getAqua() { return mAqua; }
 
     PowerType getType() const {
         return PowerType::Aqua;

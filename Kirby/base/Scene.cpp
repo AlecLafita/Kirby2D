@@ -314,7 +314,7 @@ bool Scene::playerTakesItem(BaseObject* obj) {
 	return false;
 }
 
-void Scene::characterTakesPortal(PortalObject* p) {
+void Scene::elementTakesPortal(PortalObject* p) {
 	//player
 	int index = p->getIndex();
 	if ( p->getType())

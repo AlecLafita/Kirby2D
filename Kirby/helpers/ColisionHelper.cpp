@@ -4,6 +4,9 @@
 #include "../characters/BaseEnemy.h"
 #include "../objects/PortalObject.h"
 
+#include "../characters/IceKirby.h"
+#include "../characters/IcyEnemy.h"
+
 #include "../base/Defines.h"
 
 #include <iostream>
@@ -178,8 +181,25 @@ void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* p
 		int diffStartY = character->getStartY() - portalAct->getPosition().y;
 		character->setStartY(portalDest->getPosition().y + diffStartY);
 	}
-}
 
+	//Check if object associated to character can also be teleported
+	if (IceKirby *iKirby = dynamic_cast<IceKirby*>(character)) {
+		glm::ivec2 newObjPos = portalDest->getPosition();
+		ProjectileObject* obj = iKirby->getIce();
+		if (quadsCollision(obj->getPosition(),obj->getSize(),portalAct->getPosition(),portalAct->getSize())) {
+			glm::ivec2 diffObj = obj->getPosition() - portalAct->getPosition();
+			newObjPos.y += diffObj.y;
+			
+			if (diffObj.x > 0 ) //Character at left side
+				newObjPos.x -= obj->getSize().x;
+			else 
+				newObjPos.x += portalAct->getSize().x;
+
+			obj->setPosition(newObjPos);
+		}
+	}
+
+}
 
 bool ColisionHelper::mapCollidesObject(const TileMap* tMap, BaseObject* object)const{
 	glm::ivec2 pos = object->getPosition();

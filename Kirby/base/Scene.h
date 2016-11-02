@@ -81,7 +81,7 @@ private:
 	ColisionHelper* mColisionHelper;
 	TransformationHelper* mTransformationHelper;
 
-	BaseObject* mDoorNextLvl;
+	DoorObject* mDoorNextLvl;
 	int cameraLeftXposition;
 
 };

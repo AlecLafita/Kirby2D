@@ -37,12 +37,3 @@ void BigObject::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 	sprite->changeAnimation(0);
 }
-
-
-void BigObject::setLeftAnimation() {
-	sprite->changeAnimation(LEFT);
-}
-
-void BigObject::setRightAnimation() {
-	sprite->changeAnimation(RIGHT);
-}

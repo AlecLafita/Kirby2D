@@ -7,7 +7,7 @@
 
 #include "BaseEnemy.h"
 #include "WalkingDummyEnemy.h"
-#include "../objects/BigObject.h"
+#include "../objects/BaseObject.h"
 
 class AttackEnemy :  public WalkingDummyEnemy { //Abstract class!
 
@@ -19,10 +19,14 @@ public:
     void update(int deltaTime);
 	void render();
 
-	virtual BigObject* getAttack() { return mAttack; }
+	virtual BaseObject* getAttack() { return mAttack; }
 
 protected:
-	BigObject* mAttack;
+	virtual bool computeAttack() {return false;} //Returns if enemy should stop attacking
+
+protected:
+	BaseObject* mAttack;
+
 
 };
 

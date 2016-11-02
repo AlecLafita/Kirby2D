@@ -26,8 +26,10 @@ public:
     PowerType getType() const {
         return PowerType::Fire;
     };
-private:
-	//BigObject* mFire;
+
+
+protected:
+    bool computeAttack();
 
 };
 

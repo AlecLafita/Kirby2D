@@ -7,6 +7,7 @@ BaseObject::BaseObject() {
 	setPathToSpriteSheet(OBJECTS_SPRITESHEET_PATH);
 	bTaken = false;
 	sizeInSpriteSheetX = sizeInSpriteSheetY = 0.25f;
+	posObj = glm::ivec2(-100,-100);
 
 }
 
@@ -33,7 +34,6 @@ void BaseObject::setTexturePosition(const glm::fvec2 &pos) {
 void BaseObject::update(int deltaTime) {
 	sprite->update(deltaTime);
 	sprite->setPosition(glm::vec2(float(posObj.x), float(posObj.y)));
-
 }
 
 void BaseObject::render() {
@@ -45,4 +45,12 @@ void BaseObject::setPosition(const glm::ivec2 &pos)
 {
 	posObj = pos;
 	sprite->setPosition(glm::vec2(float(posObj.x), float(posObj.y)));
+}
+
+void BaseObject::setLeftAnimation() {
+	sprite->changeAnimation(LEFT);
+}
+
+void BaseObject::setRightAnimation() {
+	sprite->changeAnimation(RIGHT);
 }

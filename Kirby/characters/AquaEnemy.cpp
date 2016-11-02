@@ -24,7 +24,8 @@ AquaEnemy::AquaEnemy() {
 void AquaEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
     AttackEnemy::init(shaderProgram, scene);
-
+    
+    mAttack = new BigObject();
     mAttack->setPathToSpriteSheet(BIG_OBJECTS_FIRE_PATH); //OBJECT SPRITESHEET
     mAttack->init(shaderProgram, scene);
 

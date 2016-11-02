@@ -32,7 +32,6 @@ void AttackEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 
     WalkingDummyEnemy::init(shaderProgram, scene);
     sprite->changeAnimation(MOVE_LEFT);
-    mAttack = new BigObject();
 }
 
 
@@ -41,22 +40,15 @@ void AttackEnemy::update(int deltaTime){
     //if (isInFrustrum()) {
 
     if (isAttacking) {
-        //Maybe stop attacking
-        int ran = rand() % 3000;
-        if (ran > 1000 && ran < 1050) {// stop
-            if (dir.x > 0) sprite->changeAnimation(STAND_RIGHT);
-            else sprite->changeAnimation(STAND_LEFT);
-            isAttacking = false;
-            mAttack->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
-        }
-        else { //continue attacking
+        if (computeAttack()) {
             BaseEnemy::update(deltaTime);
             mAttack->update(deltaTime);
             return;
         }
     }
-    searchPlayer();
 
+
+    searchPlayer();
     //Move to corresponding direction
     posCharacter += dir;
     if (dir.x < 0) { //Go left
@@ -81,10 +73,12 @@ void AttackEnemy::update(int deltaTime){
         if (ran > 2000 && ran < 2030) {// start attacking
             if (dir.x > 0)  {
                 sprite->changeAnimation(ATTACK_RIGHT);
+                mAttack->setRightAnimation();
                 mAttack->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
             }
             else {
                 sprite->changeAnimation(ATTACK_LEFT);
+                mAttack->setRightAnimation();
                 mAttack->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
             }
             isAttacking = true;

@@ -6,6 +6,10 @@
 
 class Scene;
 
+enum ObjectAnimations {
+	LEFT,RIGHT
+};
+
 class BaseObject
 {
 public:
@@ -28,6 +32,9 @@ public:
 
 	bool isTaken() { return bTaken; }
 
+	void setLeftAnimation();
+	void setRightAnimation();
+
 protected:
 	string mPathToSpritesheet;
 	Texture spritesheet;
@@ -39,6 +46,9 @@ protected:
 	int mNumberAnimations;
 	glm::ivec2 posObj;
 	float sizeInSpriteSheetX, sizeInSpriteSheetY;
+
+	int START_ROW_LEFT;
+	int START_ROW_RIGHT;
 
 };
 

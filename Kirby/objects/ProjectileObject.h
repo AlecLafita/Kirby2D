@@ -6,6 +6,7 @@ public:
 	ProjectileObject();
 	~ProjectileObject() {}
 
+	void init(ShaderProgram &shaderProgram, Scene* scene);
 	void update(int deltaTime);
 	void setDirection(glm::fvec2 dir);
 

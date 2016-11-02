@@ -244,8 +244,9 @@ bool Scene::characterCollidesEnemies(Character* character) const{
 
 	for (BaseEnemy* enemy : mEnemies) {
 		collision = collision || mColisionHelper->characterCollidesCharacter(enemy, character);
-		if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy))
+		if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy)){
 			collision = collision || mColisionHelper->characterCollidesObject(character, aEnemy->getAttack());
+		}
 	}
 
 	Player *p = dynamic_cast<Player*>(character);

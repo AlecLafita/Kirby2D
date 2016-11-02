@@ -26,8 +26,8 @@ public:
     PowerType getType() const {
         return PowerType::Ice;
     };
-private:
-    //BigObject* mIce;
+protected:
+    bool computeAttack();
 
 };
 

@@ -1,12 +1,11 @@
 #include "ProjectileObject.h"
 
-#include <iostream>
-using namespace std;
+#include "../base/Scene.h"
 
 ProjectileObject::ProjectileObject()
 {
 	mNumberAnimations = 2;
-	START_ROW_LEFT = 0;
+	START_ROW_LEFT = 1;
 	START_ROW_RIGHT = 0;
 }
 
@@ -35,7 +34,7 @@ void ProjectileObject::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void ProjectileObject::update(int deltaTime) {
 	posObj += dir;
-	//TODO COLLISIONS
+	if (mScene->objectCollides(this)) bTaken = true;
 	BaseObject::update(deltaTime);
 }
 

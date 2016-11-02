@@ -181,6 +181,28 @@ void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* p
 }
 
 
+bool ColisionHelper::mapCollidesObject(const TileMap* tMap, BaseObject* object)const{
+	glm::ivec2 pos = object->getPosition();
+	glm::ivec2 size = object->getSize();
+	int x0, x1, y0, y1;
+	int tileSize = tMap->getTileSize();
+
+	x0 = pos.x / tileSize;
+	x1 = (pos.x + size.x - 1) / tileSize;
+	y0 = pos.y / tileSize;
+	y1 = (pos.y + size.y - 1) / tileSize;
+	int mapTilesWidth = tMap->getMapTilesWidth();
+	int* map = tMap->getMap();
+	for (int x = x0; x <= x1; x++){
+		for (int y = y0; y <= y1; y++) {
+			if (map[y*mapTilesWidth + x] != 0) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 bool ColisionHelper::quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const{
 	//It can be divided for the four sides 
 

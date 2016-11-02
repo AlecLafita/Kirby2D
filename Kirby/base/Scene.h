@@ -52,6 +52,8 @@ public:
 
 	void characterTakesPortal(PortalObject* p);
 
+	bool objectCollides(BaseObject *o);
+
 	int getCameraLeftPosition() const { return cameraLeftXposition; }
 	Player* getPlayer(){ return  player;}
 

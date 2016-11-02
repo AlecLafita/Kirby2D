@@ -1,7 +1,7 @@
 
 #include "AttackEnemy.h"
 #include "../base/Scene.h"
-
+#include "../objects/ProjectileObject.h"
 
 AttackEnemy::AttackEnemy()
 {
@@ -75,13 +75,18 @@ void AttackEnemy::update(int deltaTime){
                 sprite->changeAnimation(ATTACK_RIGHT);
                 mAttack->setRightAnimation();
                 mAttack->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
+                if (ProjectileObject* mProjectile = dynamic_cast<ProjectileObject*>(mAttack))
+                    mProjectile->setDirection(glm::ivec2(1,0));
             }
             else {
                 sprite->changeAnimation(ATTACK_LEFT);
-                mAttack->setRightAnimation();
+                mAttack->setLeftAnimation();
                 mAttack->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
+                if (ProjectileObject* mProjectile = dynamic_cast<ProjectileObject*>(mAttack))
+                    mProjectile->setDirection(glm::ivec2(-1,0));
             }
             isAttacking = true;
+            mAttack->forceNotIsTook();
         }
     }
     BaseEnemy::update(deltaTime);

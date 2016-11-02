@@ -339,6 +339,11 @@ bool Scene::playerTakesDoorNextLevel(DoorObject *obj) {
 	}
 }
 
+bool Scene::objectCollides(BaseObject *o) { //ADD collision with enemies too?
+	return (mColisionHelper->characterCollidesObject(player, o) || 
+		mColisionHelper->mapCollidesObject(map,o));
+}
+
 void Scene::loseAbility() {
 	if (Kirby* k = dynamic_cast<Kirby*>(player)) {
         //TODO Laura: This is horrible. How to make diff in casts?

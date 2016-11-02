@@ -6,7 +6,7 @@
 #define KIRBY_ICEKIRBY_H
 
 #include "Player.h"
-#include "../objects/BigObject.h"
+#include "../objects/ProjectileObject.h"
 
 
 class IceKirby : public Player {
@@ -18,7 +18,7 @@ public:
     void update(int deltaTime);
     void render();
 
-    BigObject* getIce() { return mIce; }
+    ProjectileObject* getIce() { return mIce; }
 
 protected:
     //void computeAttack();
@@ -27,6 +27,7 @@ protected:
     int getAttackSound();
 
 private:
-    BigObject* mIce;
+    ProjectileObject* mIce;
+    bool firstAttack;
 };
 #endif //KIRBY_ICEKIRBY_H

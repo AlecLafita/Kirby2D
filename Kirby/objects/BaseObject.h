@@ -31,6 +31,7 @@ public:
 	virtual glm::ivec2 getSize() { return glm::ivec2(OBJECT_SIZE_X,OBJECT_SIZE_Y); }
 
 	bool isTaken() { return bTaken; }
+	void forceNotIsTook () {bTaken=false;}
 
 	void setLeftAnimation();
 	void setRightAnimation();

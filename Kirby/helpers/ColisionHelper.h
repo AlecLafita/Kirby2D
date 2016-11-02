@@ -36,6 +36,9 @@ public:
 	//Is the character on a portal?-> teleport it! 
 	void characterDoesTeleport(Character* character, PortalObject* portalAct,PortalObject* portalDest) const;
 
+	//Object collides with map?
+	bool mapCollidesObject(const TileMap* tMap, BaseObject* object)const;
+
 private:
 	//Check if two quads intersect, pos is the left-top vertex
 	bool quadsCollision(glm::vec2 q1Pos, glm::vec2 q1Size, glm::vec2 q2Pos, glm::vec2 q2Size) const;

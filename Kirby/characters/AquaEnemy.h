@@ -26,8 +26,8 @@ public:
     PowerType getType() const {
         return PowerType::Aqua;
     };
-private:
-    //BigObject* mAqua;
+protected:
+    bool computeAttack();
 
 };
 #endif //KIRBY_AQUAENEMY_H

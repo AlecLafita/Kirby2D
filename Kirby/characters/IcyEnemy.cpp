@@ -28,8 +28,8 @@ void IcyEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
 }
 
 bool IcyEnemy::computeAttack() {
-    int ran = rand() % 3000;
-    if (ran > 1000 && ran < 1050) {// stop
+	//	if (!isAttacking) return true;
+    if (mAttack->isTaken()) {// collision has occurred, stop
         if (dir.x > 0) sprite->changeAnimation(STAND_RIGHT);
         else sprite->changeAnimation(STAND_LEFT);
         isAttacking = false;

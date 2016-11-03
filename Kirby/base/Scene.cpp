@@ -276,25 +276,30 @@ bool Scene::characterCollidesTiles(Character* character) const{
 bool Scene::characterCollidesEnemies(Character* character) const{
 	bool collision = false; //Can be improved checking if true after each enemy and returning(with few enemies doesn't matter)
 
-    BaseEnemy* enemyCollided;
+    int posEnemyX = character->getPosition().x;
     bool collidedEnemy = false;
 	for (BaseEnemy* enemy : mEnemies) {
         collidedEnemy = mColisionHelper->characterCollidesCharacter(enemy, character);
 		collision = collision || collidedEnemy;
-        if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy)){
-			collision = collision || mColisionHelper->characterCollidesObject(character, aEnemy->getAttack());
-		}
-        if(collidedEnemy){
-
-            enemyCollided = enemy;
+		if(collidedEnemy){
+            posEnemyX = enemy->getPosition().x;
             break;
         }
+        if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy)){
+			collidedEnemy = collision || mColisionHelper->characterCollidesObject(character, aEnemy->getAttack());
+			collision = collision || collidedEnemy;
+			if(collidedEnemy){
+	            posEnemyX = (aEnemy->getAttack())->getPosition().x;
+	            break;
+	        }
+		}
+        
 	}
 
 	Player *p = dynamic_cast<Player*>(character);
 	if (p && collision) {
         //enemies can not get damaged between them!
-        int diffInX = (character->getPosition().x - enemyCollided->getPosition().x);
+        int diffInX = (character->getPosition().x - posEnemyX);
         p->justDamaged(diffInX > 0);
     }
 	return collision;

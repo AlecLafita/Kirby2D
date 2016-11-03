@@ -133,7 +133,6 @@ void MainMenu::render() {
 	int screen_height = vp[3] - vp[1];
 	int screen_width = vp[2] - vp[0];
 	int text_size = min(screen_height / 8,screen_width/8); //Value that makes the text to fit better on background
-	int height_offset = 20;
 
 //    scoreText.render("", glm::vec2(10, text_size), text_size, glm::vec4(1, 1, 1, 1));
 
@@ -156,19 +155,13 @@ void MainMenu::render() {
 	else { //Main menu screen
 		switch (index)  { //This only renders the actual "selected" text with different color
 		case 0:
-			playText.render("*", glm::vec2(50, 170), text_size, glm::vec4(1, 1, 1, 1));
-			instructionsText.render("", glm::vec2(10, text_size + height_offset+ screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			playText.render("*", glm::vec2(screen_width*0.08, screen_height*0.57), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 		case 1:
-			playText.render("", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("*", glm::vec2(50, 220), text_size, glm::vec4(1, 1, 1, 1));
-			recordsText.render("", glm::vec2(10, text_size + 2 * screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
+			instructionsText.render("*", glm::vec2(screen_width*0.08, screen_height*0.73), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 		case 2:
-			playText.render("", glm::vec2(10, text_size), text_size, glm::vec4(0, 0, 0, 1));
-			instructionsText.render("", glm::vec2(10, text_size + screen_height / numOptions), text_size, glm::vec4(0, 0, 0, 1));
-			recordsText.render("*", glm::vec2(50, 265), text_size, glm::vec4(1, 1, 1, 1));
+			recordsText.render("*", glm::vec2(screen_width*0.08, screen_height*0.89), text_size, glm::vec4(1, 1, 1, 1));
 			break;
 
 		}

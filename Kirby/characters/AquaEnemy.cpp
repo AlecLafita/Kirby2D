@@ -7,6 +7,7 @@
 #include "../base/Scene.h"
 
 #include "../objects/RotationObject.h"
+#include <algorithm>
 
 AquaEnemy::AquaEnemy() {
     Character::setPathToSpriteSheet("images/aqua_enemy_spritesheet.png");

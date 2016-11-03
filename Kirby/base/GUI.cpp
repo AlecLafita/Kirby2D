@@ -93,11 +93,11 @@ void GUI::render(){
 	int gui_height = screen_height/5;
 	int hab_size = gui_height / 3 < screen_width / 15 ? gui_height / 3 : screen_width / 15;
 
-	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(screen_width / 4, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+	scoreText.render("Score: " + std::to_string(scoreAct), glm::vec2(screen_width*0.2f, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
-	energyText.render("Energy:", glm::vec2((2 * screen_width / 4) - 30, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+	energyText.render("Energy:", glm::vec2(screen_width*0.41f, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 
-	lifesText.render(std::to_string(lifesAct), glm::vec2((3 * screen_width / 4)+45.f, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
+	lifesText.render(std::to_string(lifesAct), glm::vec2( screen_width*0.82f, screen_height - gui_height / 2 + hab_size / 2), hab_size, glm::vec4(0, 0, 0, 1));
 }
 
 void GUI::setPlayerEnergy(int energy) {

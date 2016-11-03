@@ -24,7 +24,7 @@ void Game::resetLevel() {
 	playerLifes--;
 	mGUI.setLifes(playerLifes);
 	addScore(-1000);
-	cout << "Player lifes " << playerLifes << endl;
+	//cout << "Player lifes " << playerLifes << endl;
 	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
 		mMainMenu.activateGameOver();

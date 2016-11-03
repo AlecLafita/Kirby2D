@@ -30,7 +30,7 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
     switch (enemy->getType()){
 
         case PowerType::Fire:
-            cout << "Fire type" << endl;
+            //cout << "Fire type" << endl;
             player = new FireKirby();
             break;
 
@@ -39,7 +39,7 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
             break;
 
         case PowerType::Ice:
-            cout << "Ice type" << endl;
+            //cout << "Ice type" << endl;
             player = new IceKirby();
 
             break;
@@ -47,7 +47,7 @@ Player* TransformationHelper::transformPlayer(Player* player, const BaseEnemy *e
         default:
         case PowerType::Normal:
             //Do nothing
-            cout << "Normal type" << endl;
+            //cout << "Normal type" << endl;
             player = new Kirby();
             //player = new BlackKirby();
             break;

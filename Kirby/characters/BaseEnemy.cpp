@@ -6,7 +6,7 @@ using namespace std;
 
 BaseEnemy::BaseEnemy(){
 	int en = rand() % 3; //number of enemies
-	cout << en << endl;
+	//cout << en << endl;
 	switch (en) {
 	case 0:
 		Character::setPathToSpriteSheet("images/chicken_enemy_spritesheet.png");

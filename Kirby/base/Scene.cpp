@@ -104,21 +104,11 @@ void Scene::update(int deltaTime)
 
 
 	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('n') || bGoToNextLevel){
+	if (bGoToNextLevel){
 		Game::instance().playSound(SOUND_ENTER_DOOR);
         Game::instance().nextLevel();
 		return;
 	}
-
-
-	//TODO: Remove this. For testing purposes
-	if (Game::instance().getKey('P') || Game::instance().getKey('p')){
-
-		glm::vec2 playerPos = player->getPosition();
-		cout << "Current player pos: " << playerPos.x/map->getTileSize() << " "<<  playerPos.y/map->getTileSize() << " " << endl;
-		return;
-	}
-
 
 	// --------------- LOSE ABILITY ---------------
 	if (Game::instance().getKey('H') || Game::instance().getKey('h')){
@@ -317,7 +307,6 @@ bool Scene::playerCanSwallow(BaseObject* baseObj){
 	if (Kirby* k = dynamic_cast<Kirby*>(player)) {
 		bool hasSwallowed = mColisionHelper->playerSwallowObject(player, baseObj);
 		if (hasSwallowed) {
-			cout << "Just swallowed an object!" << endl;
 			Game::instance().stopSound(SOUND_VACUUMING);
 		}
 		return hasSwallowed;
@@ -331,7 +320,6 @@ bool Scene::playerCanKill(BaseEnemy* enemy) {
     if (Kirby* k = dynamic_cast<Kirby*>(player)) { //normal Kiry -> swallow!
 		bool hasSwallowed = mColisionHelper->playerSwallowCharacter(player, enemy);
 		if (hasSwallowed) {
-			cout << "Just swallowed an enemy!" << endl;
 			Game::instance().stopSound(SOUND_VACUUMING);
 			player->playTransformationSound();
 			if (enemy->getType() == PowerType::Normal) Game::instance().stopSound(SOUND_TRANSFORMATION);
@@ -470,7 +458,7 @@ void Scene::initEnemies(std::string enemiesLocationPathFile){
 	sstream.str(line);
 	int numEnemies;
 	sstream >> numEnemies;
-	cout << "num of enemies: " << numEnemies << endl;
+	//cout << "num of enemies: " << numEnemies << endl;
 	int enemyType, posX, posY;
 	for (int i = 0; i < numEnemies; ++i) {
 		getline(fin, line); //sstream.str(line);
@@ -548,7 +536,7 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 	sstream.str(line);
 	int numObjects;
 	sstream >> numObjects;
-	cout << "num of objects: " << numObjects << endl;
+	//cout << "num of objects: " << numObjects << endl;
 	int objectType, posX, posY;
 	for (int i = 0; i < numObjects; ++i) {
 		getline(fin, line); //sstream.str(line);

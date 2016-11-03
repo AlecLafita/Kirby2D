@@ -22,6 +22,7 @@
 
 #include "../objects/EnergyObject.h"
 #include "../objects/LifeObject.h"
+#include "../objects/SquareTileObject.h"
 #include "../objects/PortalObject.h"
 #include "../objects/DoorObject.h"
 
@@ -60,6 +61,7 @@ void Scene::resetScene() {
 	mPortals1.clear();
 	mPortals2.clear();
 	mDoorNextLvl = NULL;
+	mSquareTilesObjs.clear();
 	//Texture spritesheetBg;
 	//ShaderProgram texProgram;
 }
@@ -144,6 +146,9 @@ void Scene::update(int deltaTime)
 	for (PortalObject* portal : mPortals2) {
 		portal->update(deltaTime);
 	}
+	for(BaseObject* square : mSquareTilesObjs){
+		square->update(deltaTime);
+	}
 
 	//Update camera position
 	glm::vec2 playerPos = player->getPosition();
@@ -168,6 +173,13 @@ void Scene::update(int deltaTime)
 		if ((*it)->isTaken()) {
 			Game::instance().addScore((*it)->getScore());
 			mPowerUps.erase(it++);
+		}
+		else ++it;
+	}
+	for (set<BaseObject*>::iterator it = mSquareTilesObjs.begin(); it != mSquareTilesObjs.end();) {
+		if ((*it)->isTaken()) {
+			Game::instance().addScore((*it)->getScore());
+			mSquareTilesObjs.erase(it++);
 		}
 		else ++it;
 	}
@@ -202,6 +214,9 @@ void Scene::render() {
 	//render objects
 	for (BaseObject* projectileObject : mPowerUps){
 		projectileObject->render();
+	}
+	for (BaseObject* squareObj : mSquareTilesObjs){
+		squareObj->render();
 	}
 	for (PortalObject* portal : mPortals1) {
 		portal->render();
@@ -260,6 +275,18 @@ bool Scene::collisionMoveRightOnlyMap(Character* character) const {
 }
 bool Scene::collisionMoveLeftOnlyMap(Character* character) const {
 	return mColisionHelper->mapMoveLeft(map, character);
+}
+
+bool Scene::playerCanSwallow(BaseObject* baseObj){
+
+	if (Kirby* k = dynamic_cast<Kirby*>(player)) {
+		bool hasSwallowed = mColisionHelper->playerSwallowObject(player, baseObj);
+		if (hasSwallowed) {
+			cout << "Just swallowed an object!" << endl;
+			Game::instance().stopSound(SOUND_VACUUMING);
+		}
+		return hasSwallowed;
+	}
 }
 
 bool Scene::playerCanKill(BaseEnemy* enemy) {
@@ -492,39 +519,46 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
 		stringstream(line) >> objectType >> posX >> posY;
 		//cout << objectType << " " << posX << " " << posY << endl;
 		switch (objectType) {
-		case 0: {// 1 energy recovery -> diverse food
-			EnergyObject* oneEnergyRecovery = new EnergyObject();
-			oneEnergyRecovery->init(texProgram, this);
-			oneEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
-			oneEnergyRecovery->setFullRecovery(false);
-			mPowerUps.insert(oneEnergyRecovery);
-			break;
-		}
-		case 1: { //full energy recovery ->tomato
-			EnergyObject* fullEnergyRecovery = new EnergyObject();
-			fullEnergyRecovery->setFullRecovery(true);
-			fullEnergyRecovery->init(texProgram, this);
-			fullEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
-			mPowerUps.insert(fullEnergyRecovery);
-			break;
-		}
-		case 2: { //life recovery
-			LifeObject* lifeRecovery = new LifeObject();
-			lifeRecovery->init(texProgram, this);
-			lifeRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
-			mPowerUps.insert(lifeRecovery);
-			break;
-		}
-		case 3: { // Door
-			mDoorNextLvl = new DoorObject();
-			mDoorNextLvl->init(texProgram, this);
-			mDoorNextLvl->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
-			break;
-		}
-		default:
-			cout << "unknown item!" << endl;
-			break;
-		}
+            case 0: {// 1 energy recovery -> diverse food
+                EnergyObject *oneEnergyRecovery = new EnergyObject();
+                oneEnergyRecovery->init(texProgram, this);
+                oneEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                oneEnergyRecovery->setFullRecovery(false);
+                mPowerUps.insert(oneEnergyRecovery);
+                break;
+            }
+            case 1: { //full energy recovery ->tomato
+                EnergyObject *fullEnergyRecovery = new EnergyObject();
+                fullEnergyRecovery->setFullRecovery(true);
+                fullEnergyRecovery->init(texProgram, this);
+                fullEnergyRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                mPowerUps.insert(fullEnergyRecovery);
+                break;
+            }
+            case 2: { //life recovery
+                LifeObject *lifeRecovery = new LifeObject();
+                lifeRecovery->init(texProgram, this);
+                lifeRecovery->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                mPowerUps.insert(lifeRecovery);
+                break;
+            }
+            case 3: { // Door
+                mDoorNextLvl = new DoorObject();
+                mDoorNextLvl->init(texProgram, this);
+                mDoorNextLvl->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                break;
+            }
+            case 4: { // Door
+                SquareTileObject *squaredTile = new SquareTileObject();
+                squaredTile->init(texProgram, this);
+                squaredTile->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
+                mSquareTilesObjs.insert(squaredTile);
+                break;
+            }
+            default:
+                cout << "unknown item!" << endl;
+                break;
+        }
 	}
 
 	//Read portals

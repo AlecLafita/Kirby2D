@@ -60,7 +60,7 @@ add_executable(${appName} characters/Player.h characters/Player.cpp AnimKeyframe
         characters/PowerType.h characters/FlyingDummyEnemy.cpp characters/FlyingDummyEnemy.h
         objects/EnergyObject.h objects/EnergyObject.cpp objects/LifeObject.h objects/LifeObject.cpp characters/WalkingDummyEnemy.h characters/WalkingDummyEnemy.cpp
         objects/BigObject.cpp objects/BigObject.h characters/FireEnemy.cpp characters/FireEnemy.h characters/AquaKirby.cpp characters/AquaKirby.h characters/IcyEnemy.cpp characters/IcyEnemy.h characters/IceKirby.cpp characters/IceKirby.h characters/AttackEnemy.h characters/AttackEnemy.cpp objects/PortalObject.h objects/PortalObject.cpp characters/AquaEnemy.cpp characters/AquaEnemy.h objects/DoorObject.cpp objects/DoorObject.h objects/RotationObject.h
-        objects/RotationObject.cpp)
+        objects/RotationObject.cpp objects/SquareTileObject.cpp objects/SquareTileObject.h)
 
 target_link_libraries(${appName} ${OPENGL_LIBRARIES} ${GLUT_LIBRARIES} ${GLEW_LIBRARIES} ${SOIL_LIBRARIES} ${SFML_LIBRARIES} ${FREETYPE_LIBRARIES}) # ${GLM_LIBRARIES}
 

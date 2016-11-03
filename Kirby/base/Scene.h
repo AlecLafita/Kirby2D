@@ -46,6 +46,7 @@ public:
 	bool collisionMoveLeftOnlyMap(Character* character) const;
 
 	bool playerCanKill(BaseEnemy* enemy) ;
+	bool playerCanSwallow(BaseObject* baseObj);
 
 	bool playerTakesItem(BaseObject* obj);
 	bool playerTakesDoorNextLevel(DoorObject* obj);
@@ -78,6 +79,7 @@ private:
 	glm::mat4 projection;
 	set<BaseEnemy*> mEnemies;
 	set<BaseObject*> mPowerUps;
+	set<BaseObject*> mSquareTilesObjs;
 	vector<PortalObject* > mPortals1;
 	vector<PortalObject* > mPortals2;
 	ColisionHelper* mColisionHelper;

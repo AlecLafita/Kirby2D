@@ -36,6 +36,9 @@ public:
 	void setLeftAnimation();
 	void setRightAnimation();
 
+	glm::ivec2 getSize() const { return glm::ivec2(OBJECT_SIZE_X, OBJECT_SIZE_Y); }
+
+
 protected:
 	string mPathToSpritesheet;
 	Texture spritesheet;

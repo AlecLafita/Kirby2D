@@ -30,6 +30,9 @@ public:
 	//Can player swallow character?
 	bool playerSwallowCharacter( Player* player, BaseEnemy* enemy)const;
 
+	//Can player swallow object?
+	bool playerSwallowObject( Player* player, BaseObject* enemy)const;
+
 	//Does the character collides with an item?
 	bool characterCollidesObject(Character* character, BaseObject* object) const;
 

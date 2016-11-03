@@ -140,6 +140,27 @@ bool ColisionHelper::characterCollidesCharacter(const Character* characterToColl
 		characterToCollide->getPosition(), characterToCollide->getSize());
 }
 
+bool ColisionHelper::playerSwallowObject( Player* player, BaseObject* obj) const{
+
+	glm::ivec2 playerPos = player->getPosition();
+	glm::ivec2 objPos = obj->getPosition();
+
+	int diffInX = (playerPos.x - objPos.x);
+	if (player->isSwalling()
+		&& (distanceBetweenPositions(playerPos, objPos) <= SWALLOW_DISTANCE)
+		&& sameHorizontal(playerPos, objPos)
+		&& (( diffInX > 0 && player->isLeftDirection()) || ( diffInX < 0 && !player->isLeftDirection()))
+			) {
+
+		//Move obj to player
+		glm::ivec2 dir = playerPos - objPos;
+		obj->setPosition(objPos + dir / SWALLOW_VELOCITY_FACTOR);
+		if (quadsCollision(playerPos,player->getSize(), obj->getPosition(), obj->getSize()))
+			return true;
+	}
+	return false;
+}
+
 bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)const {
 	glm::ivec2 playerPos = player->getPosition();
 	glm::ivec2 enemyPos = enemy->getPosition();

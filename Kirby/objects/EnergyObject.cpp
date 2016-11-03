@@ -4,13 +4,34 @@
 EnergyObject::EnergyObject()
 {
 	fullRecovery = false;
-	int en = rand() % 2; //number of energy objects
+	int en = rand() % 9; //number of energy objects
 	switch (en) {
 	case 0:
-		setTexturePosition(glm::fvec2(0.25f, 0.25f));
+		setTexturePosition(glm::fvec2(0.0f, 0.25f));
 		break;
 	case 1:
-		setTexturePosition(glm::fvec2(0.0f, 0.25f));
+		setTexturePosition(glm::fvec2(0.25f, 0.25f));
+		break;
+	case 2:
+		setTexturePosition(glm::fvec2(0.5f, 0.25f));
+		break;
+	case 3:
+		setTexturePosition(glm::fvec2(0.75f, 0.25f));
+		break;
+	case 4:
+		setTexturePosition(glm::fvec2(0.0f, 0.5f));
+		break;
+	case 5:
+		setTexturePosition(glm::fvec2(0.25f, 0.5f));
+		break;
+	case 6:
+		setTexturePosition(glm::fvec2(0.5f, 0.5f));
+		break;
+	case 7:
+		setTexturePosition(glm::fvec2(0.75f, 0.5f));
+		break;
+	case 8:
+		setTexturePosition(glm::fvec2(0.0f, 0.75f));
 		break;
 	//Add all the case when we have the final items spritesheet
 	default:

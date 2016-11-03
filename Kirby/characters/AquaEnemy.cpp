@@ -27,7 +27,7 @@ void AquaEnemy::init(ShaderProgram &shaderProgram, Scene *scene){
     AttackEnemy::init(shaderProgram, scene);
     
     mAttack = new RotationObject();
-    mAttack->setPathToSpriteSheet(BIG_OBJECTS_FIRE_PATH); //OBJECT SPRITESHEET
+    mAttack->setPathToSpriteSheet(BIG_OBJECTS_AQUA_PATH); //OBJECT SPRITESHEET
     mAttack->init(shaderProgram, scene);
     glm::ivec2 sizeChar = getSize();
     RotationObject* mAqua = dynamic_cast<RotationObject*>(mAttack);

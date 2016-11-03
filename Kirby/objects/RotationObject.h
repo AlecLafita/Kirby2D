@@ -9,7 +9,7 @@ public:
 	void init(ShaderProgram &shaderProgram, Scene* scene);
 	void update(int deltaTime);
 
-	glm::ivec2 getSize() { return glm::ivec2(24,7); }
+	glm::ivec2 getSize() { return glm::ivec2(BIG_OBJECT_SIZE_X,BIG_OBJECT_SIZE_Y); }
 
 	void setCentralPosChar(glm::ivec2 newPos) {centralPosChar = newPos;}
 	void setRadius(float r) {radiusChar =r;}

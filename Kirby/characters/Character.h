@@ -38,6 +38,9 @@ public:
 	void setPosition(glm::ivec2 pos) { posCharacter = pos; }
 	bool isCharacterDead() const{ return isDead; }
 
+	virtual glm::ivec2 getCollisionPosition() const { return getPosition() +glm::ivec2(6,10);}
+	virtual glm::ivec2 getCollisionSize() const {return getSize() -glm::ivec2(12,12);}
+
 	//Redundancy with this and Player's isleftDireciton!
 	bool isLeftDirection() const { return (sprite->animation() % 2) == 0; } //is character loocking to left?
 

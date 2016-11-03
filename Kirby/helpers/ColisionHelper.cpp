@@ -136,8 +136,8 @@ bool ColisionHelper::mapFalls(const TileMap* tMap, BaseEnemy* enemy) {
 
 
 bool ColisionHelper::characterCollidesCharacter(const Character* characterToCollide, Character* character) const {
-	return quadsCollision(character->getPosition(), character->getSize(),
-		characterToCollide->getPosition(), characterToCollide->getSize());
+	return quadsCollision(character->getCollisionPosition(), character->getCollisionSize(),
+		characterToCollide->getCollisionPosition(), characterToCollide->getCollisionSize());
 }
 
 bool ColisionHelper::playerSwallowObject( Player* player, BaseObject* obj) const{
@@ -181,7 +181,7 @@ bool ColisionHelper::playerSwallowCharacter(Player* player, BaseEnemy* enemy)con
 }
 
 bool ColisionHelper::characterCollidesObject(Character* character, BaseObject* object) const{
-	return quadsCollision(character->getPosition(), character->getSize(), object->getPosition(), object->getSize());
+	return quadsCollision(character->getCollisionPosition(), character->getCollisionSize(), object->getPosition(), object->getSize());
 }
 
 void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* portalAct, PortalObject* portalDest) const {
@@ -209,9 +209,10 @@ void ColisionHelper::characterDoesTeleport(Character* character, PortalObject* p
 		ProjectileObject* obj = iKirby->getIce();
 		if (quadsCollision(obj->getPosition(),obj->getSize(),portalAct->getPosition(),portalAct->getSize())) {
 			glm::ivec2 diffObj = obj->getPosition() - portalAct->getPosition();
+			glm::ivec2 diffChar = character->getPosition() - portalAct->getPosition();
 			newObjPos.y += diffObj.y;
 			
-			if (diffObj.x > 0 ) //Character at left side
+			if (diffChar.x > 0 ) //Character at left side
 				newObjPos.x -= obj->getSize().x;
 			else 
 				newObjPos.x += portalAct->getSize().x;

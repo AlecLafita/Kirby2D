@@ -44,8 +44,9 @@ void IceKirby::update(int deltaTime) {
         //mIce->forceNotIsTook();
         if (isLeftDirection()) {
             if (firstAttack) {
-                mIce->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
+                mIce->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X + 15, posCharacter.y+15));
                 firstAttack = false;
+                Game::instance().playSound(SOUND_ARROW);
                 mIce->setDirection(glm::ivec2(-2,0));
                 mIce->setLeftAnimation();
                 mIce->forceNotIsTook();
@@ -53,8 +54,10 @@ void IceKirby::update(int deltaTime) {
         }
         else {
             if (firstAttack) {
-                mIce->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
+                mIce->setPosition(glm::ivec2(posCharacter.x + getSize().x -5, posCharacter.y +15));
                 firstAttack = false;
+                                Game::instance().playSound(SOUND_ARROW);
+
                 mIce->setDirection(glm::ivec2(2,0));
                 mIce->setRightAnimation();
                 mIce->forceNotIsTook();
@@ -83,5 +86,5 @@ void IceKirby::render() {
 
 
 int IceKirby::getAttackSound() {
-    return SOUND_FIRE; //TODO: Change this to ice
+    return SOUND_ARROW; //TODO: Change this to ice
 }

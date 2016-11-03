@@ -18,6 +18,9 @@ public:
     void update(int deltaTime);
     void render();
 
+    glm::ivec2 getCollisionPosition() const { return getPosition() +glm::ivec2(6,5);}
+    glm::ivec2 getCollisionSize() const {return getSize() -glm::ivec2(12,5);}
+
     ProjectileObject* getIce() { return mIce; }
 
 protected:

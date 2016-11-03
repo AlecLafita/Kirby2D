@@ -38,7 +38,7 @@ protected:
 	virtual int getAttackSound(){ return SOUND_VACUUMING; }
 
 protected:
-    int mAttackSoundTime;
+    int mAttackSoundTime,mAttackTime;
 
 private:
 	bool bHoving;
@@ -52,7 +52,7 @@ private:
 	int mNumEatMoveRight, mNumEatMoveLeft;
 	int mFlyRight, mFlyLeft;
 
-	int mAnimationTime, mAttackTime;
+	int mAnimationTime;
 
 	//Constants
 	int START_ROW_EAT_STAND_RIGHT;

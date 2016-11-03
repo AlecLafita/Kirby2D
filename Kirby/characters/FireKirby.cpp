@@ -49,7 +49,7 @@ void FireKirby::update(int deltaTime) {
 
 void FireKirby::render() {
 	Player::render();
-	if (bAttacking && (Game::instance().getKey('a')) || Game::instance().getKey('A'))
+	if (mAttackTime <= mAttackSoundTime)
 		mFire->render();
 }
 

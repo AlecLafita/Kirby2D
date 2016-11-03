@@ -28,6 +28,8 @@ void Game::resetLevel() {
 	if (playerLifes == 0) {//Return to main menu
 		setMenustate();
 		mMainMenu.activateGameOver();
+		stopSound(SOUND_DEATH);
+		playSound(SOUND_GAME_OVER);
 	}
 	else {
 		switch (levelAct) {
@@ -184,6 +186,9 @@ void Game::initSoundHelper() {
 	mSoundHelper->initSound(MENU_SELECTION, "sounds/menu_selection.wav");
 	mSoundHelper->initSound(SOUND_DAMAGE, "sounds/damage.wav");
 	mSoundHelper->initSound(SOUND_VICTORY,"sounds/victory.wav");
+	mSoundHelper->initSound(SOUND_GAME_OVER,"sounds/game_over.wav");
+	mSoundHelper->initSound(SOUND_ARROW,"sounds/fletxa.wav");
+
 }
 
 void Game::playSound(int soundIndex) {

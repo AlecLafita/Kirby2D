@@ -74,16 +74,22 @@ void AttackEnemy::update(int deltaTime){
             if (dir.x > 0)  {
                 sprite->changeAnimation(ATTACK_RIGHT);
                 mAttack->setRightAnimation();
-                mAttack->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y+15));
-                if (ProjectileObject* mProjectile = dynamic_cast<ProjectileObject*>(mAttack))
+                if (ProjectileObject* mProjectile = dynamic_cast<ProjectileObject*>(mAttack)){
                     mProjectile->setDirection(glm::ivec2(1,0));
+                    mProjectile->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y+15));
+                }
+                else
+                    mAttack->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
             }
             else {
                 sprite->changeAnimation(ATTACK_LEFT);
                 mAttack->setLeftAnimation();
-                mAttack->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y+15));
-                if (ProjectileObject* mProjectile = dynamic_cast<ProjectileObject*>(mAttack))
+                if (ProjectileObject* mProjectile = dynamic_cast<ProjectileObject*>(mAttack)) {
                     mProjectile->setDirection(glm::ivec2(-1,0));
+                    mProjectile->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y+15));
+                }
+                else
+                    mAttack->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
             }
             isAttacking = true;
             mAttack->forceNotIsTook();

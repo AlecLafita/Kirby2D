@@ -81,6 +81,31 @@ void IceKirby::update(int deltaTime) {
 
 }
 
+void IceKirby::computeAttack(int deltaTime) {
+    if (Game::instance().getKey('a') || Game::instance().getKey('A')) { //attack (swallow)
+        if (!bAttacking){
+            Game::instance().playSound(getAttackSound());
+
+            if (isFacingLeftSide()){
+                sprite->changeAnimation(ATTACK_LEFT);
+                bAttacking = true;
+            }
+            else if (isFacingRightSide()){
+                sprite->changeAnimation(ATTACK_RIGHT);
+                bAttacking = true;
+            }
+        }
+    }
+    else {
+        Game::instance().stopSound(getAttackSound());
+        bAttacking = false;
+        if (sprite->animation() == ATTACK_LEFT)
+            sprite->changeAnimation(STAND_LEFT);
+        else if (sprite->animation() == ATTACK_RIGHT)
+            sprite->changeAnimation(STAND_RIGHT);
+    }
+}
+
 void IceKirby::render() {
     Player::render();
     mIce->render();

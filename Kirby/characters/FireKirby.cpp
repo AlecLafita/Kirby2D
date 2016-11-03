@@ -49,7 +49,7 @@ void FireKirby::update(int deltaTime) {
 
 void FireKirby::render() {
 	Player::render();
-	if (mAttackTime <= mAttackSoundTime)
+	if (mAttackTime <= mAttackSoundTime && !bAnimating)
 		mFire->render();
 }
 

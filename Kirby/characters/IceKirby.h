@@ -24,7 +24,7 @@ public:
     ProjectileObject* getIce() { return mIce; }
 
 protected:
-    //void computeAttack();
+    void computeAttack(int deltaTime);
     //void computeMovement();
     //void computeJump();
     int getAttackSound();

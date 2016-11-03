@@ -11,6 +11,8 @@ RotationObject::RotationObject()
 	START_ROW_RIGHT = 0;
 
 	angleIncr = 0.0f;
+
+	START_ROW_LEFT = 0;
 }
 
 void RotationObject::init(ShaderProgram &shaderProgram, Scene* scene) {
@@ -37,10 +39,10 @@ void RotationObject::init(ShaderProgram &shaderProgram, Scene* scene) {
 void RotationObject::update(int deltaTime) {
 	//posObj += dir;
 	//glm::vec4 newPos = glm::vec4(posObj.x,posObj.y,0,0);
-	angleIncr += 0.1f;
+	angleIncr += 0.08f;
 	glm::mat4 transform;
 	transform = glm::translate(transform,glm::vec3(centralPosChar.x,centralPosChar.y,0));
-	transform = glm::rotate(transform,angleIncr,glm::vec3(0,0,1));
+	transform = glm::rotate(transform,angleIncr*dirRot,glm::vec3(0,0,1));
 	transform = glm::translate(transform,glm::vec3(radiusChar,0,0));
 	posObj = glm::ivec2(transform[3][0],transform[3][1]);
 	BaseObject::update(deltaTime);

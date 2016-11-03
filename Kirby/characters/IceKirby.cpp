@@ -40,6 +40,16 @@ void IceKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void IceKirby::update(int deltaTime) {
     Player::update(deltaTime);
+
+    if (!mIce->isTaken()) 
+        mIce->update(deltaTime);
+    else {
+        firstAttack = true;
+        mIce->setPosition(glm::ivec2(-100, -100));
+        mIce->setDirection(glm::ivec2(0,0));
+    }
+
+
     if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A') )) {
         //mIce->forceNotIsTook();
         if (isLeftDirection()) {
@@ -69,14 +79,6 @@ void IceKirby::update(int deltaTime) {
         firstAttack = true;
     }
 
-
-    if (!mIce->isTaken()) 
-        mIce->update(deltaTime);
-    else {
-        firstAttack = true;
-        mIce->setPosition(glm::ivec2(-100, -100));
-        mIce->setDirection(glm::ivec2(0,0));
-    }
 }
 
 void IceKirby::render() {

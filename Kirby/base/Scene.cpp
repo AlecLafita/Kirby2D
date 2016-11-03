@@ -245,6 +245,10 @@ bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
 	bool enemyCollision = characterCollidesEnemies(character);
     bool tilesCollision = characterCollidesTiles(character);
+    if (!mapCollision && tilesCollision) {
+    	glm::ivec2 posChar = character->getPosition();
+    	character->setPosition(glm::ivec2(posChar.x, posChar.y - FALL_STEP));
+    }
     return mapCollision || enemyCollision || tilesCollision;
 }
 bool Scene::collisionMoveUp(Character* character) const {

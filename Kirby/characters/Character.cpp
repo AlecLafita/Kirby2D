@@ -129,11 +129,11 @@ void Character::update(int deltaTime)
 
 		posCharacter += glm::ivec2(DAMAGED_DISTANCE, 0)*directionDamaged;
 		if (directionDamaged.x >0) { //sending to right
-			if (mScene->collisionMoveRightOnlyMap(this))
+			if (mScene->collisionMoveRightOnlyMap(this) || mScene->characterCollidesTiles(this))
 				posCharacter -= glm::ivec2(DAMAGED_DISTANCE, 0)*directionDamaged;
 		}
 		else {
-			if (mScene->collisionMoveLeftOnlyMap(this)) 
+			if (mScene->collisionMoveLeftOnlyMap(this) || mScene->characterCollidesTiles(this)) 
 				posCharacter -= glm::ivec2(DAMAGED_DISTANCE, 0)*directionDamaged;
 		}
 		--framesDamaged;

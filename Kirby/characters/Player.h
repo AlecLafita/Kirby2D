@@ -38,13 +38,13 @@ protected:
 	virtual int getAttackSound(){ return SOUND_VACUUMING; }
 
 protected:
-    int mAttackSoundTime,mAttackTime;
+    int mAttackSoundTime,mAttackTime, bAnimating;
 
 private:
 	bool bHoving;
 	int nJumps;
 
-	bool bAnimating, bReadyToTransform;
+	bool bReadyToTransform;
 
 	int energy;
 

@@ -32,17 +32,14 @@ void AquaKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
 
 void AquaKirby::update(int deltaTime) {
     Player::update(deltaTime);
-    mAqua->setCentralPosChar(posCharacter + getSize()/2);
-    mAqua->update(deltaTime);
+
     if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A') )) {
-        if (isLeftDirection()) {
-            mAqua->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
-            mAqua->update(deltaTime);
-        }
-        else {
-            mAqua->setPosition(glm::ivec2(posCharacter.x + getSize().x, posCharacter.y));
-            mAqua->update(deltaTime);
-        }
+        mAqua->setCentralPosChar(posCharacter + getSize()/2);
+        if (isLeftDirection()) 
+            mAqua->setLeftRotation();
+        else 
+            mAqua->setRightRotation();
+        mAqua->update(deltaTime);
     }
     else {
         mAqua->setPosition(glm::ivec2(-100, -100));//Set object to invalid position in order to not collide
@@ -54,7 +51,7 @@ void AquaKirby::update(int deltaTime) {
 void AquaKirby::render() {
     Player::render();
     //mAttackTime <= mAttackSoundTime
-    if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A')))
+    if (mAttackTime <= mAttackSoundTime && !bAnimating)
         mAqua->render();
 }
 

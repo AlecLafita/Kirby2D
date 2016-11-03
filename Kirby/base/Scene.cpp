@@ -231,28 +231,43 @@ void Scene::render() {
 bool Scene::collisionMoveRight(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveRight(map, character);
 	bool enemyCollision = characterCollidesEnemies(character);
-	return mapCollision || enemyCollision;
+    bool tilesCollision = characterCollidesTiles(character);
+	return mapCollision || enemyCollision || tilesCollision;
 }
+
 bool Scene::collisionMoveLeft(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveLeft(map, character);
 	bool enemyCollision = characterCollidesEnemies(character);
-	return mapCollision || enemyCollision;
+    bool tilesCollision = characterCollidesTiles(character);
+    return mapCollision || enemyCollision || tilesCollision;
 }
 bool Scene::collisionMoveDown(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveDown(map, character);
 	bool enemyCollision = characterCollidesEnemies(character);
-	return mapCollision || enemyCollision;
+    bool tilesCollision = characterCollidesTiles(character);
+    return mapCollision || enemyCollision || tilesCollision;
 }
 bool Scene::collisionMoveUp(Character* character) const {
 	bool mapCollision = mColisionHelper->mapMoveUp(map, character);
 	bool enemyCollision = characterCollidesEnemies(character);
-	return mapCollision || enemyCollision;
+    bool tilesCollision = characterCollidesTiles(character);
+    return mapCollision || enemyCollision || tilesCollision;
 }
 
 bool Scene::collisionCanFall(BaseEnemy* enemy) const {
 	return mColisionHelper->mapFalls(map, enemy);
 }
 
+
+bool Scene::characterCollidesTiles(Character* character) const{
+
+    bool collision = false;
+    for(BaseObject* tileQuad : mSquareTilesObjs){
+
+        collision = collision || mColisionHelper->characterCollidesObject(character, tileQuad);
+    }
+    return collision;
+}
 
 bool Scene::characterCollidesEnemies(Character* character) const{
 	bool collision = false; //Can be improved checking if true after each enemy and returning(with few enemies doesn't matter)

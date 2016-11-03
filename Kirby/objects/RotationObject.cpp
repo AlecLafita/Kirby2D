@@ -39,8 +39,9 @@ void RotationObject::update(int deltaTime) {
 	//glm::vec4 newPos = glm::vec4(posObj.x,posObj.y,0,0);
 	angleIncr += 0.1f;
 	glm::mat4 transform;
+	transform = glm::translate(transform,glm::vec3(centralPosChar.x,centralPosChar.y,0));
 	transform = glm::rotate(transform,angleIncr,glm::vec3(0,0,1));
-	transform = glm::translate(transform,glm::vec3(posObj.x,posObj.y,0));
+	transform = glm::translate(transform,glm::vec3(radiusChar,0,0));
 	posObj = glm::ivec2(transform[3][0],transform[3][1]);
 	BaseObject::update(deltaTime);
 }

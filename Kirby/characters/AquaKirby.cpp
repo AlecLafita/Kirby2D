@@ -23,14 +23,17 @@ AquaKirby::AquaKirby()
 void AquaKirby::init(ShaderProgram &shaderProgram, Scene* scene) {
     Player::init(shaderProgram, scene);
     //Creae aqua object
-    mAqua = new BigObject();
+    mAqua = new RotationObject();
     mAqua->setPathToSpriteSheet(BIG_OBJECTS_AQUA_PATH); //OBJECT SPRITESHEET
-    //mAqua->setTexturePosition(glm::fvec2(0.25f, 0.25f)); //POSITION IN SPRITESHEET
     mAqua->init(shaderProgram, scene);
+    glm::ivec2 sizeChar = getSize();
+    mAqua->setRadius(max(sizeChar.x,sizeChar.y));
 }
 
 void AquaKirby::update(int deltaTime) {
     Player::update(deltaTime);
+    mAqua->setCentralPosChar(posCharacter + getSize()/2);
+    mAqua->update(deltaTime);
     if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A') )) {
         if (isLeftDirection()) {
             mAqua->setPosition(glm::ivec2(posCharacter.x - BIG_OBJECT_SIZE_X, posCharacter.y));
@@ -50,6 +53,7 @@ void AquaKirby::update(int deltaTime) {
 
 void AquaKirby::render() {
     Player::render();
+    //mAttackTime <= mAttackSoundTime
     if (bAttacking && (Game::instance().getKey('a') || Game::instance().getKey('A')))
         mAqua->render();
 }

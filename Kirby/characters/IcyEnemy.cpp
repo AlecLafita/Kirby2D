@@ -1,10 +1,4 @@
-//
-// Created by quokka on 29/10/16.
-//
 
-//
-// Created by quokka on 26/10/16.
-//
 
 #include "IcyEnemy.h"
 #include "../base/Scene.h"

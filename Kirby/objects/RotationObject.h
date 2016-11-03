@@ -11,7 +11,12 @@ public:
 
 	glm::ivec2 getSize() { return glm::ivec2(24,7); }
 
+	void setCentralPosChar(glm::ivec2 newPos) {centralPosChar = newPos;}
+	void setRadius(float r) {radiusChar =r;}
+
 private:
 	float angleIncr;
+	glm::ivec2 centralPosChar;
+	float radiusChar;
 };
 

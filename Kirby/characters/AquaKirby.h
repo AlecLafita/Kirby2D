@@ -2,7 +2,7 @@
 #define PROJECT_KIRBY_AQUA_H
 
 #include "Player.h"
-#include "../objects/BigObject.h"
+#include "../objects/RotationObject.h"
 
 class AquaKirby : public Player {
 public:
@@ -16,7 +16,7 @@ public:
     glm::ivec2 getCollisionPosition() const { return getPosition() +glm::ivec2(6,5);}
     glm::ivec2 getCollisionSize() const {return getSize() -glm::ivec2(12,5);}
 
-    BigObject* getAqua() { return mAqua; }
+    RotationObject* getAqua() { return mAqua; }
 
 protected:
     //void computeAttack();
@@ -25,7 +25,7 @@ protected:
     int getAttackSound();
 
 private:
-    BigObject* mAqua;
+    RotationObject* mAqua;
 };
 
 #endif

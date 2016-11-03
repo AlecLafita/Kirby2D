@@ -10,6 +10,7 @@ FireEnemy::FireEnemy()
 {
 
     Character::setPathToSpriteSheet("images/firy_enemy_spritesheet.png");
+    mNumAttack = 2;
 }
 
 

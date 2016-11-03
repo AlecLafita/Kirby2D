@@ -399,6 +399,7 @@ bool Scene::playerTakesDoorNextLevel(DoorObject *obj) {
 
         bGoToNextLevel = true;
 	}
+	return bGoToNextLevel;
 }
 
 bool Scene::objectCollides(BaseObject *o) { //ADD collision with enemies too?

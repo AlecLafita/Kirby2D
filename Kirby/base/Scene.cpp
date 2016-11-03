@@ -276,16 +276,27 @@ bool Scene::characterCollidesTiles(Character* character) const{
 bool Scene::characterCollidesEnemies(Character* character) const{
 	bool collision = false; //Can be improved checking if true after each enemy and returning(with few enemies doesn't matter)
 
+    BaseEnemy* enemyCollided;
+    bool collidedEnemy = false;
 	for (BaseEnemy* enemy : mEnemies) {
-		collision = collision || mColisionHelper->characterCollidesCharacter(enemy, character);
-		if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy)){
+        collidedEnemy = mColisionHelper->characterCollidesCharacter(enemy, character);
+		collision = collision || collidedEnemy;
+        if (AttackEnemy* aEnemy = dynamic_cast<AttackEnemy*>(enemy)){
 			collision = collision || mColisionHelper->characterCollidesObject(character, aEnemy->getAttack());
 		}
+        if(collidedEnemy){
+
+            enemyCollided = enemy;
+            break;
+        }
 	}
 
 	Player *p = dynamic_cast<Player*>(character);
-	if (p && collision) //enemies can not get damaged between them!
-		p->justDamaged();
+	if (p && collision) {
+        //enemies can not get damaged between them!
+        int diffInX = (character->getPosition().x - enemyCollided->getPosition().x);
+        p->justDamaged(diffInX > 0);
+    }
 	return collision;
 }
 

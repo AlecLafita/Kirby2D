@@ -16,7 +16,7 @@ public:
 	void computeAnimation(int deltaTime);
 
 	bool isSwalling() const { return bAttacking; }
-	void justDamaged(); //trigered when character has been damaged
+	void justDamaged(bool enemyOnLeft); //trigered when character has been damaged
 	void recoverEnergy (int energyToRecover); //triggered when gathered an item 
 
 	int getEnergy() { return energy; }

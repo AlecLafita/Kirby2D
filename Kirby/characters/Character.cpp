@@ -155,10 +155,10 @@ void Character::setPosition(const glm::vec2 &pos)
 	sprite->setPosition(glm::vec2(float(posCharacter.x), float(posCharacter.y)));
 }
 
-void Character::justDamaged() {
+void Character::justDamaged(bool enemyOnLeft) {
 	if (framesDamaged == 0) {
 		framesDamaged = DAMAGED_TIME;
-		if (isLeftDirection()) //looking left, send to right
+		if (enemyOnLeft) //looking left, send to right
 			directionDamaged = glm::ivec2(1, 0);
 		else
 			directionDamaged = glm::ivec2(-1, 0);	

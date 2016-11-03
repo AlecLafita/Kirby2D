@@ -44,7 +44,7 @@ public:
 	//Redundancy with this and Player's isleftDireciton!
 	bool isLeftDirection() const { return (sprite->animation() % 2) == 0; } //is character loocking to left?
 
-	virtual void justDamaged(); //trigered when character has been damaged
+	virtual void justDamaged(bool enemyOnLeft); //trigered when character has been damaged
 
 	virtual void getType() {}
 

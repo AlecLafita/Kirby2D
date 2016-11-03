@@ -196,7 +196,7 @@ void Player::computeAnimation(int deltaTime) {
     }
 }
 
-void Player::justDamaged() {
+void Player::justDamaged(bool enemyOnLeft) {
 	if (framesDamaged == 0) {
 
         if(energy > 0){
@@ -217,7 +217,7 @@ void Player::justDamaged() {
 			return;
         }
 	}
-	Character::justDamaged();
+	Character::justDamaged(enemyOnLeft);
 }
 
 void Player::recoverEnergy(int energyToRecover) {

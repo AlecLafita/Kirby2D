@@ -567,7 +567,7 @@ void Scene::initObjects(std::string itemsLocationPathFile) {
                 mDoorNextLvl->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));
                 break;
             }
-            case 4: { // Door
+            case 4: { // Square tile
                 SquareTileObject *squaredTile = new SquareTileObject();
                 squaredTile->init(texProgram, this);
                 squaredTile->setPosition(glm::vec2(posX * map->getTileSize(), posY * map->getTileSize()));

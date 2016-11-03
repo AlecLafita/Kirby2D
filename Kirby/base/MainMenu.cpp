@@ -35,7 +35,6 @@ void MainMenu::init() {
 
 	float posX = float(SCREEN_WIDTH - 200.f);
 	float posY = 20.f;
-	glm::vec2 geomLogo[2] = { glm::vec2(posX, posY), glm::vec2(posX + 120, posY + 73.2) };
 
 	mainTextureQuad = TexturedQuad::createTexturedQuad(geomGUI, texCoords, texProgram);
 	mainTexture.loadFromFile("images/mainMenu_hard.png", TEXTURE_PIXEL_FORMAT_RGB);
